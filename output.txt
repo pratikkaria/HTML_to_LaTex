@@ -1,0 +1,5 @@
+\\document{article}
+\\usepackage{blindwrite}
+pratik karia
+i am p
+pratik
