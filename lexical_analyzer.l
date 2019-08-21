@@ -5,6 +5,7 @@
 #include<string.h>
 #include"y.tab.h"
 %} 
+%option			caseless
 spac		 	[ \t]+
 punc             	(\.|\,|\!|\?%)
 word		   	({punc}|[a-zA-Z0-9])+
@@ -69,8 +70,9 @@ link			({word}|{special})
 						int len = strlen( p );
 						char t[len+1];
 						sscanf(p, "%*[^\"]\"%[^\"]", t);
-							
-						printf("%s\n",t);
+						
+						yylval.s = (char *)malloc(100);
+						strcpy(yylval.s,t);
 						return HREF_S;
 					}
 

@@ -1,5 +1,5 @@
-\\document{article}
-\\usepackage{blindwrite}
-pratik karia
-i am p
-pratik
+\document{article}
+\usepackage{blindwrite}
+\begin{document}
+\title{pratik karia}
+\href{www.google.com/pratik}{i am pratik}
