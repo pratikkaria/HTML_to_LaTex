@@ -1,5 +1,5 @@
 \document{article}
 \usepackage{blindwrite}
 \begin{document}
-\title{pratik karia}
-\href{t:"My link"@h:"www.pratik.com"@}{}
+\title{This is title}
+This is paragraph toot:"mytitle"@h:"www.google.com"@This is titlet:"mytitle"@h:"www.google.com"@This is titlehello

@@ -122,8 +122,9 @@ extern int yydebug;
     IMG_HEIGHT = 332,
     IMG_FIG = 333,
     IMG_FIG_CAP = 334,
-    END_TAG = 335,
-    DATA = 336
+    DATA = 335,
+    GREEK = 336,
+    TABLE_BORDER = 337
   };
 #endif
 /* Tokens.  */
@@ -204,20 +205,21 @@ extern int yydebug;
 #define IMG_HEIGHT 332
 #define IMG_FIG 333
 #define IMG_FIG_CAP 334
-#define END_TAG 335
-#define DATA 336
+#define DATA 335
+#define GREEK 336
+#define TABLE_BORDER 337
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 
 union YYSTYPE
 {
-#line 14 "parser.y" /* yacc.c:1909  */
+#line 14 "temp_parser.y" /* yacc.c:1909  */
 
-char *s;
-int i;
+	char *s;
+	int i;
 
-#line 221 "y.tab.h" /* yacc.c:1909  */
+#line 223 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
