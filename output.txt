@@ -2,4 +2,4 @@
 \usepackage{blindwrite}
 \begin{document}
 \title{pratik karia}
-\href{www.google.com/pratik}{i am pratik}
+\href{t:"My link"@h:"www.pratik.com"@}{}

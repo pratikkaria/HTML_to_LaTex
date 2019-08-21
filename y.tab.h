@@ -113,7 +113,17 @@ extern int yydebug;
     TH_E = 323,
     TR_S = 324,
     TR_E = 325,
-    DATA = 326
+    HREF_LINK = 326,
+    FONT_SIZE = 327,
+    HREF_TITLE = 328,
+    IMG_MAIN = 329,
+    IMG_SRC = 330,
+    IMG_WIDTH = 331,
+    IMG_HEIGHT = 332,
+    IMG_FIG = 333,
+    IMG_FIG_CAP = 334,
+    END_TAG = 335,
+    DATA = 336
   };
 #endif
 /* Tokens.  */
@@ -185,7 +195,17 @@ extern int yydebug;
 #define TH_E 323
 #define TR_S 324
 #define TR_E 325
-#define DATA 326
+#define HREF_LINK 326
+#define FONT_SIZE 327
+#define HREF_TITLE 328
+#define IMG_MAIN 329
+#define IMG_SRC 330
+#define IMG_WIDTH 331
+#define IMG_HEIGHT 332
+#define IMG_FIG 333
+#define IMG_FIG_CAP 334
+#define END_TAG 335
+#define DATA 336
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -197,7 +217,7 @@ union YYSTYPE
 char *s;
 int i;
 
-#line 201 "y.tab.h" /* yacc.c:1909  */
+#line 221 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -13,7 +13,11 @@ text			({word}|{spac})+([\n]|({word}|{spac}))*({word}|{spac})
 special			 {= "./}
 link			({word}|{special})
 greek			"&"{word}";"
+%x			href
+%x			sizetag
+%x			src
 %% 
+([ ]|[\t]|[\n])*			;
 "<!doctype"[^>]">"			{
 						return DOCTYPE;
 					}
@@ -65,22 +69,146 @@ greek			"&"{word}";"
 					}
 
 
-"<a"([ :="./]|[0-9a-zA-Z])*">"		{
+"<a"[ ]*				{
 						printf("HREF_S\n");
-						char *p = yytext; 
-						int len = strlen( p );
-						char t[len+1];
-						sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
-						yylval.s = (char *)malloc(100);
-						strcpy(yylval.s,t);
+						BEGIN href;
 						return HREF_S;
 					}
+					
+<href>{
+
+		"href=\""([ #:=./]|[0-9a-zA-Z])*"\""[ ]*		{
+										char *p = yytext; 
+										int len = strlen( p );
+										char t[len+1];
+										sscanf(p, "%*[^\"]\"%[^\"]", t);
+										printf("LINK %s\n",t);
+										yylval.s = (char *)malloc(100);
+										strcpy(yylval.s,t);
+										return HREF_LINK;
+								}
+
+		"title=\""([ #:=./]|[0-9a-zA-Z])*"\""[ ]*		{
+										char *p = yytext; 
+										int len = strlen( p );
+										char t[len+1];
+										sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//printf("TITLE %s\n",t);
+										yylval.s = (char *)malloc(100);
+										strcpy(yylval.s,t);
+										return HREF_TITLE;
+								}
+
+		">"						{
+										BEGIN 0;
+										return END_TAG;
+								}
+
+}
 
 
 "</a>"					{	
 						printf("HREF_E\n");
 						return HREF_E;
+					}
+
+
+"<font"[ ]*				{
+						printf("FONT_S\n\n");
+
+						BEGIN sizetag;
+						return FONT_S;
+					}
+
+<sizetag>([ :="./]|[0-9a-zA-Z])*">"	{
+						printf("FONT_S\n\n");
+						char *p = yytext; 
+						int len = strlen( p );
+						char t[len+1];
+						sscanf(p, "%*[^\"]\"%[^\"]", t);
+						
+						printf("%s\n",t);
+						BEGIN 0;
+						return FONT_SIZE;
+					}
+
+"<img"[ ]*				{
+						printf("IMG Begin\n");
+						BEGIN src;
+						return IMG_MAIN;
+					}
+
+
+
+<src>{
+
+		"src=\""([ :=#./]|[0-9a-zA-Z])*"\""[ ]*		{
+									printf("FONT_S\n\n");
+									char *p = yytext; 
+									int len = strlen( p );
+									char t[len+1];
+									sscanf(p, "%*[^\"]\"%[^\"]", t);
+						
+									printf("%s\n",t);
+									
+									return IMG_SRC;
+								}
+
+		"width=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*		{
+									printf("FONT_S\n\n");
+									char *p = yytext; 
+									int len = strlen( p );
+									char t[len+1];
+									sscanf(p, "%*[^\"]\"%[^\"]", t);
+						
+									printf("%s\n",t);
+									return IMG_WIDTH;
+								}
+					
+
+		"height=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*		{
+									printf("FONT_S\n\n");
+									char *p = yytext; 
+									int len = strlen( p );
+									char t[len+1];
+									sscanf(p, "%*[^\"]\"%[^\"]", t);
+						
+									printf("%s\n",t);
+									return IMG_HEIGHT;
+								}
+					
+
+		"figure=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*		{
+									printf("FONT_S\n\n");
+									char *p = yytext; 
+									int len = strlen( p );
+									char t[len+1];
+									sscanf(p, "%*[^\"]\"%[^\"]", t);
+						
+									printf("%s\n",t);
+									return IMG_FIG;
+								}
+
+		"figcaption=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*		{
+									printf("FONT_S\n\n");
+									char *p = yytext; 
+									int len = strlen( p );
+									char t[len+1];
+									sscanf(p, "%*[^\"]\"%[^\"]", t);
+						
+									return IMG_FIG_CAP;
+								}
+
+		"/>"						{
+										BEGIN 0;
+								}
+
+}
+
+
+"</font>"				{
+						printf("FONT_E\n\n");
+						return FONT_E;
 					}
 
 
@@ -109,23 +237,6 @@ greek			"&"{word}";"
 
 
 
-"<font"([ :="./]|[0-9a-zA-Z])*">"	{
-						printf("FONT_S\n\n");
-						char *p = yytext; 
-						int len = strlen( p );
-						char t[len+1];
-						sscanf(p, "%*[^\"]\"%[^\"]", t);
-							
-						printf("%s\n",t);
-						return FONT_S;
-					}
-
-
-"</font>"				{
-						printf("FONT_E\n\n");
-						return FONT_E;
-					}
-
 
 "<br/>"					{
 						printf("BR\n");
@@ -149,8 +260,6 @@ greek			"&"{word}";"
 						printf("H1_S\n");
 						return H1_S;
 					}
-
-
 
 
 "</h1>"					{
@@ -317,7 +426,7 @@ greek			"&"{word}";"
 						return STRONG_E;
 					}
 
-		
+
 "<small>"				{
 						printf("SMALL_S\n");
 						return SMALL_S;
@@ -410,6 +519,9 @@ greek			"&"{word}";"
 						printf("TD_E\n");
 						return TD_E;
 					}
+					
+
+
 										
 					
 {text}					{
@@ -420,8 +532,7 @@ greek			"&"{word}";"
 
 
 
-
-"\n"					;
+{greek}					return GREEK;
 
 
 . 					;
@@ -433,5 +544,10 @@ int yywrap()
 {
 	return 1;	
 } 
-      
+/*int main(int argc,char *argv[])
+{
+	yyin = fopen(argv[1],"r");
+	//tex_file = fopen(argv[2],"w+");
+	yylex();
+}  */    
 
