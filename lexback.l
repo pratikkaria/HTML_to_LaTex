@@ -15,6 +15,7 @@ link			({word}|{special})
 greek			"&"{word}";"
 %x			href
 %x			sizetag
+%x			table
 %x			src
 %% 
 ([ ]|[\t]|[\n])*			;
@@ -150,7 +151,8 @@ greek			"&"{word}";"
 									sscanf(p, "%*[^\"]\"%[^\"]", t);
 						
 									printf("%s\n",t);
-									
+									yylval.s = (char *)malloc(100);
+									strcpy(yylval.s,t);
 									return IMG_SRC;
 								}
 
@@ -162,6 +164,8 @@ greek			"&"{word}";"
 									sscanf(p, "%*[^\"]\"%[^\"]", t);
 						
 									printf("%s\n",t);
+									yylval.s = (char *)malloc(100);
+									strcpy(yylval.s,t);
 									return IMG_WIDTH;
 								}
 					
@@ -174,6 +178,8 @@ greek			"&"{word}";"
 									sscanf(p, "%*[^\"]\"%[^\"]", t);
 						
 									printf("%s\n",t);
+									yylval.s = (char *)malloc(100);
+									strcpy(yylval.s,t);									
 									return IMG_HEIGHT;
 								}
 					
@@ -186,6 +192,8 @@ greek			"&"{word}";"
 									sscanf(p, "%*[^\"]\"%[^\"]", t);
 						
 									printf("%s\n",t);
+									yylval.s = (char *)malloc(100);
+									strcpy(yylval.s,t);
 									return IMG_FIG;
 								}
 
@@ -195,7 +203,8 @@ greek			"&"{word}";"
 									int len = strlen( p );
 									char t[len+1];
 									sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
+									yylval.s = (char *)malloc(100);
+									strcpy(yylval.s,t);						
 									return IMG_FIG_CAP;
 								}
 
@@ -461,10 +470,31 @@ greek			"&"{word}";"
 						return SUP_E;
 					}
 					
-"<table>"				{
+"<table"[ ]*				{
 						printf("TABLE_S\n");
+						BEGIN table
 						return TABLE_S;
 					}
+
+<table>{
+
+		"border=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*	{
+									printf("FONT_S\n\n");
+									char *p = yytext; 
+									int len = strlen( p );
+									char t[len+1];
+									sscanf(p, "%*[^\"]\"%[^\"]", t);
+									yylval.s = (char *)malloc(100);
+									strcpy(yylval.s,t);
+									return TABLE_BORDER;
+								}
+
+		"/>"						{
+										BEGIN 0;
+								}	
+
+
+}
 					
 
 "</table>"				{

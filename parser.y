@@ -31,7 +31,7 @@ extern char *yytext;
 %token	<s>	TABLE_S		TABLE_E		CAPTION_S	CAPTION_E	TH_S
 %token	<s>	TH_E		TR_S		TR_E		HREF_LINK	FONT_SIZE
 %token	<s>	HREF_TITLE	IMG_MAIN	IMG_SRC		IMG_WIDTH	IMG_HEIGHT
-%token	<s>	IMG_FIG		IMG_FIG_CAP	END_TAG		GREEK
+%token	<s>	IMG_FIG		IMG_FIG_CAP	END_TAG		GREEK		TABLE_BORDER
 %token 	<s> 	DATA
 %type 	<s> 	html_start	content_head 	content_body	content_title
 %type	<s>	content_href
