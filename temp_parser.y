@@ -33,8 +33,7 @@ extern char *yytext;
 %token	<s>	HREF_TITLE	IMG_MAIN	IMG_SRC		IMG_WIDTH	IMG_HEIGHT
 %token	<s>	IMG_FIG		IMG_FIG_CAP	DATA		GREEK		TABLE_BORDER
 %type 	<s> 	html_start	content_head 	content_body	content_title	body
-%type	<s>	content_href	take_data	href_tag	
-//font_tag
+%type	<s>	content_href	href_tag	font_tag	data		content_font
 %type	<s>	center_tag	br_tag		p_tag		
 //header_tag	list_tag
 //%type	<s>	div_tag		format_tag	subsup_tag	img_tag		table_tag
@@ -79,7 +78,7 @@ content_title	:	TITLE_S	 DATA	TITLE_E						{
 												$$=dat;
 											};
 											
-content_body	:	BODY_S	body  BODY_E					{
+content_body	:	BODY_S	body  BODY_E						{
 												char *dat = malloc(150);
 												strcpy($$,$2);
 												printf("Content Body:%s\n",$2);
@@ -87,26 +86,31 @@ content_body	:	BODY_S	body  BODY_E					{
 											};
 
 		
-body		:	body	href_tag								{	$$=$1;	}
-//		|	font_tag									{	$$=$1;	}
-		|	body	center_tag								{	$$=$1;	}
-		|	body	br_tag									{	$$=$1;	}
-		|	body	p_tag									{	$$=$1;	}
-//		|	header_tag									{	$$=$1;	}	
+body		:	body	href_tag	data							{	$$=$1;	}
+		|	body	font_tag	data							{	$$=$1;	}
+		|	body	center_tag	data							{	$$=$1;	}
+		|	body	br_tag		data							{	$$=$1;	}
+		|	body	p_tag		data							{	$$=$1;	}
+//		|	body	header_tag								{	$$=$1;	}	
 //		|	list_tag									{	$$=$1;	}
 //		|	div_tag										{	$$=$1;	}
 //		|	format_tag									{	$$=$1;	}
 //		|	subsup_tag									{	$$=$1;	}
 //		|	img_tag										{	$$=$1;	}
 //		|	table_tag									{	$$=$1;	}
-		|											{	$$="";	}
+		|	data										{	$$=$1;	}
 		;
 
 
-
+data		:	DATA										{	$$=$1;
+														printf("DECIDER: %s",$1);							
+													}
+		|											{	$$="";	}
+		;
+		
 
 //----------------------------------------------------HREF GRAMMER----------------------------------------------		
-href_tag	:	HREF_S		content_href		take_data	  HREF_E			{	
+href_tag	:	HREF_S		content_href		body	  HREF_E			{	
 															char *dat = malloc(150);
 															strcat(dat,$2);
 															strcat(dat,$3);
@@ -135,12 +139,34 @@ content_href	:     content_href	HREF_LINK								{
 		      |												{	$$="";	}
 		      ;	
 
+//----------------------------------------------------FONT GRAMMER----------------------------------------------
+
+font_tag	:	FONT_S		content_font		body		  FONT_E			{	
+															char *dat = malloc(150);
+															strcat(dat,$2);
+															strcat(dat,$3);
+															printf("FONT_ATTR: %s\n",$2);	
+															printf("FONT_DATA: %s\n",$3);
+															$$=dat;
+														};
+
+
+
+content_font	:     content_font	FONT_SIZE								{ 	
+						      									char prefix[100];
+						      									snprintf(prefix, 100, "h:\"%s\"@%s", $2,$1);
+						      									
+						      									strcpy($$,prefix);
+															printf("FONT_SIZE: %s\n",prefix);
+														}
+		     |												{	$$="";	}
+		     ;	
 
 
 //----------------------------------------------------Paragraph GRAMMER----------------------------------------------
 
 
-p_tag		:	P_S		take_data	P_E							{
+p_tag		:	P_S		body	P_E							{
 		
 															char *dat = malloc(150);
 															strcat(dat,$2);
@@ -152,7 +178,7 @@ p_tag		:	P_S		take_data	P_E							{
 			
 //----------------------------------------------------Center GRAMMER----------------------------------------------			
 
-center_tag	:	CENTER_S		take_data		CENTER_E				{
+center_tag	:	CENTER_S		body		CENTER_E					{
 		
 															char *dat = malloc(150);
 															strcat(dat,$2);
@@ -163,13 +189,20 @@ center_tag	:	CENTER_S		take_data		CENTER_E				{
 //----------------------------------------------------Break Tag GRAMMER----------------------------------------------			
 			
 br_tag		:	BR											{	$$=$1;	};
-			
+
+
+//----------------------------------------------------Header Tag GRAMMER----------------------------------------------	
+
+		
 														
-take_data	:	body	DATA
+/*take_data	:	body	DATA										{
+															char *dat = malloc(150);
+															strcat(dat,$2);
+														}		
 		|	DATA	body
 		;
 
-	
+*/	
 %%
 int main(int argc,char *argv[])
 {

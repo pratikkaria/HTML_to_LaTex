@@ -2,4 +2,3 @@
 \usepackage{blindwrite}
 \begin{document}
 \title{This is title}
-This is paragraph toot:"mytitle"@h:"www.google.com"@This is titlet:"mytitle"@h:"www.google.com"@This is titlehello

@@ -547,11 +547,11 @@ union yyalloc
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  83
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  12
+#define YYNNTS  14
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  22
+#define YYNRULES  26
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  45
+#define YYNSTATES  54
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
@@ -605,9 +605,9 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    44,    44,    49,    59,    64,    70,    73,    82,    90,
-      92,    93,    94,   102,   109,   120,   127,   135,   143,   155,
-     165,   168,   169
+       0,    43,    43,    48,    58,    63,    69,    72,    81,    89,
+      90,    91,    92,    93,   101,   105,   108,   113,   124,   131,
+     139,   144,   155,   162,   169,   181,   191
 };
 #endif
 
@@ -628,8 +628,8 @@ static const char *const yytname[] =
   "HREF_LINK", "FONT_SIZE", "HREF_TITLE", "IMG_MAIN", "IMG_SRC",
   "IMG_WIDTH", "IMG_HEIGHT", "IMG_FIG", "IMG_FIG_CAP", "DATA", "GREEK",
   "TABLE_BORDER", "$accept", "html_start", "content_head", "content_title",
-  "content_body", "body", "href_tag", "content_href", "p_tag",
-  "center_tag", "br_tag", "take_data", YY_NULLPTR
+  "content_body", "body", "data", "href_tag", "content_href", "font_tag",
+  "content_font", "p_tag", "center_tag", "br_tag", YY_NULLPTR
 };
 #endif
 
@@ -650,10 +650,10 @@ static const yytype_uint16 yytoknum[] =
 };
 # endif
 
-#define YYPACT_NINF -63
+#define YYPACT_NINF -71
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-63)))
+  (!!((Yystate) == (-71)))
 
 #define YYTABLE_NINF -1
 
@@ -664,11 +664,12 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      26,     2,    -6,    10,    -6,    -6,   -63,     6,   -63,     6,
-      15,   -63,    21,    27,   -49,    -6,     1,   -63,   -63,    24,
-      28,   -63,   -63,   -46,   -63,   -46,   -63,   -63,   -63,   -63,
-     -63,   -63,   -62,   -63,   -11,    19,    17,   -63,   -63,    25,
-       9,   -63,   -63,   -63,   -63
+      10,     2,    -6,     8,    -6,    -6,   -71,     9,   -71,     9,
+      13,   -57,    22,    24,   -49,    -6,   -71,     6,   -71,   -71,
+     -71,    27,    41,   -71,   -71,   -71,   -57,   -71,   -57,   -57,
+     -57,   -57,   -57,   -57,   -71,   -71,   -64,   -70,    23,    14,
+     -71,   -71,   -71,   -71,   -71,   -71,   -71,    31,   -71,    39,
+     -71,   -71,   -71,   -71
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -677,24 +678,25 @@ static const yytype_int8 yypact[] =
 static const yytype_uint8 yydefact[] =
 {
        0,     0,     6,     0,     6,     6,     5,     0,     1,     0,
-       0,    13,     0,     0,     0,     6,     0,     3,     2,     0,
-       0,     8,    17,    13,    20,    13,     9,    12,    10,    11,
-       7,     4,    13,    13,     0,     0,     0,    15,    16,     0,
-      22,    21,    19,    18,    14
+       0,    16,     0,     0,     0,     6,    15,     0,    14,     3,
+       2,     0,     0,     8,    20,    23,    16,    26,    16,    16,
+      16,    16,    16,    16,     7,     4,    16,    16,     0,     0,
+       9,    10,    13,    11,    12,    18,    19,     0,    22,     0,
+      25,    24,    17,    21
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -63,   -63,    -1,   -63,    30,    -9,   -63,   -63,   -63,   -63,
-     -63,   -10
+     -71,   -71,     0,   -71,    29,   -25,    30,   -71,   -71,   -71,
+     -71,   -71,   -71,   -71
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     3,     7,    15,    12,    34,    26,    32,    27,    28,
-      29,    35
+      -1,     3,     7,    15,    12,    17,    18,    29,    36,    30,
+      37,    31,    32,    33
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -702,25 +704,25 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-       5,    22,    16,     9,    10,    23,     4,    24,    25,    37,
-       8,    38,    21,    22,    20,    36,    11,    23,    33,    24,
-      25,    22,    39,    14,    40,    23,    17,    24,    25,     1,
-       2,    19,    18,    30,    33,    31,    42,    43,    44,    13,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    41,
+       5,    38,    48,    39,     9,    10,     4,    45,     8,    46,
+      16,    47,    49,     1,     2,    22,    16,    23,    24,    11,
+      25,    14,    26,    16,    27,    28,    24,    19,    25,    20,
+      26,    21,    27,    28,    51,    24,    34,    25,    13,    26,
+      50,    27,    28,    24,    52,    25,     0,    26,    35,    27,
+      28,    24,     0,    25,    53,    26,     0,    27,    28,    40,
+      41,    42,    43,    44,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     6
 };
 
 static const yytype_int8 yycheck[] =
 {
-       6,    12,    11,     4,     5,    16,     4,    18,    19,    71,
-       0,    73,    11,    12,    15,    25,    10,    16,    80,    18,
-      19,    12,    32,     8,    33,    16,     5,    18,    19,     3,
-       4,    80,     5,     9,    80,     7,    17,    20,    13,     9,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    80,
+       6,    26,    72,    28,     4,     5,     4,    71,     0,    73,
+      80,    36,    37,     3,     4,    15,    80,    11,    12,    10,
+      14,     8,    16,    80,    18,    19,    12,     5,    14,     5,
+      16,    80,    18,    19,    20,    12,     9,    14,     9,    16,
+      17,    18,    19,    12,    13,    14,    -1,    16,     7,    18,
+      19,    12,    -1,    14,    15,    16,    -1,    18,    19,    29,
+      30,    31,    32,    33,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    80
 };
 
@@ -729,26 +731,27 @@ static const yytype_int8 yycheck[] =
 static const yytype_uint8 yystos[] =
 {
        0,     3,     4,    84,     4,     6,    80,    85,     0,    85,
-      85,    10,    87,    87,     8,    86,    88,     5,     5,    80,
-      85,    11,    12,    16,    18,    19,    89,    91,    92,    93,
-       9,     7,    90,    80,    88,    94,    94,    71,    73,    94,
-      88,    80,    17,    20,    13
+      85,    10,    87,    87,     8,    86,    80,    88,    89,     5,
+       5,    80,    85,    11,    12,    14,    16,    18,    19,    90,
+      92,    94,    95,    96,     9,     7,    91,    93,    88,    88,
+      89,    89,    89,    89,    89,    71,    73,    88,    72,    88,
+      17,    20,    13,    15
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
        0,    83,    84,    84,    85,    85,    85,    86,    87,    88,
-      88,    88,    88,    88,    89,    90,    90,    90,    91,    92,
-      93,    94,    94
+      88,    88,    88,    88,    88,    89,    89,    90,    91,    91,
+      91,    92,    93,    93,    94,    95,    96
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     5,     4,     5,     1,     0,     3,     3,     2,
-       2,     2,     2,     0,     4,     2,     2,     0,     3,     3,
-       1,     2,     2
+       0,     2,     5,     4,     5,     1,     0,     3,     3,     3,
+       3,     3,     3,     3,     1,     1,     0,     4,     2,     2,
+       0,     4,     2,     0,     3,     3,     1
 };
 
 
@@ -1425,17 +1428,17 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 44 "temp_parser.y" /* yacc.c:1646  */
+#line 43 "temp_parser.y" /* yacc.c:1646  */
     {
 												fprintf(tex_file,"\\document{article}\n");
 												fprintf(tex_file,"\\usepackage{hyperref}}\n");
 												fprintf(tex_file,"\\begin{document}\n");
 											}
-#line 1435 "y.tab.c" /* yacc.c:1646  */
+#line 1438 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 49 "temp_parser.y" /* yacc.c:1646  */
+#line 48 "temp_parser.y" /* yacc.c:1646  */
     {
 												fprintf(tex_file,"\\document{article}\n");
 												fprintf(tex_file,"\\usepackage{blindwrite}\n");
@@ -1445,38 +1448,38 @@ yyreduce:
 												printf("%s Final HEAD \n",(yyvsp[-2].s));
 												printf("%s Final BODY \n",(yyvsp[-1].s));
 											}
-#line 1449 "y.tab.c" /* yacc.c:1646  */
+#line 1452 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 59 "temp_parser.y" /* yacc.c:1646  */
+#line 58 "temp_parser.y" /* yacc.c:1646  */
     {
 												char *dat = malloc(150);
 												strcpy(dat,(yyvsp[-2].s));
 												(yyval.s)=dat;
 											}
-#line 1459 "y.tab.c" /* yacc.c:1646  */
+#line 1462 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 64 "temp_parser.y" /* yacc.c:1646  */
+#line 63 "temp_parser.y" /* yacc.c:1646  */
     {
 												char *dat = malloc(150);
 												strcpy(dat,(yyvsp[0].s));
 												printf("Content Head: %s\n",(yyvsp[0].s));
 												(yyval.s)=dat;
 											}
-#line 1470 "y.tab.c" /* yacc.c:1646  */
+#line 1473 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 70 "temp_parser.y" /* yacc.c:1646  */
+#line 69 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)="";	}
-#line 1476 "y.tab.c" /* yacc.c:1646  */
+#line 1479 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 73 "temp_parser.y" /* yacc.c:1646  */
+#line 72 "temp_parser.y" /* yacc.c:1646  */
     {
 												char *dat = malloc(150);
 												strcpy(dat,"\\title{");
@@ -1485,52 +1488,72 @@ yyreduce:
 												printf("Content Title: %s\n",(yyvsp[-1].s));
 												(yyval.s)=dat;
 											}
-#line 1489 "y.tab.c" /* yacc.c:1646  */
+#line 1492 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 82 "temp_parser.y" /* yacc.c:1646  */
+#line 81 "temp_parser.y" /* yacc.c:1646  */
     {
 												char *dat = malloc(150);
 												strcpy((yyval.s),(yyvsp[-1].s));
 												printf("Content Body:%s\n",(yyvsp[-1].s));
 													
 											}
-#line 1500 "y.tab.c" /* yacc.c:1646  */
+#line 1503 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 90 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)=(yyvsp[-1].s);	}
-#line 1506 "y.tab.c" /* yacc.c:1646  */
+#line 89 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[-2].s);	}
+#line 1509 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 92 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)=(yyvsp[-1].s);	}
-#line 1512 "y.tab.c" /* yacc.c:1646  */
+#line 90 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[-2].s);	}
+#line 1515 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 93 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)=(yyvsp[-1].s);	}
-#line 1518 "y.tab.c" /* yacc.c:1646  */
+#line 91 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[-2].s);	}
+#line 1521 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 94 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)=(yyvsp[-1].s);	}
-#line 1524 "y.tab.c" /* yacc.c:1646  */
+#line 92 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[-2].s);	}
+#line 1527 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 102 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 1530 "y.tab.c" /* yacc.c:1646  */
+#line 93 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[-2].s);	}
+#line 1533 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 109 "temp_parser.y" /* yacc.c:1646  */
+#line 101 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[0].s);	}
+#line 1539 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 15:
+#line 105 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(yyvsp[0].s);
+														printf("DECIDER: %s",(yyvsp[0].s));							
+													}
+#line 1547 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 16:
+#line 108 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)="";	}
+#line 1553 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 17:
+#line 113 "temp_parser.y" /* yacc.c:1646  */
     {	
 															char *dat = malloc(150);
 															strcat(dat,(yyvsp[-2].s));
@@ -1539,11 +1562,11 @@ yyreduce:
 															printf("HREF_DATA: %s\n",(yyvsp[-1].s));
 															(yyval.s)=dat;
 														}
-#line 1543 "y.tab.c" /* yacc.c:1646  */
+#line 1566 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 15:
-#line 120 "temp_parser.y" /* yacc.c:1646  */
+  case 18:
+#line 124 "temp_parser.y" /* yacc.c:1646  */
     { 	
 						      									char prefix[100];
 						      									snprintf(prefix, 100, "h:\"%s\"@%s", (yyvsp[0].s),(yyvsp[-1].s));
@@ -1551,11 +1574,11 @@ yyreduce:
 						      									strcpy((yyval.s),prefix);
 															printf("HREF_LINK: %s\n",prefix);
 														}
-#line 1555 "y.tab.c" /* yacc.c:1646  */
+#line 1578 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 16:
-#line 127 "temp_parser.y" /* yacc.c:1646  */
+  case 19:
+#line 131 "temp_parser.y" /* yacc.c:1646  */
     { 
 						      									char prefix[100];
 						      									snprintf(prefix, 100, "h:\"%s\"@%s", (yyvsp[0].s),(yyvsp[-1].s));
@@ -1563,17 +1586,48 @@ yyreduce:
 						      									strcpy((yyval.s),prefix);
 															printf("HREF_LINK: %s\n",prefix);
 														}
-#line 1567 "y.tab.c" /* yacc.c:1646  */
+#line 1590 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 17:
-#line 135 "temp_parser.y" /* yacc.c:1646  */
+  case 20:
+#line 139 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)="";	}
-#line 1573 "y.tab.c" /* yacc.c:1646  */
+#line 1596 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 18:
-#line 143 "temp_parser.y" /* yacc.c:1646  */
+  case 21:
+#line 144 "temp_parser.y" /* yacc.c:1646  */
+    {	
+															char *dat = malloc(150);
+															strcat(dat,(yyvsp[-2].s));
+															strcat(dat,(yyvsp[-1].s));
+															printf("FONT_ATTR: %s\n",(yyvsp[-2].s));	
+															printf("FONT_DATA: %s\n",(yyvsp[-1].s));
+															(yyval.s)=dat;
+														}
+#line 1609 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 22:
+#line 155 "temp_parser.y" /* yacc.c:1646  */
+    { 	
+						      									char prefix[100];
+						      									snprintf(prefix, 100, "h:\"%s\"@%s", (yyvsp[0].s),(yyvsp[-1].s));
+						      									
+						      									strcpy((yyval.s),prefix);
+															printf("FONT_SIZE: %s\n",prefix);
+														}
+#line 1621 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 23:
+#line 162 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)="";	}
+#line 1627 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 24:
+#line 169 "temp_parser.y" /* yacc.c:1646  */
     {
 		
 															char *dat = malloc(150);
@@ -1581,11 +1635,11 @@ yyreduce:
 															printf("Paragraph: %s\n",(yyvsp[-1].s));	
 															(yyval.s)=dat;
 														}
-#line 1585 "y.tab.c" /* yacc.c:1646  */
+#line 1639 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 19:
-#line 155 "temp_parser.y" /* yacc.c:1646  */
+  case 25:
+#line 181 "temp_parser.y" /* yacc.c:1646  */
     {
 		
 															char *dat = malloc(150);
@@ -1593,17 +1647,17 @@ yyreduce:
 															printf("Center Tag: %s\n",(yyvsp[-1].s));	
 															(yyval.s)=dat;
 														}
-#line 1597 "y.tab.c" /* yacc.c:1646  */
+#line 1651 "y.tab.c" /* yacc.c:1646  */
     break;
 
-  case 20:
-#line 165 "temp_parser.y" /* yacc.c:1646  */
+  case 26:
+#line 191 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[0].s);	}
-#line 1603 "y.tab.c" /* yacc.c:1646  */
+#line 1657 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1607 "y.tab.c" /* yacc.c:1646  */
+#line 1661 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1831,7 +1885,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 173 "temp_parser.y" /* yacc.c:1906  */
+#line 206 "temp_parser.y" /* yacc.c:1906  */
 
 int main(int argc,char *argv[])
 {
