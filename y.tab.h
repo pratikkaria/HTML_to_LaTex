@@ -116,7 +116,7 @@ extern int yydebug;
     HREF_LINK = 326,
     FONT_SIZE = 327,
     HREF_TITLE = 328,
-    IMG_MAIN = 329,
+    IMG_S = 329,
     IMG_SRC = 330,
     IMG_WIDTH = 331,
     IMG_HEIGHT = 332,
@@ -124,7 +124,8 @@ extern int yydebug;
     IMG_FIG_CAP = 334,
     DATA = 335,
     GREEK = 336,
-    TABLE_BORDER = 337
+    TABLE_BORDER = 337,
+    IMG_E = 338
   };
 #endif
 /* Tokens.  */
@@ -199,7 +200,7 @@ extern int yydebug;
 #define HREF_LINK 326
 #define FONT_SIZE 327
 #define HREF_TITLE 328
-#define IMG_MAIN 329
+#define IMG_S 329
 #define IMG_SRC 330
 #define IMG_WIDTH 331
 #define IMG_HEIGHT 332
@@ -208,6 +209,7 @@ extern int yydebug;
 #define DATA 335
 #define GREEK 336
 #define TABLE_BORDER 337
+#define IMG_E 338
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -219,7 +221,7 @@ union YYSTYPE
 	char *s;
 	int i;
 
-#line 223 "y.tab.h" /* yacc.c:1909  */
+#line 225 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

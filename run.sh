@@ -1,4 +1,4 @@
-yacc -d parser.y
-lex lexical_analyzer.l
+yacc -d temp_parser.y
+lex lexback.l
 gcc lex.yy.c y.tab.c
 ./a.out test_case.html output.txt

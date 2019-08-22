@@ -136,7 +136,7 @@ greek			"&"{word}";"
 "<img"[ ]*				{
 						//printf("IMG Begin\n");
 						BEGIN src;
-						return IMG_MAIN;
+						return IMG_S;
 					}
 
 
@@ -208,8 +208,10 @@ greek			"&"{word}";"
 									return IMG_FIG_CAP;
 								}
 
-		"/>"						{
+		"/>"						{	
+														
 										BEGIN 0;
+										return IMG_E;
 								}
 
 }
