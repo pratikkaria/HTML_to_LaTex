@@ -1,4 +1,0 @@
-\document{article}
-\usepackage{blindwrite}
-\begin{document}
-\title{This is title}

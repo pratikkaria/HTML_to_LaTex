@@ -1,0 +1,2979 @@
+Grammar
+
+    0 $accept: html_start $end
+
+    1 html_start: DOCTYPE HTML_S content_head content_body HTML_E
+    2           | HTML_S content_head content_body HTML_E
+
+    3 content_head: HEAD_S content_head content_title content_head HEAD_E
+    4             | DATA
+    5             | %empty
+
+    6 content_title: TITLE_S DATA TITLE_E
+
+    7 content_body: BODY_S body BODY_E
+
+    8 body: body href_tag data
+    9     | body font_tag data
+   10     | body center_tag data
+   11     | body br_tag data
+   12     | body p_tag data
+   13     | body header_tag data
+   14     | body list_tag data
+   15     | body div_tag data
+   16     | body format_tag data
+   17     | body subsup_tag data
+   18     | body img_tag data
+   19     | body table_tag data
+   20     | data
+
+   21 data: DATA
+   22     | GREEK
+   23     | %empty
+
+   24 href_tag: HREF_S content_href body HREF_E
+
+   25 content_href: content_href HREF_LINK
+   26             | content_href HREF_TITLE
+   27             | %empty
+
+   28 font_tag: FONT_S content_font body FONT_E
+
+   29 content_font: content_font FONT_SIZE
+   30             | %empty
+
+   31 p_tag: P_S body P_E
+
+   32 center_tag: CENTER_S body CENTER_E
+
+   33 br_tag: BR
+   34       | BR_S
+
+   35 img_tag: IMG_S content_img IMG_E fig_caption
+   36        | FIG_S IMG_S content_img IMG_E fig_caption FIG_E
+
+   37 fig_caption: FIGCAP_S body FIGCAP_E
+   38            | %empty
+
+   39 content_img: content_img IMG_SRC
+   40            | content_img IMG_HEIGHT
+   41            | content_img IMG_WIDTH
+   42            | %empty
+
+   43 div_tag: DIV_S body DIV_E
+
+   44 subsup_tag: SUP_S body SUP_E
+   45           | SUB_S body SUB_E
+
+   46 format_tag: U_S body U_E
+   47           | B_S body B_E
+   48           | I_S body I_E
+   49           | EM_S body EM_E
+   50           | TT_S body TT_E
+   51           | STRONG_S body STRONG_E
+   52           | SMALL_S body SMALL_E
+
+   53 header_tag: H1_S body H1_E
+   54           | H2_S body H2_E
+   55           | H3_S DATA H3_E
+   56           | H4_S body H4_E
+
+   57 table_tag: TABLE_S content_table caption_data table_contents TABLE_E
+
+   58 content_table: TABLE_BORDER
+   59              | %empty
+
+   60 table_contents: table_contents TR_S tr_data TR_E
+   61               | %empty
+
+   62 caption_data: CAPTION_S body CAPTION_E
+   63             | %empty
+
+   64 tr_data: tr_data TH_S body TH_E
+   65        | tr_data TD_S body TD_E
+   66        | %empty
+
+   67 list_tag: UL_S inner_list_l UL_E
+   68         | OL_S inner_list_l OL_E
+   69         | DL_S inner_list_dl DL_E
+
+   70 inner_list_l: LI_S body LI_E
+
+   71 inner_list_dl: DD_S body DD_E
+   72              | DT_S body DT_E
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+DOCTYPE (258) 1
+HTML_S (259) 1 2
+HTML_E (260) 1 2
+HEAD_S (261) 3
+HEAD_E (262) 3
+TITLE_S (263) 6
+TITLE_E (264) 6
+BODY_S (265) 7
+BODY_E (266) 7
+HREF_S (267) 24
+HREF_E (268) 24
+FONT_S (269) 28
+FONT_E (270) 28
+CENTER_S (271) 32
+CENTER_E (272) 32
+BR (273) 33
+P_S (274) 31
+P_E (275) 31
+H1_S (276) 53
+H1_E (277) 53
+H2_S (278) 54
+H2_E (279) 54
+H3_S (280) 55
+H3_E (281) 55
+H4_S (282) 56
+H4_E (283) 56
+UL_S (284) 67
+UL_E (285) 67
+LI_S (286) 70
+LI_E (287) 70
+OL_S (288) 68
+OL_E (289) 68
+TD_S (290) 65
+DL_S (291) 69
+TD_E (292) 65
+DL_E (293) 69
+DT_S (294) 72
+DT_E (295) 72
+DD_S (296) 71
+DD_E (297) 71
+DIV_S (298) 43
+DIV_E (299) 43
+U_S (300) 46
+U_E (301) 46
+B_S (302) 47
+B_E (303) 47
+I_S (304) 48
+I_E (305) 48
+EM_S (306) 49
+EM_E (307) 49
+TT_S (308) 50
+TT_E (309) 50
+STRONG_S (310) 51
+STRONG_E (311) 51
+SMALL_S (312) 52
+SMALL_E (313) 52
+SUB_S (314) 45
+SUB_E (315) 45
+SUP_S (316) 44
+SUP_E (317) 44
+TABLE_S (318) 57
+TABLE_E (319) 57
+CAPTION_S (320) 62
+CAPTION_E (321) 62
+TH_S (322) 64
+TH_E (323) 64
+TR_S (324) 60
+TR_E (325) 60
+HREF_LINK (326) 25
+FONT_SIZE (327) 29
+HREF_TITLE (328) 26
+IMG_S (329) 35 36
+IMG_SRC (330) 39
+IMG_WIDTH (331) 41
+IMG_HEIGHT (332) 40
+FIG_S (333) 36
+DATA (334) 4 6 21 55
+GREEK (335) 22
+TABLE_BORDER (336) 58
+FIG_E (337) 36
+IMG_E (338) 35 36
+FIGCAP_S (339) 37
+FIGCAP_E (340) 37
+BR_S (341) 34
+
+
+Nonterminals, with rules where they appear
+
+$accept (87)
+    on left: 0
+html_start (88)
+    on left: 1 2, on right: 0
+content_head (89)
+    on left: 3 4 5, on right: 1 2 3
+content_title (90)
+    on left: 6, on right: 3
+content_body (91)
+    on left: 7, on right: 1 2
+body (92)
+    on left: 8 9 10 11 12 13 14 15 16 17 18 19 20, on right: 7 8 9
+    10 11 12 13 14 15 16 17 18 19 24 28 31 32 37 43 44 45 46 47 48
+    49 50 51 52 53 54 56 62 64 65 70 71 72
+data (93)
+    on left: 21 22 23, on right: 8 9 10 11 12 13 14 15 16 17 18 19
+    20
+href_tag (94)
+    on left: 24, on right: 8
+content_href (95)
+    on left: 25 26 27, on right: 24 25 26
+font_tag (96)
+    on left: 28, on right: 9
+content_font (97)
+    on left: 29 30, on right: 28 29
+p_tag (98)
+    on left: 31, on right: 12
+center_tag (99)
+    on left: 32, on right: 10
+br_tag (100)
+    on left: 33 34, on right: 11
+img_tag (101)
+    on left: 35 36, on right: 18
+fig_caption (102)
+    on left: 37 38, on right: 35 36
+content_img (103)
+    on left: 39 40 41 42, on right: 35 36 39 40 41
+div_tag (104)
+    on left: 43, on right: 15
+subsup_tag (105)
+    on left: 44 45, on right: 17
+format_tag (106)
+    on left: 46 47 48 49 50 51 52, on right: 16
+header_tag (107)
+    on left: 53 54 55 56, on right: 13
+table_tag (108)
+    on left: 57, on right: 19
+content_table (109)
+    on left: 58 59, on right: 57
+table_contents (110)
+    on left: 60 61, on right: 57 60
+caption_data (111)
+    on left: 62 63, on right: 57
+tr_data (112)
+    on left: 64 65 66, on right: 60 64 65
+list_tag (113)
+    on left: 67 68 69, on right: 14
+inner_list_l (114)
+    on left: 70, on right: 67 68
+inner_list_dl (115)
+    on left: 71 72, on right: 69
+
+
+State 0
+
+    0 $accept: . html_start $end
+
+    DOCTYPE  shift, and go to state 1
+    HTML_S   shift, and go to state 2
+
+    html_start  go to state 3
+
+
+State 1
+
+    1 html_start: DOCTYPE . HTML_S content_head content_body HTML_E
+
+    HTML_S  shift, and go to state 4
+
+
+State 2
+
+    2 html_start: HTML_S . content_head content_body HTML_E
+
+    HEAD_S  shift, and go to state 5
+    DATA    shift, and go to state 6
+
+    $default  reduce using rule 5 (content_head)
+
+    content_head  go to state 7
+
+
+State 3
+
+    0 $accept: html_start . $end
+
+    $end  shift, and go to state 8
+
+
+State 4
+
+    1 html_start: DOCTYPE HTML_S . content_head content_body HTML_E
+
+    HEAD_S  shift, and go to state 5
+    DATA    shift, and go to state 6
+
+    $default  reduce using rule 5 (content_head)
+
+    content_head  go to state 9
+
+
+State 5
+
+    3 content_head: HEAD_S . content_head content_title content_head HEAD_E
+
+    HEAD_S  shift, and go to state 5
+    DATA    shift, and go to state 6
+
+    $default  reduce using rule 5 (content_head)
+
+    content_head  go to state 10
+
+
+State 6
+
+    4 content_head: DATA .
+
+    $default  reduce using rule 4 (content_head)
+
+
+State 7
+
+    2 html_start: HTML_S content_head . content_body HTML_E
+
+    BODY_S  shift, and go to state 11
+
+    content_body  go to state 12
+
+
+State 8
+
+    0 $accept: html_start $end .
+
+    $default  accept
+
+
+State 9
+
+    1 html_start: DOCTYPE HTML_S content_head . content_body HTML_E
+
+    BODY_S  shift, and go to state 11
+
+    content_body  go to state 13
+
+
+State 10
+
+    3 content_head: HEAD_S content_head . content_title content_head HEAD_E
+
+    TITLE_S  shift, and go to state 14
+
+    content_title  go to state 15
+
+
+State 11
+
+    7 content_body: BODY_S . body BODY_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 18
+    data  go to state 19
+
+
+State 12
+
+    2 html_start: HTML_S content_head content_body . HTML_E
+
+    HTML_E  shift, and go to state 20
+
+
+State 13
+
+    1 html_start: DOCTYPE HTML_S content_head content_body . HTML_E
+
+    HTML_E  shift, and go to state 21
+
+
+State 14
+
+    6 content_title: TITLE_S . DATA TITLE_E
+
+    DATA  shift, and go to state 22
+
+
+State 15
+
+    3 content_head: HEAD_S content_head content_title . content_head HEAD_E
+
+    HEAD_S  shift, and go to state 5
+    DATA    shift, and go to state 6
+
+    $default  reduce using rule 5 (content_head)
+
+    content_head  go to state 23
+
+
+State 16
+
+   21 data: DATA .
+
+    $default  reduce using rule 21 (data)
+
+
+State 17
+
+   22 data: GREEK .
+
+    $default  reduce using rule 22 (data)
+
+
+State 18
+
+    7 content_body: BODY_S body . BODY_E
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+
+    BODY_E    shift, and go to state 24
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 19
+
+   20 body: data .
+
+    $default  reduce using rule 20 (body)
+
+
+State 20
+
+    2 html_start: HTML_S content_head content_body HTML_E .
+
+    $default  reduce using rule 2 (html_start)
+
+
+State 21
+
+    1 html_start: DOCTYPE HTML_S content_head content_body HTML_E .
+
+    $default  reduce using rule 1 (html_start)
+
+
+State 22
+
+    6 content_title: TITLE_S DATA . TITLE_E
+
+    TITLE_E  shift, and go to state 63
+
+
+State 23
+
+    3 content_head: HEAD_S content_head content_title content_head . HEAD_E
+
+    HEAD_E  shift, and go to state 64
+
+
+State 24
+
+    7 content_body: BODY_S body BODY_E .
+
+    $default  reduce using rule 7 (content_body)
+
+
+State 25
+
+   24 href_tag: HREF_S . content_href body HREF_E
+
+    $default  reduce using rule 27 (content_href)
+
+    content_href  go to state 65
+
+
+State 26
+
+   28 font_tag: FONT_S . content_font body FONT_E
+
+    $default  reduce using rule 30 (content_font)
+
+    content_font  go to state 66
+
+
+State 27
+
+   32 center_tag: CENTER_S . body CENTER_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 67
+    data  go to state 19
+
+
+State 28
+
+   33 br_tag: BR .
+
+    $default  reduce using rule 33 (br_tag)
+
+
+State 29
+
+   31 p_tag: P_S . body P_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 68
+    data  go to state 19
+
+
+State 30
+
+   53 header_tag: H1_S . body H1_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 69
+    data  go to state 19
+
+
+State 31
+
+   54 header_tag: H2_S . body H2_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 70
+    data  go to state 19
+
+
+State 32
+
+   55 header_tag: H3_S . DATA H3_E
+
+    DATA  shift, and go to state 71
+
+
+State 33
+
+   56 header_tag: H4_S . body H4_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 72
+    data  go to state 19
+
+
+State 34
+
+   67 list_tag: UL_S . inner_list_l UL_E
+
+    LI_S  shift, and go to state 73
+
+    inner_list_l  go to state 74
+
+
+State 35
+
+   68 list_tag: OL_S . inner_list_l OL_E
+
+    LI_S  shift, and go to state 73
+
+    inner_list_l  go to state 75
+
+
+State 36
+
+   69 list_tag: DL_S . inner_list_dl DL_E
+
+    DT_S  shift, and go to state 76
+    DD_S  shift, and go to state 77
+
+    inner_list_dl  go to state 78
+
+
+State 37
+
+   43 div_tag: DIV_S . body DIV_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 79
+    data  go to state 19
+
+
+State 38
+
+   46 format_tag: U_S . body U_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 80
+    data  go to state 19
+
+
+State 39
+
+   47 format_tag: B_S . body B_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 81
+    data  go to state 19
+
+
+State 40
+
+   48 format_tag: I_S . body I_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 82
+    data  go to state 19
+
+
+State 41
+
+   49 format_tag: EM_S . body EM_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 83
+    data  go to state 19
+
+
+State 42
+
+   50 format_tag: TT_S . body TT_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 84
+    data  go to state 19
+
+
+State 43
+
+   51 format_tag: STRONG_S . body STRONG_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 85
+    data  go to state 19
+
+
+State 44
+
+   52 format_tag: SMALL_S . body SMALL_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 86
+    data  go to state 19
+
+
+State 45
+
+   45 subsup_tag: SUB_S . body SUB_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 87
+    data  go to state 19
+
+
+State 46
+
+   44 subsup_tag: SUP_S . body SUP_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 88
+    data  go to state 19
+
+
+State 47
+
+   57 table_tag: TABLE_S . content_table caption_data table_contents TABLE_E
+
+    TABLE_BORDER  shift, and go to state 89
+
+    $default  reduce using rule 59 (content_table)
+
+    content_table  go to state 90
+
+
+State 48
+
+   35 img_tag: IMG_S . content_img IMG_E fig_caption
+
+    $default  reduce using rule 42 (content_img)
+
+    content_img  go to state 91
+
+
+State 49
+
+   36 img_tag: FIG_S . IMG_S content_img IMG_E fig_caption FIG_E
+
+    IMG_S  shift, and go to state 92
+
+
+State 50
+
+   34 br_tag: BR_S .
+
+    $default  reduce using rule 34 (br_tag)
+
+
+State 51
+
+    8 body: body href_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 93
+
+
+State 52
+
+    9 body: body font_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 94
+
+
+State 53
+
+   12 body: body p_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 95
+
+
+State 54
+
+   10 body: body center_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 96
+
+
+State 55
+
+   11 body: body br_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 97
+
+
+State 56
+
+   18 body: body img_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 98
+
+
+State 57
+
+   15 body: body div_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 99
+
+
+State 58
+
+   17 body: body subsup_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 100
+
+
+State 59
+
+   16 body: body format_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 101
+
+
+State 60
+
+   13 body: body header_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 102
+
+
+State 61
+
+   19 body: body table_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 103
+
+
+State 62
+
+   14 body: body list_tag . data
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    data  go to state 104
+
+
+State 63
+
+    6 content_title: TITLE_S DATA TITLE_E .
+
+    $default  reduce using rule 6 (content_title)
+
+
+State 64
+
+    3 content_head: HEAD_S content_head content_title content_head HEAD_E .
+
+    $default  reduce using rule 3 (content_head)
+
+
+State 65
+
+   24 href_tag: HREF_S content_href . body HREF_E
+   25 content_href: content_href . HREF_LINK
+   26             | content_href . HREF_TITLE
+
+    HREF_LINK   shift, and go to state 105
+    HREF_TITLE  shift, and go to state 106
+    DATA        shift, and go to state 16
+    GREEK       shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 107
+    data  go to state 19
+
+
+State 66
+
+   28 font_tag: FONT_S content_font . body FONT_E
+   29 content_font: content_font . FONT_SIZE
+
+    FONT_SIZE  shift, and go to state 108
+    DATA       shift, and go to state 16
+    GREEK      shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 109
+    data  go to state 19
+
+
+State 67
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   32 center_tag: CENTER_S body . CENTER_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    CENTER_E  shift, and go to state 110
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 68
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   31 p_tag: P_S body . P_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    P_E       shift, and go to state 111
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 69
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   53 header_tag: H1_S body . H1_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H1_E      shift, and go to state 112
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 70
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   54 header_tag: H2_S body . H2_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H2_E      shift, and go to state 113
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 71
+
+   55 header_tag: H3_S DATA . H3_E
+
+    H3_E  shift, and go to state 114
+
+
+State 72
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   56 header_tag: H4_S body . H4_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    H4_E      shift, and go to state 115
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 73
+
+   70 inner_list_l: LI_S . body LI_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 116
+    data  go to state 19
+
+
+State 74
+
+   67 list_tag: UL_S inner_list_l . UL_E
+
+    UL_E  shift, and go to state 117
+
+
+State 75
+
+   68 list_tag: OL_S inner_list_l . OL_E
+
+    OL_E  shift, and go to state 118
+
+
+State 76
+
+   72 inner_list_dl: DT_S . body DT_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 119
+    data  go to state 19
+
+
+State 77
+
+   71 inner_list_dl: DD_S . body DD_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 120
+    data  go to state 19
+
+
+State 78
+
+   69 list_tag: DL_S inner_list_dl . DL_E
+
+    DL_E  shift, and go to state 121
+
+
+State 79
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   43 div_tag: DIV_S body . DIV_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    DIV_E     shift, and go to state 122
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 80
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   46 format_tag: U_S body . U_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    U_E       shift, and go to state 123
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 81
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   47 format_tag: B_S body . B_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    B_E       shift, and go to state 124
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 82
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   48 format_tag: I_S body . I_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    I_E       shift, and go to state 125
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 83
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   49 format_tag: EM_S body . EM_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    EM_E      shift, and go to state 126
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 84
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   50 format_tag: TT_S body . TT_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    TT_E      shift, and go to state 127
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 85
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   51 format_tag: STRONG_S body . STRONG_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    STRONG_E  shift, and go to state 128
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 86
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   52 format_tag: SMALL_S body . SMALL_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SMALL_E   shift, and go to state 129
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 87
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   45 subsup_tag: SUB_S body . SUB_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUB_E     shift, and go to state 130
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 88
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   44 subsup_tag: SUP_S body . SUP_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    SUP_E     shift, and go to state 131
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 89
+
+   58 content_table: TABLE_BORDER .
+
+    $default  reduce using rule 58 (content_table)
+
+
+State 90
+
+   57 table_tag: TABLE_S content_table . caption_data table_contents TABLE_E
+
+    CAPTION_S  shift, and go to state 132
+
+    $default  reduce using rule 63 (caption_data)
+
+    caption_data  go to state 133
+
+
+State 91
+
+   35 img_tag: IMG_S content_img . IMG_E fig_caption
+   39 content_img: content_img . IMG_SRC
+   40            | content_img . IMG_HEIGHT
+   41            | content_img . IMG_WIDTH
+
+    IMG_SRC     shift, and go to state 134
+    IMG_WIDTH   shift, and go to state 135
+    IMG_HEIGHT  shift, and go to state 136
+    IMG_E       shift, and go to state 137
+
+
+State 92
+
+   36 img_tag: FIG_S IMG_S . content_img IMG_E fig_caption FIG_E
+
+    $default  reduce using rule 42 (content_img)
+
+    content_img  go to state 138
+
+
+State 93
+
+    8 body: body href_tag data .
+
+    $default  reduce using rule 8 (body)
+
+
+State 94
+
+    9 body: body font_tag data .
+
+    $default  reduce using rule 9 (body)
+
+
+State 95
+
+   12 body: body p_tag data .
+
+    $default  reduce using rule 12 (body)
+
+
+State 96
+
+   10 body: body center_tag data .
+
+    $default  reduce using rule 10 (body)
+
+
+State 97
+
+   11 body: body br_tag data .
+
+    $default  reduce using rule 11 (body)
+
+
+State 98
+
+   18 body: body img_tag data .
+
+    $default  reduce using rule 18 (body)
+
+
+State 99
+
+   15 body: body div_tag data .
+
+    $default  reduce using rule 15 (body)
+
+
+State 100
+
+   17 body: body subsup_tag data .
+
+    $default  reduce using rule 17 (body)
+
+
+State 101
+
+   16 body: body format_tag data .
+
+    $default  reduce using rule 16 (body)
+
+
+State 102
+
+   13 body: body header_tag data .
+
+    $default  reduce using rule 13 (body)
+
+
+State 103
+
+   19 body: body table_tag data .
+
+    $default  reduce using rule 19 (body)
+
+
+State 104
+
+   14 body: body list_tag data .
+
+    $default  reduce using rule 14 (body)
+
+
+State 105
+
+   25 content_href: content_href HREF_LINK .
+
+    $default  reduce using rule 25 (content_href)
+
+
+State 106
+
+   26 content_href: content_href HREF_TITLE .
+
+    $default  reduce using rule 26 (content_href)
+
+
+State 107
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   24 href_tag: HREF_S content_href body . HREF_E
+
+    HREF_S    shift, and go to state 25
+    HREF_E    shift, and go to state 139
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 108
+
+   29 content_font: content_font FONT_SIZE .
+
+    $default  reduce using rule 29 (content_font)
+
+
+State 109
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   28 font_tag: FONT_S content_font body . FONT_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    FONT_E    shift, and go to state 140
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 110
+
+   32 center_tag: CENTER_S body CENTER_E .
+
+    $default  reduce using rule 32 (center_tag)
+
+
+State 111
+
+   31 p_tag: P_S body P_E .
+
+    $default  reduce using rule 31 (p_tag)
+
+
+State 112
+
+   53 header_tag: H1_S body H1_E .
+
+    $default  reduce using rule 53 (header_tag)
+
+
+State 113
+
+   54 header_tag: H2_S body H2_E .
+
+    $default  reduce using rule 54 (header_tag)
+
+
+State 114
+
+   55 header_tag: H3_S DATA H3_E .
+
+    $default  reduce using rule 55 (header_tag)
+
+
+State 115
+
+   56 header_tag: H4_S body H4_E .
+
+    $default  reduce using rule 56 (header_tag)
+
+
+State 116
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   70 inner_list_l: LI_S body . LI_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    LI_E      shift, and go to state 141
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 117
+
+   67 list_tag: UL_S inner_list_l UL_E .
+
+    $default  reduce using rule 67 (list_tag)
+
+
+State 118
+
+   68 list_tag: OL_S inner_list_l OL_E .
+
+    $default  reduce using rule 68 (list_tag)
+
+
+State 119
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   72 inner_list_dl: DT_S body . DT_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DT_E      shift, and go to state 142
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 120
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   71 inner_list_dl: DD_S body . DD_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DD_E      shift, and go to state 143
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 121
+
+   69 list_tag: DL_S inner_list_dl DL_E .
+
+    $default  reduce using rule 69 (list_tag)
+
+
+State 122
+
+   43 div_tag: DIV_S body DIV_E .
+
+    $default  reduce using rule 43 (div_tag)
+
+
+State 123
+
+   46 format_tag: U_S body U_E .
+
+    $default  reduce using rule 46 (format_tag)
+
+
+State 124
+
+   47 format_tag: B_S body B_E .
+
+    $default  reduce using rule 47 (format_tag)
+
+
+State 125
+
+   48 format_tag: I_S body I_E .
+
+    $default  reduce using rule 48 (format_tag)
+
+
+State 126
+
+   49 format_tag: EM_S body EM_E .
+
+    $default  reduce using rule 49 (format_tag)
+
+
+State 127
+
+   50 format_tag: TT_S body TT_E .
+
+    $default  reduce using rule 50 (format_tag)
+
+
+State 128
+
+   51 format_tag: STRONG_S body STRONG_E .
+
+    $default  reduce using rule 51 (format_tag)
+
+
+State 129
+
+   52 format_tag: SMALL_S body SMALL_E .
+
+    $default  reduce using rule 52 (format_tag)
+
+
+State 130
+
+   45 subsup_tag: SUB_S body SUB_E .
+
+    $default  reduce using rule 45 (subsup_tag)
+
+
+State 131
+
+   44 subsup_tag: SUP_S body SUP_E .
+
+    $default  reduce using rule 44 (subsup_tag)
+
+
+State 132
+
+   62 caption_data: CAPTION_S . body CAPTION_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 144
+    data  go to state 19
+
+
+State 133
+
+   57 table_tag: TABLE_S content_table caption_data . table_contents TABLE_E
+
+    $default  reduce using rule 61 (table_contents)
+
+    table_contents  go to state 145
+
+
+State 134
+
+   39 content_img: content_img IMG_SRC .
+
+    $default  reduce using rule 39 (content_img)
+
+
+State 135
+
+   41 content_img: content_img IMG_WIDTH .
+
+    $default  reduce using rule 41 (content_img)
+
+
+State 136
+
+   40 content_img: content_img IMG_HEIGHT .
+
+    $default  reduce using rule 40 (content_img)
+
+
+State 137
+
+   35 img_tag: IMG_S content_img IMG_E . fig_caption
+
+    FIGCAP_S  shift, and go to state 146
+
+    $default  reduce using rule 38 (fig_caption)
+
+    fig_caption  go to state 147
+
+
+State 138
+
+   36 img_tag: FIG_S IMG_S content_img . IMG_E fig_caption FIG_E
+   39 content_img: content_img . IMG_SRC
+   40            | content_img . IMG_HEIGHT
+   41            | content_img . IMG_WIDTH
+
+    IMG_SRC     shift, and go to state 134
+    IMG_WIDTH   shift, and go to state 135
+    IMG_HEIGHT  shift, and go to state 136
+    IMG_E       shift, and go to state 148
+
+
+State 139
+
+   24 href_tag: HREF_S content_href body HREF_E .
+
+    $default  reduce using rule 24 (href_tag)
+
+
+State 140
+
+   28 font_tag: FONT_S content_font body FONT_E .
+
+    $default  reduce using rule 28 (font_tag)
+
+
+State 141
+
+   70 inner_list_l: LI_S body LI_E .
+
+    $default  reduce using rule 70 (inner_list_l)
+
+
+State 142
+
+   72 inner_list_dl: DT_S body DT_E .
+
+    $default  reduce using rule 72 (inner_list_dl)
+
+
+State 143
+
+   71 inner_list_dl: DD_S body DD_E .
+
+    $default  reduce using rule 71 (inner_list_dl)
+
+
+State 144
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   62 caption_data: CAPTION_S body . CAPTION_E
+
+    HREF_S     shift, and go to state 25
+    FONT_S     shift, and go to state 26
+    CENTER_S   shift, and go to state 27
+    BR         shift, and go to state 28
+    P_S        shift, and go to state 29
+    H1_S       shift, and go to state 30
+    H2_S       shift, and go to state 31
+    H3_S       shift, and go to state 32
+    H4_S       shift, and go to state 33
+    UL_S       shift, and go to state 34
+    OL_S       shift, and go to state 35
+    DL_S       shift, and go to state 36
+    DIV_S      shift, and go to state 37
+    U_S        shift, and go to state 38
+    B_S        shift, and go to state 39
+    I_S        shift, and go to state 40
+    EM_S       shift, and go to state 41
+    TT_S       shift, and go to state 42
+    STRONG_S   shift, and go to state 43
+    SMALL_S    shift, and go to state 44
+    SUB_S      shift, and go to state 45
+    SUP_S      shift, and go to state 46
+    TABLE_S    shift, and go to state 47
+    CAPTION_E  shift, and go to state 149
+    IMG_S      shift, and go to state 48
+    FIG_S      shift, and go to state 49
+    BR_S       shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 145
+
+   57 table_tag: TABLE_S content_table caption_data table_contents . TABLE_E
+   60 table_contents: table_contents . TR_S tr_data TR_E
+
+    TABLE_E  shift, and go to state 150
+    TR_S     shift, and go to state 151
+
+
+State 146
+
+   37 fig_caption: FIGCAP_S . body FIGCAP_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 152
+    data  go to state 19
+
+
+State 147
+
+   35 img_tag: IMG_S content_img IMG_E fig_caption .
+
+    $default  reduce using rule 35 (img_tag)
+
+
+State 148
+
+   36 img_tag: FIG_S IMG_S content_img IMG_E . fig_caption FIG_E
+
+    FIGCAP_S  shift, and go to state 146
+
+    $default  reduce using rule 38 (fig_caption)
+
+    fig_caption  go to state 153
+
+
+State 149
+
+   62 caption_data: CAPTION_S body CAPTION_E .
+
+    $default  reduce using rule 62 (caption_data)
+
+
+State 150
+
+   57 table_tag: TABLE_S content_table caption_data table_contents TABLE_E .
+
+    $default  reduce using rule 57 (table_tag)
+
+
+State 151
+
+   60 table_contents: table_contents TR_S . tr_data TR_E
+
+    $default  reduce using rule 66 (tr_data)
+
+    tr_data  go to state 154
+
+
+State 152
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   37 fig_caption: FIGCAP_S body . FIGCAP_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    FIGCAP_E  shift, and go to state 155
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 153
+
+   36 img_tag: FIG_S IMG_S content_img IMG_E fig_caption . FIG_E
+
+    FIG_E  shift, and go to state 156
+
+
+State 154
+
+   60 table_contents: table_contents TR_S tr_data . TR_E
+   64 tr_data: tr_data . TH_S body TH_E
+   65        | tr_data . TD_S body TD_E
+
+    TD_S  shift, and go to state 157
+    TH_S  shift, and go to state 158
+    TR_E  shift, and go to state 159
+
+
+State 155
+
+   37 fig_caption: FIGCAP_S body FIGCAP_E .
+
+    $default  reduce using rule 37 (fig_caption)
+
+
+State 156
+
+   36 img_tag: FIG_S IMG_S content_img IMG_E fig_caption FIG_E .
+
+    $default  reduce using rule 36 (img_tag)
+
+
+State 157
+
+   65 tr_data: tr_data TD_S . body TD_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 160
+    data  go to state 19
+
+
+State 158
+
+   64 tr_data: tr_data TH_S . body TH_E
+
+    DATA   shift, and go to state 16
+    GREEK  shift, and go to state 17
+
+    $default  reduce using rule 23 (data)
+
+    body  go to state 161
+    data  go to state 19
+
+
+State 159
+
+   60 table_contents: table_contents TR_S tr_data TR_E .
+
+    $default  reduce using rule 60 (table_contents)
+
+
+State 160
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   65 tr_data: tr_data TD_S body . TD_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    TD_E      shift, and go to state 162
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 161
+
+    8 body: body . href_tag data
+    9     | body . font_tag data
+   10     | body . center_tag data
+   11     | body . br_tag data
+   12     | body . p_tag data
+   13     | body . header_tag data
+   14     | body . list_tag data
+   15     | body . div_tag data
+   16     | body . format_tag data
+   17     | body . subsup_tag data
+   18     | body . img_tag data
+   19     | body . table_tag data
+   64 tr_data: tr_data TH_S body . TH_E
+
+    HREF_S    shift, and go to state 25
+    FONT_S    shift, and go to state 26
+    CENTER_S  shift, and go to state 27
+    BR        shift, and go to state 28
+    P_S       shift, and go to state 29
+    H1_S      shift, and go to state 30
+    H2_S      shift, and go to state 31
+    H3_S      shift, and go to state 32
+    H4_S      shift, and go to state 33
+    UL_S      shift, and go to state 34
+    OL_S      shift, and go to state 35
+    DL_S      shift, and go to state 36
+    DIV_S     shift, and go to state 37
+    U_S       shift, and go to state 38
+    B_S       shift, and go to state 39
+    I_S       shift, and go to state 40
+    EM_S      shift, and go to state 41
+    TT_S      shift, and go to state 42
+    STRONG_S  shift, and go to state 43
+    SMALL_S   shift, and go to state 44
+    SUB_S     shift, and go to state 45
+    SUP_S     shift, and go to state 46
+    TABLE_S   shift, and go to state 47
+    TH_E      shift, and go to state 163
+    IMG_S     shift, and go to state 48
+    FIG_S     shift, and go to state 49
+    BR_S      shift, and go to state 50
+
+    href_tag    go to state 51
+    font_tag    go to state 52
+    p_tag       go to state 53
+    center_tag  go to state 54
+    br_tag      go to state 55
+    img_tag     go to state 56
+    div_tag     go to state 57
+    subsup_tag  go to state 58
+    format_tag  go to state 59
+    header_tag  go to state 60
+    table_tag   go to state 61
+    list_tag    go to state 62
+
+
+State 162
+
+   65 tr_data: tr_data TD_S body TD_E .
+
+    $default  reduce using rule 65 (tr_data)
+
+
+State 163
+
+   64 tr_data: tr_data TH_S body TH_E .
+
+    $default  reduce using rule 64 (tr_data)

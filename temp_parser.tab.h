@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#ifndef YY_YY_TEMP_PARSER_TAB_H_INCLUDED
+# define YY_YY_TEMP_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -131,91 +131,6 @@ extern int yydebug;
     BR_S = 341
   };
 #endif
-/* Tokens.  */
-#define DOCTYPE 258
-#define HTML_S 259
-#define HTML_E 260
-#define HEAD_S 261
-#define HEAD_E 262
-#define TITLE_S 263
-#define TITLE_E 264
-#define BODY_S 265
-#define BODY_E 266
-#define HREF_S 267
-#define HREF_E 268
-#define FONT_S 269
-#define FONT_E 270
-#define CENTER_S 271
-#define CENTER_E 272
-#define BR 273
-#define P_S 274
-#define P_E 275
-#define H1_S 276
-#define H1_E 277
-#define H2_S 278
-#define H2_E 279
-#define H3_S 280
-#define H3_E 281
-#define H4_S 282
-#define H4_E 283
-#define UL_S 284
-#define UL_E 285
-#define LI_S 286
-#define LI_E 287
-#define OL_S 288
-#define OL_E 289
-#define TD_S 290
-#define DL_S 291
-#define TD_E 292
-#define DL_E 293
-#define DT_S 294
-#define DT_E 295
-#define DD_S 296
-#define DD_E 297
-#define DIV_S 298
-#define DIV_E 299
-#define U_S 300
-#define U_E 301
-#define B_S 302
-#define B_E 303
-#define I_S 304
-#define I_E 305
-#define EM_S 306
-#define EM_E 307
-#define TT_S 308
-#define TT_E 309
-#define STRONG_S 310
-#define STRONG_E 311
-#define SMALL_S 312
-#define SMALL_E 313
-#define SUB_S 314
-#define SUB_E 315
-#define SUP_S 316
-#define SUP_E 317
-#define TABLE_S 318
-#define TABLE_E 319
-#define CAPTION_S 320
-#define CAPTION_E 321
-#define TH_S 322
-#define TH_E 323
-#define TR_S 324
-#define TR_E 325
-#define HREF_LINK 326
-#define FONT_SIZE 327
-#define HREF_TITLE 328
-#define IMG_S 329
-#define IMG_SRC 330
-#define IMG_WIDTH 331
-#define IMG_HEIGHT 332
-#define FIG_S 333
-#define DATA 334
-#define GREEK 335
-#define TABLE_BORDER 336
-#define FIG_E 337
-#define IMG_E 338
-#define FIGCAP_S 339
-#define FIGCAP_E 340
-#define BR_S 341
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -227,7 +142,7 @@ union YYSTYPE
 	char *s;
 	int i;
 
-#line 231 "y.tab.h" /* yacc.c:1909  */
+#line 146 "temp_parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -240,4 +155,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_TEMP_PARSER_TAB_H_INCLUDED  */
