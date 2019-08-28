@@ -33,6 +33,7 @@ extern char *yytext;
 %token		<s>	HREF_TITLE	IMG_S		IMG_SRC		IMG_WIDTH	IMG_HEIGHT
 %token		<s>	FIG_S		DATA		GREEK		TABLE_BORDER	FIG_E
 %token		<s>	IMG_E		FIGCAP_S	FIGCAP_E	BR_S		HREF_NAME
+%token		<s>	COMMENT
 %type 		<s> 	html_start	content_head 	content_body	content_title	body
 %type		<s>	content_href	href_tag	font_tag	data		content_font
 %type		<s>	center_tag	br_tag		p_tag		img_tag		content_img
@@ -42,12 +43,7 @@ extern char *yytext;
 %start			html_start
 
 %%
-html_start	:	DOCTYPE HTML_S	content_head	content_body	HTML_E			{
-													//printf(tex_file,"\\document{article}\n");
-													//printf(tex_file,"\\usepackage{hyperref}}\n");
-													//printf(tex_file,"\\begin{document}\n");
-												}
-		     |	HTML_S	content_head	content_body	HTML_E				{
+html_start	:	HTML_S	content_head	content_body	HTML_E				{
 													//printf(tex_file,"\\document{article}\n");
 													//printf(tex_file,"\\usepackage{blindwrite}\n");
 													//printf(tex_file,"\\begin{document}\n");
@@ -104,7 +100,7 @@ body		:	body	href_tag	data						{	$$=$1;	}
 		;
 
 
-data		:	data	DATA									{	
+data		:	data	DATA								{	
 													$$=$2;
 													//printf("\nTEXT: %s",$1);							
 												}
@@ -112,6 +108,7 @@ data		:	data	DATA									{
 													$$=$2;
 													//printf("\nGREEK: %s",$1);							
 												}
+		|	data 	COMMENT								{	$$=$2;	}
 		|										{	$$="";	}
 		;
 		
@@ -440,6 +437,6 @@ int main(int argc,char *argv[])
 
 void yyerror(const char *s)
 {
-	//printf("\nSyntax Error\n");
+	printf("\nSyntax Error\n");
 }
 

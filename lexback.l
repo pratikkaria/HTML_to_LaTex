@@ -8,21 +8,25 @@
 %option			caseless
 spac		 	[ \t]+
 punc             	(\:|\,|\"|\'|\.|\,|\!|\?%)
-word		   	({punc}|[a-zA-Z0-9]|[=#;.])+
-text			({word}|{spac})+([\n]|({word}|{spac}))*({word}|{spac})
+word		   	({punc}|[a-zA-Z0-9]|[\:{};/:#])+
+amper			("& ")
+text			({word}|{spac}|{amper})+([\n]|({word}|{spac}|{amper}))*({word}|{spac}|{amper})
 special			 {= "./}
 link			({word}|{special})
 comment_end		"-->"
-greek			"&"{word}";"
+greek			"&"[A-Za-z]+";"
 %x			href
 %x			sizetag
 %x			table
 %x			src
+%x			comment
 %% 
 ([ ]|[\t]|[\n])*			;
-"<!doctype"[^>]">"			{
-						return DOCTYPE;
-					}
+
+
+
+
+
 "<html>"				{	
 						printf("HTML_S\n");
 						return HTML_S;
@@ -593,9 +597,35 @@ greek			"&"{word}";"
 					}
 					
 
+"<!--"[ ]*				{
+						printf("TABLE_S\n");
+						BEGIN comment;
+						//return TABLE_S;
+					}
+				
+<comment>{
 
+	([A-Za-z0-9]|[ \t]|{punc}|[\\\/<>.:{}<>;:#&]|[\n])*[\n]*	{
+										printf("Comment %s Comment_end\n",yytext);
+										yylval.s = (char *)malloc(100);	
+										yylval.s = yytext;
+										return COMMENT;
 										
-					
+									}
+	[\n]*"-->"							{
+										BEGIN 0;
+									}
+
+
+}
+										
+
+{greek}					{	
+						printf("GreekL -%s\n",yytext);
+						yylval.s = strdup(yytext);
+						return GREEK;
+					}
+										
 {text}					{
 						printf("Contents -%s\n",yytext);
 						yylval.s = strdup(yytext);
@@ -604,11 +634,8 @@ greek			"&"{word}";"
 
 
 
-{greek}					{	
-						printf("GreekL -%s\n",yytext);
-						yylval.s = strdup(yytext);
-						return GREEK;
-					}
+
+
 
 
 . 					;

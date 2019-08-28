@@ -129,7 +129,8 @@ extern int yydebug;
     FIGCAP_S = 339,
     FIGCAP_E = 340,
     BR_S = 341,
-    HREF_NAME = 342
+    HREF_NAME = 342,
+    COMMENT = 343
   };
 #endif
 /* Tokens.  */
@@ -218,6 +219,7 @@ extern int yydebug;
 #define FIGCAP_E 340
 #define BR_S 341
 #define HREF_NAME 342
+#define COMMENT 343
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -229,7 +231,7 @@ union YYSTYPE
 	char *s;
 	int i;
 
-#line 233 "y.tab.h" /* yacc.c:1909  */
+#line 235 "y.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
