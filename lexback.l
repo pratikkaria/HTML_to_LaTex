@@ -7,7 +7,7 @@
 %} 
 %option			caseless
 spac		 	[ \t]+
-punc             	(\"|\'|\.|\,|\!|\?%)
+punc             	(\:|\,|\"|\'|\.|\,|\!|\?%)
 word		   	({punc}|[a-zA-Z0-9]|[=#;.])+
 text			({word}|{spac})+([\n]|({word}|{spac}))*({word}|{spac})
 special			 {= "./}
@@ -79,32 +79,48 @@ greek			"&"{word}";"
 					
 <href>{
 
-		"href=\""([ #:=./]|[0-9a-zA-Z])*"\""[ ]*		{
+      "href="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
 										int len = strlen( p );
-										char t[len+1];
-										sscanf(p, "%*[^\"]\"%[^\"]", t);
-										printf("LINK %s\n",t);
-										yylval.s = (char *)malloc(100);
-										strcpy(yylval.s,t);
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										if(sscanf(p,"%*[^']'%[^']'",t)==1)
+											strcat(yylval.s,t);
+										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+											strcat(yylval.s,t1);
+										printf("\nfinal%s\n",yylval.s);
 										return HREF_LINK;
-								}
+									}
 
-		"title=\""([ #:=./]|[0-9a-zA-Z])*"\""[ ]*		{
+       "title="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
 										int len = strlen( p );
-										char t[len+1];
-										sscanf(p, "%*[^\"]\"%[^\"]", t);
-										//printf("TITLE %s\n",t);
-										yylval.s = (char *)malloc(100);
-										strcpy(yylval.s,t);
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										if(sscanf(p,"%*[^']'%[^']'",t)==1)
+											strcat(yylval.s,t);
+										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+											strcat(yylval.s,t1);
+										printf("\nfinal%s\n",yylval.s);
 										return HREF_TITLE;
-								}
+									}
+	"name="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
+										char *p = yytext; 
+										int len = strlen( p );
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										if(sscanf(p,"%*[^']'%[^']'",t)==1)
+											strcat(yylval.s,t);
+										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+											strcat(yylval.s,t1);
+										printf("\nfinal%s\n",yylval.s);
+										return HREF_NAME;
+									}
 
-		">"						{
-										BEGIN 0;
+		">"							{
+											BEGIN 0;
 										
-								}
+									}
 
 }
 
@@ -122,18 +138,26 @@ greek			"&"{word}";"
 						return FONT_S;
 					}
 
-<sizetag>([ :="./]|[0-9a-zA-Z])*">"	{
-						printf("FONT_S\n\n");
-						char *p = yytext; 
-						int len = strlen( p );
-						char t[len+1];
-						sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
-						printf("%s\n",t);
-						BEGIN 0;
-						return FONT_SIZE;
-					}
+<sizetag>{
 
+	"size="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
+										char *p = yytext; 
+										int len = strlen( p );
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										if(sscanf(p,"%*[^']'%[^']'",t)==1)
+											strcat(yylval.s,t);
+										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+											strcat(yylval.s,t1);
+										printf("\nfinal%s\n",yylval.s);
+										return FONT_SIZE;
+									}
+		">"							{
+											BEGIN 0;
+										
+									}
+
+}
 "<img"[ ]*				{
 						printf("IMG Begin\n");
 						BEGIN src;
@@ -144,43 +168,46 @@ greek			"&"{word}";"
 
 <src>{
 
-		"src=\""([ :=#./]|[0-9a-zA-Z])*"\""[ ]*		{
+       "src="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
 									printf("SRC\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
-									char t[len+1];
-									sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
-									printf("%s\n",t);
-									yylval.s = (char *)malloc(100);
-									strcpy(yylval.s,t);
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									if(sscanf(p,"%*[^']'%[^']'",t)==1)
+										strcat(yylval.s,t);
+									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+										strcat(yylval.s,t1);
+									printf("\nfinal%s\n",yylval.s);
 									return IMG_SRC;
 								}
 
-		"width=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*	{
+      "width="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
 									printf("WIDTH\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
-									char t[len+1];
-									sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
-									printf("%s\n",t);
-									yylval.s = (char *)malloc(100);
-									strcpy(yylval.s,t);
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									if(sscanf(p,"%*[^']'%[^']'",t)==1)
+										strcat(yylval.s,t);
+									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+										strcat(yylval.s,t1);
+									printf("\nfinal%s\n",yylval.s);
 									return IMG_WIDTH;
 								}
 					
 
-		"height=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*	{
+     "height="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
 									printf("HEIGHT\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
-									char t[len+1];
-									sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
-									printf("%s\n",t);
-									yylval.s = (char *)malloc(100);
-									strcpy(yylval.s,t);									
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									if(sscanf(p,"%*[^']'%[^']'",t)==1)
+										strcat(yylval.s,t);
+									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+										strcat(yylval.s,t1);
+									printf("\nfinal%s\n",yylval.s);									
 									return IMG_HEIGHT;
 								}
 					
@@ -302,7 +329,11 @@ greek			"&"{word}";"
 						return H3_S;
 					}
 
-
+"</h3>"					{
+						printf("H3_E\n");
+						return H3_E;
+					}
+					
 "<h4>"					{
 						printf("H4_S\n");
 						return H4_S;
@@ -486,16 +517,17 @@ greek			"&"{word}";"
 
 <table>{
 
-		"border=\""([ :=./]|[0-9a-zA-Z])*"\""[ ]*	{
-									printf("BORDER\n\n");
+     "border="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
+									printf("BORDER i\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
-									char t[len+1];
-									sscanf(p, "%*[^\"]\"%[^\"]", t);
-									yylval.s = (char *)malloc(100);
-									strcpy(yylval.s,t);
-									printf("%s",t);
-
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									if(sscanf(p,"%*[^']'%[^']'",t)==1)
+										strcat(yylval.s,t);
+									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
+										strcat(yylval.s,t1);
+									printf("\nfinal%s\n",yylval.s);
 									return TABLE_BORDER;
 								}
 
@@ -572,7 +604,11 @@ greek			"&"{word}";"
 
 
 
-{greek}					return GREEK;
+{greek}					{	
+						printf("GreekL -%s\n",yytext);
+						yylval.s = strdup(yytext);
+						return GREEK;
+					}
 
 
 . 					;

@@ -32,7 +32,7 @@ extern char *yytext;
 %token		<s>	TH_E		TR_S		TR_E		HREF_LINK	FONT_SIZE
 %token		<s>	HREF_TITLE	IMG_S		IMG_SRC		IMG_WIDTH	IMG_HEIGHT
 %token		<s>	FIG_S		DATA		GREEK		TABLE_BORDER	FIG_E
-%token		<s>	IMG_E		FIGCAP_S	FIGCAP_E	BR_S		
+%token		<s>	IMG_E		FIGCAP_S	FIGCAP_E	BR_S		HREF_NAME
 %type 		<s> 	html_start	content_head 	content_body	content_title	body
 %type		<s>	content_href	href_tag	font_tag	data		content_font
 %type		<s>	center_tag	br_tag		p_tag		img_tag		content_img
@@ -43,18 +43,18 @@ extern char *yytext;
 
 %%
 html_start	:	DOCTYPE HTML_S	content_head	content_body	HTML_E			{
-													fprintf(tex_file,"\\document{article}\n");
-													fprintf(tex_file,"\\usepackage{hyperref}}\n");
-													fprintf(tex_file,"\\begin{document}\n");
+													//printf(tex_file,"\\document{article}\n");
+													//printf(tex_file,"\\usepackage{hyperref}}\n");
+													//printf(tex_file,"\\begin{document}\n");
 												}
 		     |	HTML_S	content_head	content_body	HTML_E				{
-													fprintf(tex_file,"\\document{article}\n");
-													fprintf(tex_file,"\\usepackage{blindwrite}\n");
-													fprintf(tex_file,"\\begin{document}\n");
-													fprintf(tex_file,"%s\n",$2);
-													fprintf(tex_file,"%s",$3);
-													printf("\n%s Final HEAD \n",$2);
-													printf("\n%s Final BODY \n",$3);
+													//printf(tex_file,"\\document{article}\n");
+													//printf(tex_file,"\\usepackage{blindwrite}\n");
+													//printf(tex_file,"\\begin{document}\n");
+													//printf(tex_file,"%s\n",$2);
+													//printf(tex_file,"%s",$3);
+													//printf("\n%s Final HEAD \n",$2);
+													//printf("\n%s Final BODY \n",$3);
 												};
 	
 content_head	:	HEAD_S	content_head 	content_title	content_head 	HEAD_E		{
@@ -65,7 +65,7 @@ content_head	:	HEAD_S	content_head 	content_title	content_head 	HEAD_E		{
 		|	DATA									{
 													char *dat = malloc(2000);
 													strcpy(dat,$1);
-													printf("\nContent Head: %s\n",$1);
+													//printf("\nContent Head: %s\n",$1);
 													$$=dat;
 												}	
 		|										{	$$="";	}
@@ -76,14 +76,14 @@ content_title	:	TITLE_S	 DATA	TITLE_E							{
 													strcpy(dat,"\\title{");
 													strcat(dat,$2);
 													strcat(dat,"}");
-													printf("\nContent Title: %s\n",$2);
+													//printf("\nContent Title: %s\n",$2);
 													$$=dat;
 												};
 											
 content_body	:	BODY_S	body  BODY_E							{
 													char *dat = malloc(2000);
 													strcpy($$,$2);
-													printf("\nContent Body:%s\n",$2);
+													//printf("\nContent Body:%s\n",$2);
 													
 												};
 
@@ -104,13 +104,13 @@ body		:	body	href_tag	data						{	$$=$1;	}
 		;
 
 
-data		:	DATA									{	
-													$$=$1;
-													printf("\nTEXT: %s",$1);							
+data		:	data	DATA									{	
+													$$=$2;
+													//printf("\nTEXT: %s",$1);							
 												}
-		|	GREEK								{
-													$$=$1;
-													printf("\nGREEK: %s",$1);							
+		|	data	GREEK								{
+													$$=$2;
+													//printf("\nGREEK: %s",$1);							
 												}
 		|										{	$$="";	}
 		;
@@ -121,8 +121,8 @@ href_tag	:	HREF_S		content_href		body	  HREF_E			{
 														char *dat = malloc(2000);
 														strcat(dat,$2);
 														strcat(dat,$3);
-														printf("\nHREF_ATTR: %s\n",$2);	
-														printf("\nHREF_DATA: %s\n",$3);
+														//printf("\nHREF_ATTR: %s\n",$2);	
+														//printf("\nHREF_DATA: %s\n",$3);
 														$$=dat;
 													};
 
@@ -144,6 +144,14 @@ content_href	:     content_href	HREF_LINK							{
 														strcat(dat,$1);
 														$$=dat;
 													}
+		      | content_href	HREF_NAME							{ 
+														char *dat = malloc(2000);
+														strcat(dat,"name=\"");
+														strcat(dat,$2);
+														strcat(dat,"\"@");
+														strcat(dat,$1);
+														$$=dat;
+													}
 											
 		      |											{	$$="";	}
 		      ;	
@@ -154,8 +162,8 @@ font_tag	:	FONT_S		content_font		body		  FONT_E		{
 														char *dat = malloc(2000);
 														strcat(dat,$2);
 														strcat(dat,$3);
-														printf("\nFONT_ATTR: %s\n",$2);	
-														printf("\nFONT_DATA: %s\n",$3);
+														//printf("\nFONT_ATTR: %s\n",$2);	
+														//printf("\nFONT_DATA: %s\n",$3);
 														$$=dat;
 													};
 
@@ -180,7 +188,7 @@ p_tag		:	P_S		body	P_E							{
 	
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nParagraph: %s\n",$2);	
+														//printf("\nParagraph: %s\n",$2);	
 														$$=dat;
 													}
 		;
@@ -192,7 +200,7 @@ center_tag	:	CENTER_S		body		CENTER_E				{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nCenter Tag: %s\n",$2);	
+														//printf("\nCenter Tag: %s\n",$2);	
 														$$=dat;
 													};
 			
@@ -207,16 +215,16 @@ img_tag		:	IMG_S		content_img	IMG_E		fig_caption			{
 														char *dat = malloc(2000);
 														strcat(dat,$2);
 														//strcat(dat,$3);
-														printf("\nIMG_CONTENT: %s\n",$2);	
-														//printf("\nHREF_DATA: %s\n",$3);
+														//printf("\nIMG_CONTENT: %s\n",$2);	
+														////printf("\nHREF_DATA: %s\n",$3);
 														$$=dat;
 													}
 		|	FIG_S	IMG_S	content_img	IMG_E	fig_caption	FIG_E			{
 														char *dat = malloc(2000);
 														strcat(dat,$2);
 														//strcat(dat,$3);
-														printf("\nIMG_CONTENT: %s\n",$2);	
-														//printf("\nHREF_DATA: %s\n",$3);
+														//printf("\nIMG_CONTENT: %s\n",$2);	
+														////printf("\nHREF_DATA: %s\n",$3);
 														$$=dat;
 													};
 		
@@ -233,7 +241,7 @@ content_img	:     	content_img	IMG_SRC								{
 														strcat(dat,$2);
 														strcat(dat,"\"@");
 														strcat(dat,$1);
-														//printf("\ny %s\n",dat);
+														////printf("\ny %s\n",dat);
 														$$=dat;	
 													}
 		       |content_img	IMG_HEIGHT							{
@@ -242,7 +250,7 @@ content_img	:     	content_img	IMG_SRC								{
 														strcat(dat,$2);
 														strcat(dat,"\"@");
 														strcat(dat,$1);
-														//printf("\ny %s\n",dat);
+														////printf("\ny %s\n",dat);
 														$$=dat;	
 													}
 		       |content_img	IMG_WIDTH							{
@@ -251,7 +259,7 @@ content_img	:     	content_img	IMG_SRC								{
 														strcat(dat,$2);
 														strcat(dat,"\"@");
 														strcat(dat,$1);
-														//printf("\ny %s\n",dat);
+														////printf("\ny %s\n",dat);
 														$$=dat;	
 													}																														
 		       |										{	$$="";	}
@@ -263,7 +271,7 @@ div_tag		:	DIV_S		body		DIV_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nDIV Tag: %s\n",$2);	
+														//printf("\nDIV Tag: %s\n",$2);	
 														$$=dat;
 													};
 							
@@ -273,14 +281,14 @@ subsup_tag	:	SUP_S		body		SUP_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nSuperscript Tag: %s\n",$2);	
+														//printf("\nSuperscript Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|SUB_S		body		SUB_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nSubscript Tag: %s\n",$2);	
+														//printf("\nSubscript Tag: %s\n",$2);	
 														$$=dat;
 													};
 											
@@ -290,49 +298,49 @@ format_tag	:	U_S		body		U_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nUnderline Tag: %s\n",$2);	
+														//printf("\nUnderline Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|B_S		body		B_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nBold Tag: %s\n",$2);	
+														//printf("\nBold Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|I_S		body		I_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nItalics Tag: %s\n",$2);	
+														//printf("\nItalics Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|EM_S		body		EM_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nEmphasize Tag: %s\n",$2);	
+														//printf("\nEmphasize Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|TT_S		body		TT_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nTeletype Tag: %s\n",$2);	
+														//printf("\nTeletype Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|STRONG_S	body		STRONG_E					{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nStrong Tag: %s\n",$2);	
+														//printf("\nStrong Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|SMALL_S	body		SMALL_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nSmall Tag: %s\n",$2);	
+														//printf("\nSmall Tag: %s\n",$2);	
 														$$=dat;
 													};	
 													
@@ -342,28 +350,28 @@ header_tag	:	H1_S		body		H1_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nH1 Tag: %s\n",$2);	
+														//printf("\nH1 Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|H2_S		body		H2_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nH2 Tag: %s\n",$2);	
+														//printf("\nH2 Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|H3_S		body		H3_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nH3 Tag: %s\n",$2);	
+														//printf("\nH3 Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|H4_S		body		H4_E						{
 		
 														char *dat = malloc(2000);
 														strcat(dat,$2);
-														printf("\nH4 Tag: %s\n",$2);	
+														//printf("\nH4 Tag: %s\n",$2);	
 														$$=dat;
 													};
 													
@@ -376,7 +384,7 @@ content_table	:     	TABLE_BORDER									{
 														strcat(dat,$1);
 														strcat(dat,"\"@");
 														//strcat(dat,$1);
-														//printf("\ny %s\n",dat);
+														////printf("\ny %s\n",dat);
 														$$=dat;	
 													}
 		 |											{	$$="";	}
@@ -392,12 +400,12 @@ table_contents	:  	table_contents	TR_S	tr_data	 TR_E
 
 
 caption_data	:	CAPTION_S	body	CAPTION_E						{	$$=$2;	}
-		|
+		|											{	$$="";	}
 		;
 
 tr_data		:	tr_data		TH_S		body		TH_E		
 		|	tr_data		TD_S		body		TD_E	
-		|	
+		|											{	$$="";	}
 		;
 									
 //-----------------------------------------List Tags GRAMMER------------------------------------------------------	
@@ -408,11 +416,19 @@ list_tag	:	UL_S		inner_list_l	UL_E						{	$$=$2;		}
 		
 		|	DL_S		inner_list_dl	DL_E						{	$$=$2;		};
 	
-inner_list_l	:	LI_S		body		LI_E						{	$$=$2;		};
+	
+inner_list_l	:	inner_list_l	LI_S		body		LI_E				{	$$=$3;		}
+		|	inner_list_l	UL_S		inner_list_l		UL_E			{	$$=$3;		}
+		|	inner_list_l	OL_S		inner_list_l		OL_E			{	$$=$3;		}
+		|	inner_list_l	DL_S		inner_list_dl	DL_E				{	$$=$3;		}
+		|											{	$$="";		}
+		;
 
-inner_list_dl	:	DD_S		body		DD_E						{	$$=$2;		}
+inner_list_dl	:	DD_S		body		DD_E	inner_list_dl				{	$$=$2;		}
 
-		|	DT_S		body		DT_E						{	$$=$2;		};
+		|	DT_S		body		DT_E	inner_list_dl				{	$$=$2;		}
+		|											{	$$="";		}
+		;
 		
 %%
 int main(int argc,char *argv[])
@@ -424,6 +440,6 @@ int main(int argc,char *argv[])
 
 void yyerror(const char *s)
 {
-	printf("\nSyntax Error\n");
+	//printf("\nSyntax Error\n");
 }
 
