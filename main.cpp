@@ -13,13 +13,19 @@ ast_node* root;
 map<int,string> latex_start={
 			{0,"\\documentclass{article}\n"},
 			{1, "\\begin{document}\n"},
-			{3, "\\par\n"}
+			{2,""},
+			{3, "\\par\n"},
+			{5, "\\title{"},
+			{6,  ""}
 		 	};
 		 	
 map<int,string> latex_end={
 			{0,""},
 			{1, "\\end{document}\n"},
-			{2, ""}
+			{2, ""},
+			{3, ""},
+			{5, "}\n"},
+			{6, ""}
 		 	};		 	
 string s("");
 void yyerror(const char *s) {

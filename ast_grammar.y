@@ -43,12 +43,12 @@ extern char *yytext;
 	 			
 
 
-%type		<node>	html_start	content_body				
+%type		<node>	html_start	content_body	content_head	content_title			
 %type		<node>	body		p_tag		data
 %start			html_start
 
 %%
-html_start	:	HTML_S	 content_head	content_body		HTML_E				{
+html_start	:	HTML_S	 content_head	content_body		HTML_E			{
 													root = new_node();
 													root->node_type = HTML_H;
 													root->children.push_back($2);
@@ -58,7 +58,38 @@ html_start	:	HTML_S	 content_head	content_body		HTML_E				{
 
 
 
-		
+content_head	:	HEAD_S	content_head 	content_title	content_head 	HEAD_E		{
+													
+													$$ = new_node();
+													$$->node_type = HEAD_H;
+													string st1("");
+													if($2->data.compare(st1)!=0)
+														$$->children.push_back($2);
+													if($3)
+														$$->children.push_back($3);
+													if($4->data.compare(st1)!=0)
+														$$->children.push_back($4);
+													
+												}
+		|	DATA									{
+													$$ = new_node();
+													string str($1);
+													$$->data = str;
+													$$->node_type = DATA_H;
+												}	
+		|										{	
+													$$ = new_node();
+													string str("");
+													$$->data = str;
+													$$->node_type = DATA_H;
+												}
+		;	
+
+content_title	:	TITLE_S	 data	TITLE_E							{
+													$$ = new_node();
+													$$->node_type = TITLE_H;
+													$$->children.push_back($2);
+												};		
 				
 											
 content_body	:	BODY_S	body  BODY_E							{
