@@ -128,7 +128,9 @@ extern int yydebug;
     IMG_E = 338,
     FIGCAP_S = 339,
     FIGCAP_E = 340,
-    BR_S = 341
+    BR_S = 341,
+    HREF_NAME = 342,
+    COMMENT = 343
   };
 #endif
 
@@ -137,12 +139,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "temp_parser.y" /* yacc.c:1909  */
+#line 20 "temp_parser.y" /* yacc.c:1909  */
 
 	char *s;
-	int i;
+	ast_node* node;
 
-#line 146 "temp_parser.tab.h" /* yacc.c:1909  */
+#line 148 "temp_parser.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;

@@ -835,13 +835,14 @@ char *yytext;
 #line 4 "lexback.l"
 #include<stdio.h>
 #include<string.h>
-#include"y.tab.h"
+#include"ast_grammar.tab.h"
+#include "ast.h"
 
 
 
 
 
-#line 845 "lex.yy.c"
+#line 846 "lex.yy.c"
 
 #define INITIAL 0
 #define href 1
@@ -1064,9 +1065,9 @@ YY_DECL
 		}
 
 	{
-#line 23 "lexback.l"
+#line 25 "lexback.l"
 
-#line 1070 "lex.yy.c"
+#line 1071 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1126,78 +1127,78 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 24 "lexback.l"
+#line 26 "lexback.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 30 "lexback.l"
+#line 32 "lexback.l"
 {	
-						printf("HTML_S\n");
+						//printf("HTML_S\n");
 						return HTML_S;
 					}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 36 "lexback.l"
+#line 38 "lexback.l"
 {	
-						printf("HTML_E\n");
+						//printf("HTML_E\n");
 						return HTML_E;
 					}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 42 "lexback.l"
+#line 44 "lexback.l"
 {	
-						printf("HEAD_S\n");
+						//printf("HEAD_S\n");
 						return HEAD_S;
 					}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 48 "lexback.l"
+#line 50 "lexback.l"
 {	
-						printf("HEAD_E\n");
+						//printf("HEAD_E\n");
 						return HEAD_E;
 					}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 54 "lexback.l"
+#line 56 "lexback.l"
 {	
-						printf("BODY_S\n");
+						//printf("BODY_S\n");
 						return BODY_S;
 					}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 60 "lexback.l"
+#line 62 "lexback.l"
 {	
-						printf("BODY_E\n");
+						//printf("BODY_E\n");
 						return BODY_E;
 					}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 66 "lexback.l"
+#line 68 "lexback.l"
 {
-						printf("TITLE_S\n");
+						//printf("TITLE_S\n");
 						return TITLE_S;
 					}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 72 "lexback.l"
+#line 74 "lexback.l"
 {
-						printf("TITLE_E\n");
+						//printf("TITLE_E\n");
 						return TITLE_E;
 					}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 78 "lexback.l"
+#line 80 "lexback.l"
 {
-						printf("HREF_S\n");
+						//printf("HREF_S\n");
 						BEGIN href;
 						return HREF_S;
 					}
@@ -1205,7 +1206,7 @@ YY_RULE_SETUP
 
 case 11:
 YY_RULE_SETUP
-#line 86 "lexback.l"
+#line 88 "lexback.l"
 {
 										char *p = yytext; 
 										int len = strlen( p );
@@ -1215,13 +1216,13 @@ YY_RULE_SETUP
 											strcat(yylval.s,t);
 										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 											strcat(yylval.s,t1);
-										printf("\nfinal%s\n",yylval.s);
+										//printf("\nfinal%s\n",yylval.s);
 										return HREF_LINK;
 									}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 99 "lexback.l"
+#line 101 "lexback.l"
 {
 										char *p = yytext; 
 										int len = strlen( p );
@@ -1231,13 +1232,13 @@ YY_RULE_SETUP
 											strcat(yylval.s,t);
 										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 											strcat(yylval.s,t1);
-										printf("\nfinal%s\n",yylval.s);
+										//printf("\nfinal%s\n",yylval.s);
 										return HREF_TITLE;
 									}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 111 "lexback.l"
+#line 113 "lexback.l"
 {
 										char *p = yytext; 
 										int len = strlen( p );
@@ -1247,13 +1248,13 @@ YY_RULE_SETUP
 											strcat(yylval.s,t);
 										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 											strcat(yylval.s,t1);
-										printf("\nfinal%s\n",yylval.s);
+										//printf("\nfinal%s\n",yylval.s);
 										return HREF_NAME;
 									}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 124 "lexback.l"
+#line 126 "lexback.l"
 {
 											BEGIN 0;
 										
@@ -1262,17 +1263,17 @@ YY_RULE_SETUP
 
 case 15:
 YY_RULE_SETUP
-#line 132 "lexback.l"
+#line 134 "lexback.l"
 {	
-						printf("HREF_E\n");
+						//printf("HREF_E\n");
 						return HREF_E;
 					}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 138 "lexback.l"
+#line 140 "lexback.l"
 {
-						printf("FONT_S\n\n");
+						//printf("FONT_S\n\n");
 
 						BEGIN sizetag;
 						return FONT_S;
@@ -1281,7 +1282,7 @@ YY_RULE_SETUP
 
 case 17:
 YY_RULE_SETUP
-#line 147 "lexback.l"
+#line 149 "lexback.l"
 {
 										char *p = yytext; 
 										int len = strlen( p );
@@ -1291,13 +1292,13 @@ YY_RULE_SETUP
 											strcat(yylval.s,t);
 										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 											strcat(yylval.s,t1);
-										printf("\nfinal%s\n",yylval.s);
+										//printf("\nfinal%s\n",yylval.s);
 										return FONT_SIZE;
 									}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 159 "lexback.l"
+#line 161 "lexback.l"
 {
 											BEGIN 0;
 										
@@ -1306,9 +1307,9 @@ YY_RULE_SETUP
 
 case 19:
 YY_RULE_SETUP
-#line 165 "lexback.l"
+#line 167 "lexback.l"
 {
-						printf("IMG Begin\n");
+						//printf("IMG Begin\n");
 						BEGIN src;
 						return IMG_S;
 					}
@@ -1316,9 +1317,9 @@ YY_RULE_SETUP
 
 case 20:
 YY_RULE_SETUP
-#line 175 "lexback.l"
+#line 177 "lexback.l"
 {
-									printf("SRC\n\n");
+									//printf("SRC\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
 									char t[len+1],t1[len+1];
@@ -1327,15 +1328,15 @@ YY_RULE_SETUP
 										strcat(yylval.s,t);
 									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 										strcat(yylval.s,t1);
-									printf("\nfinal%s\n",yylval.s);
+									//printf("\nfinal%s\n",yylval.s);
 									return IMG_SRC;
 								}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 189 "lexback.l"
+#line 191 "lexback.l"
 {
-									printf("WIDTH\n\n");
+									//printf("WIDTH\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
 									char t[len+1],t1[len+1];
@@ -1344,15 +1345,15 @@ YY_RULE_SETUP
 										strcat(yylval.s,t);
 									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 										strcat(yylval.s,t1);
-									printf("\nfinal%s\n",yylval.s);
+									//printf("\nfinal%s\n",yylval.s);
 									return IMG_WIDTH;
 								}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 204 "lexback.l"
+#line 206 "lexback.l"
 {
-									printf("HEIGHT\n\n");
+									//printf("HEIGHT\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
 									char t[len+1],t1[len+1];
@@ -1361,13 +1362,13 @@ YY_RULE_SETUP
 										strcat(yylval.s,t);
 									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 										strcat(yylval.s,t1);
-									printf("\nfinal%s\n",yylval.s);									
+									//printf("\nfinal%s\n",yylval.s);									
 									return IMG_HEIGHT;
 								}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 219 "lexback.l"
+#line 221 "lexback.l"
 {	
 														
 										BEGIN 0;
@@ -1376,7 +1377,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 225 "lexback.l"
+#line 227 "lexback.l"
 {	
 														
 										BEGIN 0;
@@ -1386,419 +1387,419 @@ YY_RULE_SETUP
 
 case 25:
 YY_RULE_SETUP
-#line 233 "lexback.l"
+#line 235 "lexback.l"
 {
-						printf("FIG_S");
+						//printf("FIG_S");
 						return FIG_S;
 					}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 238 "lexback.l"
+#line 240 "lexback.l"
 {
-						printf("FIG_E");
+						//printf("FIG_E");
 						return FIG_E;
 					}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 243 "lexback.l"
+#line 245 "lexback.l"
 {
-						printf("FIGCAP_S");
+						//printf("FIGCAP_S");
 						return FIGCAP_S;
 					}		
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 248 "lexback.l"
+#line 250 "lexback.l"
 {
-						printf("FIGCAP_E");
+						//printf("FIGCAP_E");
 						return FIGCAP_E;
 					}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 253 "lexback.l"
+#line 255 "lexback.l"
 {
-						printf("FONT_E\n\n");
+						//printf("FONT_E\n\n");
 						return FONT_E;
 					}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 259 "lexback.l"
+#line 261 "lexback.l"
 {
-						printf("CENTER_S\n");
+						//printf("CENTER_S\n");
 						return CENTER_S;
 					}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 265 "lexback.l"
+#line 267 "lexback.l"
 {
-						printf("CENTER_E\n");
+						//printf("CENTER_E\n");
 						return CENTER_E;
 					}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 271 "lexback.l"
+#line 273 "lexback.l"
 {
-						printf("DIV_S\n");
+						//printf("DIV_S\n");
 						return DIV_S;
 					}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 277 "lexback.l"
+#line 279 "lexback.l"
 {
-						printf("DIV_E\n");
+						//printf("DIV_E\n");
 						return DIV_E;
 					}
 	YY_BREAK
 case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
-#line 285 "lexback.l"
+#line 287 "lexback.l"
 {
-						printf("BR\n");
+						//printf("BR\n");
 						return BR;
 					}
 	YY_BREAK
 case 35:
 /* rule 35 can match eol */
 YY_RULE_SETUP
-#line 290 "lexback.l"
+#line 292 "lexback.l"
 {
-						printf("BR\n");
+						//printf("BR\n");
 						return BR;
 					}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 295 "lexback.l"
+#line 297 "lexback.l"
 {
-						printf("P_S\n");
+						//printf("P_S\n");
 						return P_S;
 					}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 301 "lexback.l"
+#line 303 "lexback.l"
 {
-						printf("P_E\n");
+						//printf("P_E\n");
 						return P_E;
 					}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 307 "lexback.l"
+#line 309 "lexback.l"
 {
-						printf("H1_S\n");
+						//printf("H1_S\n");
 						return H1_S;
 					}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 313 "lexback.l"
+#line 315 "lexback.l"
 {
-						printf("H1_E\n");
+						//printf("H1_E\n");
 						return H1_E;
 					}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 319 "lexback.l"
+#line 321 "lexback.l"
 {
-						printf("H2_S\n");
+						//printf("H2_S\n");
 						return H2_S;
 					}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 325 "lexback.l"
+#line 327 "lexback.l"
 {
-						printf("H2_E\n");
+						//printf("H2_E\n");
 						return H2_E;
 					}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 331 "lexback.l"
+#line 333 "lexback.l"
 {
-						printf("H3_S\n");
+						//printf("H3_S\n");
 						return H3_S;
 					}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 336 "lexback.l"
+#line 338 "lexback.l"
 {
-						printf("H3_E\n");
+						//printf("H3_E\n");
 						return H3_E;
 					}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 341 "lexback.l"
+#line 343 "lexback.l"
 {
-						printf("H4_S\n");
+						//printf("H4_S\n");
 						return H4_S;
 					}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 347 "lexback.l"
+#line 349 "lexback.l"
 {
-						printf("H4_E\n");
+						//printf("H4_E\n");
 						return H4_E;
 					}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 353 "lexback.l"
+#line 355 "lexback.l"
 {
-						printf("UL_S\n");
+						//printf("UL_S\n");
 						return UL_S;
 					}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 359 "lexback.l"
+#line 361 "lexback.l"
 {
-						printf("UL_E\n");
+						//printf("UL_E\n");
 						return UL_E;
 					}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 364 "lexback.l"
+#line 366 "lexback.l"
 {
-						printf("LI_S\n");
+						//printf("LI_S\n");
 						return LI_S;
 					}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 370 "lexback.l"
+#line 372 "lexback.l"
 {
-						printf("LI_E\n");
+						//printf("LI_E\n");
 						return LI_E;
 					}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 375 "lexback.l"
+#line 377 "lexback.l"
 {
-						printf("OL_S\n");
+						//printf("OL_S\n");
 						return OL_S;
 					}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 381 "lexback.l"
+#line 383 "lexback.l"
 {
-						printf("OL_E\n");
+						//printf("OL_E\n");
 						return OL_E;
 					}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 386 "lexback.l"
+#line 388 "lexback.l"
 {
-						printf("DT_S\n");
+						//printf("DT_S\n");
 						return DT_S;
 					}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 392 "lexback.l"
+#line 394 "lexback.l"
 {
-						printf("DT_E\n");
+						//printf("DT_E\n");
 						return DT_E;
 					}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 397 "lexback.l"
+#line 399 "lexback.l"
 {
-						printf("DL_S\n");
+						//printf("DL_S\n");
 						return DL_S;
 					}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 403 "lexback.l"
+#line 405 "lexback.l"
 {
-						printf("DL_E\n");
+						//printf("DL_E\n");
 						return DL_E;
 					}
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 408 "lexback.l"
+#line 410 "lexback.l"
 {
-						printf("DD_S\n");
+						//printf("DD_S\n");
 						return DD_S;
 					}
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 414 "lexback.l"
+#line 416 "lexback.l"
 {
-						printf("DD_E\n");
+						//printf("DD_E\n");
 						return DD_E;
 					}
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 420 "lexback.l"
+#line 422 "lexback.l"
 {
-						printf("U_S\n");
+						//printf("U_S\n");
 						return U_S;
 					}
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 425 "lexback.l"
+#line 427 "lexback.l"
 {
-						printf("U_E\n");
+						//printf("U_E\n");
 						return U_E;
 					}
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 430 "lexback.l"
+#line 432 "lexback.l"
 {
-						printf("B_S\n");
+						//printf("B_S\n");
 						return B_S;
 					}
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 435 "lexback.l"
+#line 437 "lexback.l"
 {
-						printf("B_E\n");
+						//printf("B_E\n");
 						return B_E;
 					}
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 440 "lexback.l"
+#line 442 "lexback.l"
 {
-						printf("I_S\n");
+						//printf("I_S\n");
 						return I_S;
 					}
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 445 "lexback.l"
+#line 447 "lexback.l"
 {
-						printf("I_E\n");
+						//printf("I_E\n");
 						return I_E;
 					}
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 450 "lexback.l"
+#line 452 "lexback.l"
 {
-						printf("EM_S\n");
+						//printf("EM_S\n");
 						return EM_S;
 					}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 455 "lexback.l"
+#line 457 "lexback.l"
 {
-						printf("EM_E\n");
+						//printf("EM_E\n");
 						return EM_E;
 					}					
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 460 "lexback.l"
+#line 462 "lexback.l"
 {
-						printf("TT_S\n");
+						//printf("TT_S\n");
 						return TT_S;
 					}
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 465 "lexback.l"
+#line 467 "lexback.l"
 {
-						printf("TT_E\n");
+						//printf("TT_E\n");
 						return TT_E;
 					}
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 471 "lexback.l"
+#line 473 "lexback.l"
 {
-						printf("STRONG_S\n");
+						//printf("STRONG_S\n");
 						return STRONG_S;
 					}
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 476 "lexback.l"
+#line 478 "lexback.l"
 {
-						printf("STRONG_E\n");
+						//printf("STRONG_E\n");
 						return STRONG_E;
 					}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 482 "lexback.l"
+#line 484 "lexback.l"
 {
-						printf("SMALL_S\n");
+						//printf("SMALL_S\n");
 						return SMALL_S;
 					}
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 487 "lexback.l"
+#line 489 "lexback.l"
 {
-						printf("SMALL_E\n");
+						//printf("SMALL_E\n");
 						return SMALL_E;
 					}			
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 494 "lexback.l"
+#line 496 "lexback.l"
 {
-						printf("SUB_S\n");
+						//printf("SUB_S\n");
 						return SUB_S;
 					}
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 500 "lexback.l"
+#line 502 "lexback.l"
 {
-						printf("SUB_E\n");
+						//printf("SUB_E\n");
 						return SUB_E;
 					}
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 505 "lexback.l"
+#line 507 "lexback.l"
 {
-						printf("SUP_S\n");
+						//printf("SUP_S\n");
 						return SUP_S;
 					}
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 511 "lexback.l"
+#line 513 "lexback.l"
 {
-						printf("SUP_E\n");
+						//printf("SUP_E\n");
 						return SUP_E;
 					}
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 516 "lexback.l"
+#line 518 "lexback.l"
 {
-						printf("TABLE_S\n");
+						//printf("TABLE_S\n");
 						BEGIN table;
 						return TABLE_S;
 					}
@@ -1806,9 +1807,9 @@ YY_RULE_SETUP
 
 case 77:
 YY_RULE_SETUP
-#line 524 "lexback.l"
+#line 526 "lexback.l"
 {
-									printf("BORDER i\n\n");
+									//printf("BORDER i\n\n");
 									char *p = yytext; 
 									int len = strlen( p );
 									char t[len+1],t1[len+1];
@@ -1817,13 +1818,13 @@ YY_RULE_SETUP
 										strcat(yylval.s,t);
 									else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
 										strcat(yylval.s,t1);
-									printf("\nfinal%s\n",yylval.s);
+									//printf("\nfinal%s\n",yylval.s);
 									return TABLE_BORDER;
 								}
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 538 "lexback.l"
+#line 540 "lexback.l"
 {
 										BEGIN 0;
 								}	
@@ -1831,81 +1832,81 @@ YY_RULE_SETUP
 
 case 79:
 YY_RULE_SETUP
-#line 546 "lexback.l"
+#line 548 "lexback.l"
 {
-						printf("TABLE_E\n");
+						//printf("TABLE_E\n");
 						return TABLE_E;
 					}
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 552 "lexback.l"
+#line 554 "lexback.l"
 {
-						printf("CAPTION_S\n");
+						//printf("CAPTION_S\n");
 						return CAPTION_S;
 					}
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 558 "lexback.l"
+#line 560 "lexback.l"
 {
-						printf("CAPTION_E\n");
+						//printf("CAPTION_E\n");
 						return CAPTION_E;
 					}
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 564 "lexback.l"
+#line 566 "lexback.l"
 {
-						printf("TH_S\n");
+						//printf("TH_S\n");
 						return TH_S;
 					}
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 570 "lexback.l"
+#line 572 "lexback.l"
 {
-						printf("TH_E\n");
+						//printf("TH_E\n");
 						return TH_E;
 					}
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 576 "lexback.l"
+#line 578 "lexback.l"
 {
-						printf("TR_S\n");
+						//printf("TR_S\n");
 						return TR_S;
 					}
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 582 "lexback.l"
+#line 584 "lexback.l"
 {
-						printf("TR_E\n");
+						//printf("TR_E\n");
 						return TR_E;
 					}
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 588 "lexback.l"
+#line 590 "lexback.l"
 {
-						printf("TD_S\n");
+						//printf("TD_S\n");
 						return TD_S;
 					}
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 594 "lexback.l"
+#line 596 "lexback.l"
 {
-						printf("TD_E\n");
+						//printf("TD_E\n");
 						return TD_E;
 					}
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 600 "lexback.l"
+#line 602 "lexback.l"
 {
-						printf("TABLE_S\n");
+						//printf("TABLE_S\n");
 						BEGIN comment;
 						//return TABLE_S;
 					}
@@ -1914,9 +1915,9 @@ YY_RULE_SETUP
 case 89:
 /* rule 89 can match eol */
 YY_RULE_SETUP
-#line 608 "lexback.l"
+#line 610 "lexback.l"
 {
-										printf("Comment %s Comment_end\n",yytext);
+										//printf("Comment %s Comment_end\n",yytext);
 										yylval.s = (char *)malloc(100);	
 										yylval.s = yytext;
 										return COMMENT;
@@ -1926,7 +1927,7 @@ YY_RULE_SETUP
 case 90:
 /* rule 90 can match eol */
 YY_RULE_SETUP
-#line 615 "lexback.l"
+#line 617 "lexback.l"
 {
 										BEGIN 0;
 									}
@@ -1934,9 +1935,9 @@ YY_RULE_SETUP
 
 case 91:
 YY_RULE_SETUP
-#line 623 "lexback.l"
+#line 625 "lexback.l"
 {	
-						printf("GreekL -%s\n",yytext);
+						//printf("GreekL -%s\n",yytext);
 						yylval.s = strdup(yytext);
 						return GREEK;
 					}
@@ -1944,24 +1945,24 @@ YY_RULE_SETUP
 case 92:
 /* rule 92 can match eol */
 YY_RULE_SETUP
-#line 629 "lexback.l"
+#line 631 "lexback.l"
 {
-						printf("Contents -%s\n",yytext);
+						//printf("Contents -%s\n",yytext);
 						yylval.s = strdup(yytext);
 						return DATA;
 					}
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 641 "lexback.l"
+#line 643 "lexback.l"
 ;
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 644 "lexback.l"
+#line 646 "lexback.l"
 ECHO;
 	YY_BREAK
-#line 1965 "lex.yy.c"
+#line 1966 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(href):
 case YY_STATE_EOF(sizetag):
@@ -2967,7 +2968,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 644 "lexback.l"
+#line 646 "lexback.l"
 
 
   

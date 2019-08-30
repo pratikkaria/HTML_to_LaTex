@@ -226,7 +226,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "temp_parser.y" /* yacc.c:1909  */
+#line 18 "temp_parser.y" /* yacc.c:1909  */
 
 	char *s;
 	int i;

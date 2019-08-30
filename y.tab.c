@@ -64,17 +64,21 @@
 /* Copy the first part of user declarations.  */
 #line 1 "temp_parser.y" /* yacc.c:339  */
 
-
+#define YYDEBUG 1
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <cstring>
 #include <stdio.h>
 #include <string.h>
 void yyerror(const char *);
 
-FILE *yyin;
+extern FILE *yyin;
 FILE *tex_file;
 int yylex();
 extern char *yytext;
 
-#line 78 "y.tab.c" /* yacc.c:339  */
+#line 82 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -290,12 +294,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 14 "temp_parser.y" /* yacc.c:355  */
+#line 18 "temp_parser.y" /* yacc.c:355  */
 
 	char *s;
 	int i;
 
-#line 299 "y.tab.c" /* yacc.c:355  */
+#line 303 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -312,7 +316,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 316 "y.tab.c" /* yacc.c:358  */
+#line 320 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -618,14 +622,14 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    46,    46,    56,    61,    67,    70,    79,    87,    88,
-      89,    90,    91,    92,    93,    94,    95,    96,    97,    98,
-      99,   103,   107,   111,   112,   117,   128,   136,   144,   153,
-     158,   169,   177,   184,   196,   206,   207,   211,   219,   230,
-     231,   235,   244,   253,   262,   267,   277,   284,   294,   301,
-     308,   315,   322,   329,   336,   346,   353,   360,   367,   376,
-     378,   387,   393,   394,   399,   400,   403,   404,   405,   410,
-     412,   414,   417,   418,   419,   420,   421,   424,   426,   427
+       0,    50,    50,    60,    65,    71,    74,    83,    91,    92,
+      93,    94,    95,    96,    97,    98,    99,   100,   101,   102,
+     103,   107,   111,   115,   116,   121,   132,   140,   148,   157,
+     162,   173,   181,   188,   200,   210,   211,   215,   223,   234,
+     235,   239,   248,   257,   266,   271,   281,   288,   298,   305,
+     312,   319,   326,   333,   340,   350,   357,   364,   371,   380,
+     382,   391,   397,   398,   403,   404,   407,   408,   409,   414,
+     416,   418,   421,   422,   423,   424,   425,   428,   430,   431
 };
 #endif
 
@@ -1752,7 +1756,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 46 "temp_parser.y" /* yacc.c:1646  */
+#line 50 "temp_parser.y" /* yacc.c:1646  */
     {
 													//printf(tex_file,"\\document{article}\n");
 													//printf(tex_file,"\\usepackage{blindwrite}\n");
@@ -1762,336 +1766,336 @@ yyreduce:
 													//printf("\n%s Final HEAD \n",$2);
 													//printf("\n%s Final BODY \n",$3);
 												}
-#line 1766 "y.tab.c" /* yacc.c:1646  */
+#line 1770 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
-#line 56 "temp_parser.y" /* yacc.c:1646  */
+#line 60 "temp_parser.y" /* yacc.c:1646  */
     {
-													char *dat = malloc(2000);
+													char *dat = (char *)malloc(2000);
 													strcpy(dat,(yyvsp[-2].s));
 													(yyval.s)=dat;
 												}
-#line 1776 "y.tab.c" /* yacc.c:1646  */
+#line 1780 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 61 "temp_parser.y" /* yacc.c:1646  */
+#line 65 "temp_parser.y" /* yacc.c:1646  */
     {
-													char *dat = malloc(2000);
+													char *dat = (char *)malloc(2000);
 													strcpy(dat,(yyvsp[0].s));
 													//printf("\nContent Head: %s\n",$1);
 													(yyval.s)=dat;
 												}
-#line 1787 "y.tab.c" /* yacc.c:1646  */
+#line 1791 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 67 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 1793 "y.tab.c" /* yacc.c:1646  */
+#line 71 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 1797 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 70 "temp_parser.y" /* yacc.c:1646  */
+#line 74 "temp_parser.y" /* yacc.c:1646  */
     {
-													char *dat = malloc(2000);
+													char *dat = (char *)malloc(2000);
 													strcpy(dat,"\\title{");
 													strcat(dat,(yyvsp[-1].s));
 													strcat(dat,"}");
 													//printf("\nContent Title: %s\n",$2);
 													(yyval.s)=dat;
 												}
-#line 1806 "y.tab.c" /* yacc.c:1646  */
+#line 1810 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 79 "temp_parser.y" /* yacc.c:1646  */
+#line 83 "temp_parser.y" /* yacc.c:1646  */
     {
-													char *dat = malloc(2000);
+													char *dat = (char *)malloc(2000);
 													strcpy((yyval.s),(yyvsp[-1].s));
 													//printf("\nContent Body:%s\n",$2);
 													
 												}
-#line 1817 "y.tab.c" /* yacc.c:1646  */
+#line 1821 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 87 "temp_parser.y" /* yacc.c:1646  */
+#line 91 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1823 "y.tab.c" /* yacc.c:1646  */
+#line 1827 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 88 "temp_parser.y" /* yacc.c:1646  */
+#line 92 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1829 "y.tab.c" /* yacc.c:1646  */
+#line 1833 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 89 "temp_parser.y" /* yacc.c:1646  */
+#line 93 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1835 "y.tab.c" /* yacc.c:1646  */
+#line 1839 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 90 "temp_parser.y" /* yacc.c:1646  */
+#line 94 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1841 "y.tab.c" /* yacc.c:1646  */
+#line 1845 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 91 "temp_parser.y" /* yacc.c:1646  */
+#line 95 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1847 "y.tab.c" /* yacc.c:1646  */
+#line 1851 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 92 "temp_parser.y" /* yacc.c:1646  */
+#line 96 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1853 "y.tab.c" /* yacc.c:1646  */
+#line 1857 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 93 "temp_parser.y" /* yacc.c:1646  */
+#line 97 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1859 "y.tab.c" /* yacc.c:1646  */
+#line 1863 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 94 "temp_parser.y" /* yacc.c:1646  */
+#line 98 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1865 "y.tab.c" /* yacc.c:1646  */
+#line 1869 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 95 "temp_parser.y" /* yacc.c:1646  */
+#line 99 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1871 "y.tab.c" /* yacc.c:1646  */
+#line 1875 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 96 "temp_parser.y" /* yacc.c:1646  */
+#line 100 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1877 "y.tab.c" /* yacc.c:1646  */
+#line 1881 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 97 "temp_parser.y" /* yacc.c:1646  */
+#line 101 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1883 "y.tab.c" /* yacc.c:1646  */
+#line 1887 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 98 "temp_parser.y" /* yacc.c:1646  */
+#line 102 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);	}
-#line 1889 "y.tab.c" /* yacc.c:1646  */
+#line 1893 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 99 "temp_parser.y" /* yacc.c:1646  */
+#line 103 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[0].s);	}
-#line 1895 "y.tab.c" /* yacc.c:1646  */
+#line 1899 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 103 "temp_parser.y" /* yacc.c:1646  */
+#line 107 "temp_parser.y" /* yacc.c:1646  */
     {	
 													(yyval.s)=(yyvsp[0].s);
 													//printf("\nTEXT: %s",$1);							
 												}
-#line 1904 "y.tab.c" /* yacc.c:1646  */
+#line 1908 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 107 "temp_parser.y" /* yacc.c:1646  */
+#line 111 "temp_parser.y" /* yacc.c:1646  */
     {
 													(yyval.s)=(yyvsp[0].s);
 													//printf("\nGREEK: %s",$1);							
 												}
-#line 1913 "y.tab.c" /* yacc.c:1646  */
+#line 1917 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 111 "temp_parser.y" /* yacc.c:1646  */
+#line 115 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[0].s);	}
-#line 1919 "y.tab.c" /* yacc.c:1646  */
+#line 1923 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 112 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 1925 "y.tab.c" /* yacc.c:1646  */
+#line 116 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 1929 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 117 "temp_parser.y" /* yacc.c:1646  */
+#line 121 "temp_parser.y" /* yacc.c:1646  */
     {	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-2].s));
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nHREF_ATTR: %s\n",$2);	
 														//printf("\nHREF_DATA: %s\n",$3);
 														(yyval.s)=dat;
 													}
-#line 1938 "y.tab.c" /* yacc.c:1646  */
+#line 1942 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 128 "temp_parser.y" /* yacc.c:1646  */
+#line 132 "temp_parser.y" /* yacc.c:1646  */
     { 	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"link=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
 														strcat(dat,(yyvsp[-1].s));
 														(yyval.s)=dat;
 													}
-#line 1951 "y.tab.c" /* yacc.c:1646  */
+#line 1955 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 136 "temp_parser.y" /* yacc.c:1646  */
+#line 140 "temp_parser.y" /* yacc.c:1646  */
     { 
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"title=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
 														strcat(dat,(yyvsp[-1].s));
 														(yyval.s)=dat;
 													}
-#line 1964 "y.tab.c" /* yacc.c:1646  */
+#line 1968 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 144 "temp_parser.y" /* yacc.c:1646  */
+#line 148 "temp_parser.y" /* yacc.c:1646  */
     { 
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"name=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
 														strcat(dat,(yyvsp[-1].s));
 														(yyval.s)=dat;
 													}
-#line 1977 "y.tab.c" /* yacc.c:1646  */
+#line 1981 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 153 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 1983 "y.tab.c" /* yacc.c:1646  */
+#line 157 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 1987 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 158 "temp_parser.y" /* yacc.c:1646  */
+#line 162 "temp_parser.y" /* yacc.c:1646  */
     {	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-2].s));
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nFONT_ATTR: %s\n",$2);	
 														//printf("\nFONT_DATA: %s\n",$3);
 														(yyval.s)=dat;
 													}
-#line 1996 "y.tab.c" /* yacc.c:1646  */
+#line 2000 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 169 "temp_parser.y" /* yacc.c:1646  */
+#line 173 "temp_parser.y" /* yacc.c:1646  */
     { 	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"size=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"");
 														strcat(dat,(yyvsp[-1].s));
 														(yyval.s)=dat;
 													}
-#line 2009 "y.tab.c" /* yacc.c:1646  */
+#line 2013 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 177 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2015 "y.tab.c" /* yacc.c:1646  */
+#line 181 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2019 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 184 "temp_parser.y" /* yacc.c:1646  */
+#line 188 "temp_parser.y" /* yacc.c:1646  */
     {
 	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nParagraph: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2027 "y.tab.c" /* yacc.c:1646  */
+#line 2031 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 196 "temp_parser.y" /* yacc.c:1646  */
+#line 200 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nCenter Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2039 "y.tab.c" /* yacc.c:1646  */
+#line 2043 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 206 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2045 "y.tab.c" /* yacc.c:1646  */
+#line 210 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2049 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 207 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2051 "y.tab.c" /* yacc.c:1646  */
+#line 211 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2055 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 211 "temp_parser.y" /* yacc.c:1646  */
+#line 215 "temp_parser.y" /* yacc.c:1646  */
     {	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-2].s));
 														//strcat(dat,$3);
 														//printf("\nIMG_CONTENT: %s\n",$2);	
 														////printf("\nHREF_DATA: %s\n",$3);
 														(yyval.s)=dat;
 													}
-#line 2064 "y.tab.c" /* yacc.c:1646  */
+#line 2068 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 219 "temp_parser.y" /* yacc.c:1646  */
+#line 223 "temp_parser.y" /* yacc.c:1646  */
     {
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-4].s));
 														//strcat(dat,$3);
 														//printf("\nIMG_CONTENT: %s\n",$2);	
 														////printf("\nHREF_DATA: %s\n",$3);
 														(yyval.s)=dat;
 													}
-#line 2077 "y.tab.c" /* yacc.c:1646  */
+#line 2081 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 230 "temp_parser.y" /* yacc.c:1646  */
+#line 234 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);	}
-#line 2083 "y.tab.c" /* yacc.c:1646  */
+#line 2087 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 231 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2089 "y.tab.c" /* yacc.c:1646  */
+#line 235 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2093 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 235 "temp_parser.y" /* yacc.c:1646  */
+#line 239 "temp_parser.y" /* yacc.c:1646  */
     { 	
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"src=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
@@ -2099,13 +2103,13 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2103 "y.tab.c" /* yacc.c:1646  */
+#line 2107 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 244 "temp_parser.y" /* yacc.c:1646  */
+#line 248 "temp_parser.y" /* yacc.c:1646  */
     {
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"height=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
@@ -2113,13 +2117,13 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2117 "y.tab.c" /* yacc.c:1646  */
+#line 2121 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 253 "temp_parser.y" /* yacc.c:1646  */
+#line 257 "temp_parser.y" /* yacc.c:1646  */
     {
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,"width=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
@@ -2127,193 +2131,193 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2131 "y.tab.c" /* yacc.c:1646  */
+#line 2135 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 262 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2137 "y.tab.c" /* yacc.c:1646  */
+#line 266 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2141 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 267 "temp_parser.y" /* yacc.c:1646  */
+#line 271 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nDIV Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2149 "y.tab.c" /* yacc.c:1646  */
+#line 2153 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 277 "temp_parser.y" /* yacc.c:1646  */
+#line 281 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nSuperscript Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2161 "y.tab.c" /* yacc.c:1646  */
+#line 2165 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 284 "temp_parser.y" /* yacc.c:1646  */
+#line 288 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nSubscript Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2173 "y.tab.c" /* yacc.c:1646  */
+#line 2177 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 294 "temp_parser.y" /* yacc.c:1646  */
+#line 298 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nUnderline Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2185 "y.tab.c" /* yacc.c:1646  */
+#line 2189 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 301 "temp_parser.y" /* yacc.c:1646  */
+#line 305 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nBold Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2197 "y.tab.c" /* yacc.c:1646  */
+#line 2201 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 308 "temp_parser.y" /* yacc.c:1646  */
+#line 312 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nItalics Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2209 "y.tab.c" /* yacc.c:1646  */
+#line 2213 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 315 "temp_parser.y" /* yacc.c:1646  */
+#line 319 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nEmphasize Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2221 "y.tab.c" /* yacc.c:1646  */
+#line 2225 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 322 "temp_parser.y" /* yacc.c:1646  */
+#line 326 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nTeletype Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2233 "y.tab.c" /* yacc.c:1646  */
+#line 2237 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 329 "temp_parser.y" /* yacc.c:1646  */
+#line 333 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nStrong Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2245 "y.tab.c" /* yacc.c:1646  */
+#line 2249 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 336 "temp_parser.y" /* yacc.c:1646  */
+#line 340 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nSmall Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2257 "y.tab.c" /* yacc.c:1646  */
+#line 2261 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 346 "temp_parser.y" /* yacc.c:1646  */
+#line 350 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nH1 Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2269 "y.tab.c" /* yacc.c:1646  */
+#line 2273 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 353 "temp_parser.y" /* yacc.c:1646  */
+#line 357 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nH2 Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2281 "y.tab.c" /* yacc.c:1646  */
+#line 2285 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 360 "temp_parser.y" /* yacc.c:1646  */
+#line 364 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nH3 Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2293 "y.tab.c" /* yacc.c:1646  */
+#line 2297 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 367 "temp_parser.y" /* yacc.c:1646  */
+#line 371 "temp_parser.y" /* yacc.c:1646  */
     {
 		
-														char *dat = malloc(2000);
+														char *dat = (char *)malloc(2000);
 														strcat(dat,(yyvsp[-1].s));
 														//printf("\nH4 Tag: %s\n",$2);	
 														(yyval.s)=dat;
 													}
-#line 2305 "y.tab.c" /* yacc.c:1646  */
+#line 2309 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 376 "temp_parser.y" /* yacc.c:1646  */
+#line 380 "temp_parser.y" /* yacc.c:1646  */
     {	}
-#line 2311 "y.tab.c" /* yacc.c:1646  */
+#line 2315 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 378 "temp_parser.y" /* yacc.c:1646  */
+#line 382 "temp_parser.y" /* yacc.c:1646  */
     {
-																												char *dat = malloc(2000);
+																												char *dat = (char *)malloc(2000);
 														strcat(dat,"src=\"");
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,"\"@");
@@ -2321,107 +2325,107 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2325 "y.tab.c" /* yacc.c:1646  */
+#line 2329 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 387 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2331 "y.tab.c" /* yacc.c:1646  */
+#line 391 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2335 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 394 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2337 "y.tab.c" /* yacc.c:1646  */
+#line 398 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2341 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 399 "temp_parser.y" /* yacc.c:1646  */
+#line 403 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);	}
-#line 2343 "y.tab.c" /* yacc.c:1646  */
+#line 2347 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 400 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2349 "y.tab.c" /* yacc.c:1646  */
+#line 404 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2353 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 405 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";	}
-#line 2355 "y.tab.c" /* yacc.c:1646  */
+#line 409 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";	}
+#line 2359 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 410 "temp_parser.y" /* yacc.c:1646  */
+#line 414 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2361 "y.tab.c" /* yacc.c:1646  */
+#line 2365 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 412 "temp_parser.y" /* yacc.c:1646  */
+#line 416 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2367 "y.tab.c" /* yacc.c:1646  */
+#line 2371 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 414 "temp_parser.y" /* yacc.c:1646  */
+#line 418 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2373 "y.tab.c" /* yacc.c:1646  */
+#line 2377 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 417 "temp_parser.y" /* yacc.c:1646  */
+#line 421 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2379 "y.tab.c" /* yacc.c:1646  */
+#line 2383 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 418 "temp_parser.y" /* yacc.c:1646  */
+#line 422 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2385 "y.tab.c" /* yacc.c:1646  */
+#line 2389 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 419 "temp_parser.y" /* yacc.c:1646  */
+#line 423 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2391 "y.tab.c" /* yacc.c:1646  */
+#line 2395 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 420 "temp_parser.y" /* yacc.c:1646  */
+#line 424 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-1].s);		}
-#line 2397 "y.tab.c" /* yacc.c:1646  */
+#line 2401 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 421 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";		}
-#line 2403 "y.tab.c" /* yacc.c:1646  */
+#line 425 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";		}
+#line 2407 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 424 "temp_parser.y" /* yacc.c:1646  */
+#line 428 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);		}
-#line 2409 "y.tab.c" /* yacc.c:1646  */
+#line 2413 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 426 "temp_parser.y" /* yacc.c:1646  */
+#line 430 "temp_parser.y" /* yacc.c:1646  */
     {	(yyval.s)=(yyvsp[-2].s);		}
-#line 2415 "y.tab.c" /* yacc.c:1646  */
+#line 2419 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 427 "temp_parser.y" /* yacc.c:1646  */
-    {	(yyval.s)="";		}
-#line 2421 "y.tab.c" /* yacc.c:1646  */
+#line 431 "temp_parser.y" /* yacc.c:1646  */
+    {	(yyval.s)=(char *)"";		}
+#line 2425 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2425 "y.tab.c" /* yacc.c:1646  */
+#line 2429 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2649,7 +2653,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 430 "temp_parser.y" /* yacc.c:1906  */
+#line 434 "temp_parser.y" /* yacc.c:1906  */
 
 int main(int argc,char *argv[])
 {
