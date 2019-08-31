@@ -8,7 +8,7 @@
 %option			caseless
 spac		 	[ \t]+
 punc             	(\:|\,|\"|\'|\.|\,|\!|\?%)
-word		   	({punc}|[a-zA-Z0-9]|[\:{};/:#=])+
+word		   	({punc}|[a-zA-Z0-9]|[\:{};/#=_^@$/\%~])+
 amper			("& ")
 text			({word}|{spac}|{amper})+([\n]|({word}|{spac}|{amper}))*
 special			 {= "./}

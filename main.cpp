@@ -18,7 +18,7 @@ map <string,string> img = {
 			  };
 map<int,string> latex_start={
 			{0,"\\documentclass{article} \n\\usepackage{hyperref} \n\\usepackage{comment} \n\\usepackage[utf8]{inputenc}\\usepackage[T1]{fontenc}\\usepackage{enumitem}\\usepackage{graphicx}\n"},
-			{1, "\n\\begin{document}\n"},
+			{1, "\n\\begin{document}\n\\maketitle\n"},
 			{2,""},
 			{3, "\n\\par\n"},
 			{5, "\n\\title{"},
@@ -27,9 +27,9 @@ map<int,string> latex_start={
 			{8,  "\n\\href{"},
 			{9,  "\n\\newline"},
 			{10, "{\\fontsize{"},
-			{11, "\\section{"},
-			{12, "\\subsection{"},
-			{13, "\\subsubsection{"},
+			{11, "\n\\section{"},
+			{12, "\n\\subsection{"},
+			{13, "\n\\subsubsection{"},
 			{14, "\\textbf{"},
 			{15, "\\underline{"},
 			{17, "\\textit{"},
@@ -37,10 +37,18 @@ map<int,string> latex_start={
 			{19, "\\textt{"},
 			{22, "_{"},
 			{23, "^{"},
-			{24,"\\begin{figure}\n\\includegraphics"},
+			{24,"\\includegraphics"},
 			{25, "\\caption{"},
 			{26, "\n"},
-			{27, "\\"}
+			{27, "\\"},
+			{28, "\\begin{comment}\n"},
+			{29, "\\begin{itemize}\n"},
+			{30, "\n\\begin{enumerate}\n"},
+			{31, "\n\\begin{description}[style=unboxed, labelwidth=\\linewidth, font =\\sffamily\\itshape\\bfseries, listparindent =0pt, before =\\sffamily]\n"},
+			{32, "\\item "},
+			{33, ""},
+			{34, "\n\\item[ "},
+			{35, "\\begin{figure}[h!]\n\\includegraphics"}
 		 	};
 		 	
 map<int,string> latex_end={
@@ -67,10 +75,18 @@ map<int,string> latex_end={
 			{21, "}\n"},
 			{22, "}\n"},
 			{23, "}\n"},
-			{24, "\\end{figure}\n"},
+			{24, "\n"},
 			{25, "}\n"},
 			{26, "\n"},
-			{27, "\n"}
+			{27, "\n"},
+			{28, "\n\\end{comment}\n"},
+			{29, "\\end{itemize}\n"},
+			{30, "\\end{enumerate}\n"},
+			{31, "\\end{description}\n"},
+			{32, "\n"},
+			{33, "\n"},
+			{34, "]\n"},
+			{35, "\\end{figure}\n"}
 		 	};		 	
 string s("");
 void yyerror(const char *s) {
@@ -137,11 +153,11 @@ void traversal_main(ast_node* root)
 		int first = 4;
 		s+=to_string(first)+"}"+"{"+to_string(second)+"}\\selectfont ";
 	}
-	else
+	else if(root->node_type!=27)
 		s+=latex_start[root->node_type];
 		
 		
-	if(root->node_type==24)
+	if(root->node_type==24 || root->node_type==35)
 	{
 		put_image_attributes(root->attributes);
 		string x("");
@@ -156,10 +172,11 @@ void traversal_main(ast_node* root)
 		s+=x+"\n";
 		
 	}
-	if(root->node_type==4)
+	else if(root->node_type==28)
+	{
 		s+=root->data;
-	else if(root->node_type==27)
-		s+=root->data;
+		s+=latex_end[root->node_type];
+	}
 	else if(root->node_type==8)
 	{
 		s+=root->attributes;
@@ -171,20 +188,46 @@ void traversal_main(ast_node* root)
 		int second = (int)(stoi(root->attributes)*1.2);
 		s+=root->attributes+"}"+"{"+to_string(second)+"}\\selectfont ";
 	}
-
+	else if(root->node_type==33)
+		s+=root->data+"\n";
+	
 
 
 	for(int i=0;i<root->children.size();i++)
 		traversal_main(root->children[i]);
 
 
-
-	if(root->node_type!=8 &&  root->node_type!=10)
+	if(root->node_type==27)
+	{
+		s+=latex_start[root->node_type];
+		s+=root->data+" ";
+	}	
+	if(root->node_type==4)
+		s+=root->data;
+	if(root->node_type!=8 &&  root->node_type!=10 && root->node_type!=28 &&  root->node_type!=27)
 		s+=latex_end[root->node_type];
-	else 
+	else if(root->node_type!=28 && root->node_type!=27)
 		s+="}\n";
 	
 }
+void traversal_main1(ast_node* root)
+{
+	string str("");
+	if(root->node_type==4 && root->data.compare(str)==0)
+		return;
+	cout<<root->node_type<<endl;
+	s+=latex_start[root->node_type];
+	if(root->node_type==4)
+		s+=root->data;
+	for(int i=0;i<root->children.size();i++)
+		traversal_main1(root->children[i]);
+	cout<<"CHILD END-----------------"<<endl;
+	cout<<"Parent"<<root->node_type<<endl;
+	if(root->node_type==4)
+		cout<<"DA"<<root->data<<endl;
+
+}
+
 int main(int argc, char *argv[]) {
 	if(argc<2){
 		cout<<"error in entering arguments. Correct Format: /compiler <input.txt>";

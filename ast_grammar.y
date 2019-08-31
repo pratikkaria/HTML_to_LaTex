@@ -46,7 +46,7 @@ extern char *yytext;
 %type		<node>	html_start	content_body	content_head	content_title	center_tag			
 %type		<node>	body		p_tag		data		href_tag	br_tag
 %type		<node>	font_tag	header_tag	format_tag	subsup_tag	fig_caption
-%type		<node>	img_tag		div_tag		//list_tag	inner_list_l	inner_list_dl
+%type		<node>	img_tag		div_tag		li_tag	ul_tag ol_tag dl_tag dt_tag dd_tag
 %type		<s>	content_href	content_font	content_img	
 %start			html_start
 
@@ -203,7 +203,7 @@ body		:	body	p_tag	data							{
 													if($3->data.compare(st1)!=0)
 														$$->children.push_back($3);
 												}
-		/*|	body	list_tag	data						{	
+		|	body	li_tag		data						{	
 													$$ = new_node();
 													$$->node_type = CONTENT_H;
 													string st1("");
@@ -212,7 +212,58 @@ body		:	body	p_tag	data							{
 														$$->children.push_back($2);
 													if($3->data.compare(st1)!=0)
 														$$->children.push_back($3);
-												}*/																																																																	
+												}
+		|	body	ul_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	ol_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	dl_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	dd_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	dt_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}																																																												
+																																																																											
 		|	data									{	
 														$$=$1;
 												}
@@ -240,11 +291,14 @@ data		:	data	DATA								{
 														$$->children.push_back($1);						
 												}
 		|	data 	COMMENT								{	
-													ast_node* temp = new_node();
+													$$ = new_node();
 													string str($2);
-													temp->data = str;
-													temp->node_type = DATA_H;
-													content_children->push_back(temp);
+													string st1("");
+													cout<<"Comment"<<str<<endl;
+													$$->data = str;
+													$$->node_type = COMMENT_H;
+													if($1->data.compare(st1)!=0)
+														$$->children.push_back($1);
 												}
 		|										{
 													$$ = new_node();
@@ -441,7 +495,7 @@ img_tag		:	IMG_S		content_img	IMG_E		fig_caption			{
 		|	FIG_S	IMG_S	content_img	IMG_E	fig_caption	FIG_E			{
 														$$ = new_node();
 														string st1("");
-														$$->node_type = IMG_H;
+														$$->node_type = IMG1_H;
 														if($5->data.compare(st1)!=0 || $5->children.size()>0)
 															$$->children.push_back($5);
 														$$->attributes= $3;
@@ -502,28 +556,40 @@ div_tag		:	DIV_S		body		DIV_E						{
 													};
 									       				
 //-----------------------------------------List Tags GRAMMER------------------------------------------------------	
-/*
-list_tag	:	UL_S		inner_list_l	UL_E						{	$$=$2;		}
-							
-		|	OL_S		inner_list_l	OL_E						{	$$=$2;		}
-		
-		|	DL_S		inner_list_dl	DL_E						{	$$=$2;		};
-	
-	
-inner_list_l	:	inner_list_l	LI_S		body		LI_E				{	$$=$3;		}
-		|	inner_list_l	UL_S		inner_list_l		UL_E			{	$$=$3;		}
-		|	inner_list_l	OL_S		inner_list_l		OL_E			{	$$=$3;		}
-		|	inner_list_l	DL_S		inner_list_dl	DL_E				{	$$=$3;		}
-		|											{			}
-		;
 
-inner_list_dl	:	DD_S		body		DD_E	inner_list_dl				{	$$=$2;		}
 
-		|	DT_S		body		DT_E	inner_list_dl				{	$$=$2;		}
-		|											{		}
-		;									       																																				
+li_tag 		:	LI_S		body		LI_E						{
+														$$ = new_node();
+														$$->node_type = LI_H;
+														$$->children.push_back($2);
+													};
+ul_tag		: 	UL_S		body		UL_E						{
+														$$ = new_node();
+														$$->node_type = UL_H;
+														$$->children.push_back($2);
+													};
+ol_tag		:	OL_S		body		OL_E						{
+														$$ = new_node();
+														$$->node_type = OL_H;
+														$$->children.push_back($2);
+													};
+dl_tag		:	DL_S		body		DL_E						{
+														$$ = new_node();
+														$$->node_type = DL_H;
+														$$->children.push_back($2);
+													};
+dt_tag		:	DT_S		body		DT_E						{
+														$$ = new_node();
+														$$->node_type = DT_H;
+														$$->children.push_back($2);
+													};
+dd_tag		:	DD_S		body		DD_E						{
+														$$ = new_node();
+														$$->node_type = DD_H;
+														$$->children.push_back($2);
+													};
 
-*/
+
 %%
 
 
