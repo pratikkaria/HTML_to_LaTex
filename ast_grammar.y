@@ -46,8 +46,10 @@ extern char *yytext;
 %type		<node>	html_start	content_body	content_head	content_title	center_tag			
 %type		<node>	body		p_tag		data		href_tag	br_tag
 %type		<node>	font_tag	header_tag	format_tag	subsup_tag	fig_caption
-%type		<node>	img_tag		div_tag		li_tag	ul_tag ol_tag dl_tag dt_tag dd_tag
-%type		<s>	content_href	content_font	content_img	
+%type		<node>	img_tag		div_tag		li_tag		ul_tag 		ol_tag 
+%type		<node>	dl_tag 		dt_tag 		dd_tag		table_tag	table_contents
+%type		<node>	caption_data	tr_data
+%type		<s>	content_href	content_font	content_img	content_table	
 %start			html_start
 
 %%
@@ -262,7 +264,17 @@ body		:	body	p_tag	data							{
 														$$->children.push_back($2);
 													if($3->data.compare(st1)!=0)
 														$$->children.push_back($3);
-												}																																																												
+												}
+		|	body	table_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}																																																																								
 																																																																											
 		|	data									{	
 														$$=$1;
@@ -588,6 +600,55 @@ dd_tag		:	DD_S		body		DD_E						{
 														$$->node_type = DD_H;
 														$$->children.push_back($2);
 													};
+													
+//-----------------------------------------Table Tags GRAMMER-----------------------------------------------------																									
+table_tag	:	TABLE_S		content_table	caption_data	table_contents	TABLE_E		{	
+														$$ = new_node();
+														string str1("");
+														$$->node_type = TABLE_H;
+														if($2->data.compare(str1)!=0)
+															$$->children.push_back($2)
+														$$->children.push_back($4);
+														$$->attributes= $2;
+														
+														
+													};
+
+content_table	:     	TABLE_BORDER									{
+														char *dat = (char *)malloc(2000);
+														strcat(dat,$2);
+														strcat(dat,$1);
+														$$=dat;
+													}
+		 |											{	$$=(char *)"";	}
+		 ;
+		     
+		     
+		     
+	    
+table_contents	:  	table_contents	TR_S	tr_data	 TR_E					
+		|											{	}													
+		;	
+
+
+
+caption_data	:	CAPTION_S	body	CAPTION_E						{	
+														$$ = new_node();
+														$$->node_type = CAPTION_H;
+														$$->children.push_back($2);	
+													}
+		|											{	
+														$$ = new_node();
+														$$->node_type = CAPTION_H;
+														$$->children.push_back($2);
+														$$->data="";
+													}
+		;
+
+tr_data		:	tr_data		TH_S		body		TH_E		
+		|	tr_data		TD_S		body		TD_E	
+		|											{	$$=(char *)"";	}
+		;													
 
 
 %%
