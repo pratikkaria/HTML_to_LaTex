@@ -43,8 +43,11 @@ extern char *yytext;
 	 			
 
 
-%type		<node>	html_start	content_body	content_head	content_title			
-%type		<node>	body		p_tag		data
+%type		<node>	html_start	content_body	content_head	content_title	center_tag			
+%type		<node>	body		p_tag		data		href_tag	br_tag
+%type		<node>	font_tag	header_tag	format_tag	subsup_tag	fig_caption
+%type		<node>	img_tag		div_tag		//list_tag	inner_list_l	inner_list_dl
+%type		<s>	content_href	content_font	content_img	
 %start			html_start
 
 %%
@@ -104,14 +107,112 @@ body		:	body	p_tag	data							{
 													$$ = new_node();
 													$$->node_type = CONTENT_H;
 													string st1("");
-													if($1->data.compare(st1)!=0)
-														$$->children.push_back($1);
+													$$->children.push_back($1);
 													if($2)
 														$$->children.push_back($2);
 													if($3->data.compare(st1)!=0)
 														$$->children.push_back($3);	
 													//content_children->push_back($3);
 												}
+		|	body	center_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);	
+												}
+		|	body	href_tag	data						{	$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);	
+												}	
+		|	body	br_tag		data						{
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+															
+												}	
+		|	body	font_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	header_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	format_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	subsup_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	img_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		|	body	div_tag		data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}
+		/*|	body	list_tag	data						{	
+													$$ = new_node();
+													$$->node_type = CONTENT_H;
+													string st1("");
+													$$->children.push_back($1);
+													if($2)
+														$$->children.push_back($2);
+													if($3->data.compare(st1)!=0)
+														$$->children.push_back($3);
+												}*/																																																																	
 		|	data									{	
 														$$=$1;
 												}
@@ -129,11 +230,14 @@ data		:	data	DATA								{
 																	
 												}
 		|	data	GREEK								{
-													ast_node* temp = new_node();
+													$$ = new_node();
 													string str($2);
-													temp->data = str;
-													temp->node_type = DATA_H;
-													content_children->push_back(temp);							
+													string st1("");
+													cout<<str.substr(1,str.length()-2);
+													$$->data = str.substr(1,str.length()-2);
+													$$->node_type = GREEK_H;
+													if($1->data.compare(st1)!=0)
+														$$->children.push_back($1);						
 												}
 		|	data 	COMMENT								{	
 													ast_node* temp = new_node();
@@ -161,9 +265,265 @@ p_tag		:	P_S		body	P_E							{
 														$$->children.push_back($2);
 													}
 		;
-			
-
 		
+//----------------------------------------------------Center GRAMMER----------------------------------------------			
+
+center_tag	:	CENTER_S		body		CENTER_E				{
+		
+														$$ = new_node();
+														$$->node_type = CENTER_H;
+														$$->children.push_back($2);
+													};	
+													
+//----------------------------------------------------HREF GRAMMER----------------------------------------------		
+href_tag	:	HREF_S		content_href		body	  HREF_E			{	
+														$$ = new_node();
+														$$->node_type = A_H;
+														$$->children.push_back($3);
+														$$->attributes= $2;
+													};
+
+
+
+content_href	:     content_href	HREF_LINK							{ 	
+														char *dat = (char *)malloc(2000);
+														strcat(dat,$2);
+														strcat(dat,$1);
+														$$=dat;
+													}
+		      | content_href	HREF_TITLE							{ 
+														char *dat = (char *)malloc(2000);
+														strcat(dat,"");
+														strcat(dat,$1);
+														$$=dat;
+													}
+		      | content_href	HREF_NAME							{ 
+														char *dat = (char *)malloc(2000);
+														strcat(dat,"");
+														strcat(dat,$1);
+														$$=dat;
+													}
+											
+		      |											{	
+		      												char *dat = (char *)malloc(2000);
+														strcat(dat,"");
+														$$=dat;
+		      											}
+		      ;	
+		      
+//----------------------------------------------------Break Tag GRAMMER----------------------------------------------			
+			
+br_tag		:	BR  										{	
+														$$ = new_node();
+														$$->node_type = BR_H;										
+													}	
+		|	BR_S										{	
+														$$ = new_node();
+														$$->node_type = BR_H;
+													}
+		;	
+		
+		
+//----------------------------------------------------FONT GRAMMER----------------------------------------------
+
+font_tag	:	FONT_S		content_font		body		  FONT_E		{	
+														$$ = new_node();
+														$$->node_type = FONT_H;
+														$$->children.push_back($3);
+														$$->attributes= $2;
+													};
+
+
+
+content_font	:     content_font	FONT_SIZE							{ 	
+														char *dat = (char *)malloc(2000);
+														strcat(dat,$2);
+														strcat(dat,$1);
+														$$=dat;
+													}
+		     |											{	$$=(char *)"";	}
+		     ;				      															
+
+//--------------------------------------Heading Tags GRAMMER-----------------------------------------------------																																						
+																																							
+header_tag	:	H1_S		body		H1_E						{
+		
+														$$ = new_node();
+														$$->node_type = HEADER1_H;
+														$$->children.push_back($2);
+													}
+			|H2_S		body		H2_E						{
+		
+														$$ = new_node();
+														$$->node_type = HEADER2_H;
+														$$->children.push_back($2);
+													}
+			|H3_S		body		H3_E						{
+		
+														$$ = new_node();
+														$$->node_type = HEADER3_H;
+														$$->children.push_back($2);
+													}
+			|H4_S		body		H4_E						{
+		
+														$$ = new_node();
+														$$->node_type = HEADER4_H;
+														$$->children.push_back($2);
+													};	
+													
+//-------------------------------------Formatting Tags GRAMMER-----------------------------------------------------
+
+format_tag	:	U_S		body		U_E						{
+		
+														$$ = new_node();
+														$$->node_type = UNDERLINE_H;
+														$$->children.push_back($2);
+													}
+			|B_S		body		B_E						{
+		
+														$$ = new_node();
+														$$->node_type = BOLD_H;
+														$$->children.push_back($2);
+													}
+			|I_S		body		I_E						{
+		
+														$$ = new_node();
+														$$->node_type = ITALICS_H;
+														$$->children.push_back($2);
+													}
+			|EM_S		body		EM_E						{
+		
+														$$ = new_node();
+														$$->node_type = EMPHASIZE_H;
+														$$->children.push_back($2);
+													}
+			|TT_S		body		TT_E						{
+		
+														$$ = new_node();
+														$$->node_type = TELETYPE_H;
+														$$->children.push_back($2);
+													}
+			|STRONG_S	body		STRONG_E					{
+		
+														$$ = new_node();
+														$$->node_type = STRONG_H;
+														$$->children.push_back($2);
+													}
+			|SMALL_S	body		SMALL_E						{
+		
+														$$ = new_node();
+														$$->node_type = SMALL_H;
+														$$->children.push_back($2);
+													};	
+												
+//-------------------------------------Superscript and Subscript Tag GRAMMER---------------------------------------	
+
+subsup_tag	:	SUP_S		body		SUP_E						{
+														$$ = new_node();
+														$$->node_type = SUPERSCRIPT_H;
+														$$->children.push_back($2);
+													}
+			|SUB_S		body		SUB_E						{
+														$$ = new_node();
+														$$->node_type = SUBSCRIPT_H;
+														$$->children.push_back($2);
+													};
+													
+//----------------------------------------------------Image Tag GRAMMER----------------------------------------------	
+img_tag		:	IMG_S		content_img	IMG_E		fig_caption			{	
+														$$ = new_node();
+														$$->node_type = IMG_H;
+														string st1("");
+														if($4->data.compare(st1)!=0)
+															$$->children.push_back($4);
+														$$->attributes= $2;
+													}
+		|	FIG_S	IMG_S	content_img	IMG_E	fig_caption	FIG_E			{
+														$$ = new_node();
+														string st1("");
+														$$->node_type = IMG_H;
+														if($5->data.compare(st1)!=0 || $5->children.size()>0)
+															$$->children.push_back($5);
+														$$->attributes= $3;
+													};
+		
+		
+		
+fig_caption	:	FIGCAP_S	body	FIGCAP_E						{	
+														$$ = new_node();
+														$$->node_type = FIGCAPTION_H;
+														$$->children.push_back($2);
+													}
+		|											{
+														string str1("");
+														$$ = new_node();
+														$$->node_type = FIGCAPTION_H;
+														$$->data=str1;	
+													}
+		;		
+
+
+content_img	:     	content_img	IMG_SRC								{ 	
+														char *dat = (char *)malloc(2000);
+														strcat(dat,"src=");
+														strcat(dat,$2);
+														strcat(dat,",");
+														strcat(dat,$1);
+														////printf("\ny %s\n",dat);
+														$$=dat;	
+													}
+		       |content_img	IMG_HEIGHT							{
+														char *dat = (char *)malloc(2000);
+														strcat(dat,"height=");
+														strcat(dat,$2);
+														strcat(dat,"cm, ");
+														strcat(dat,$1);
+														////printf("\ny %s\n",dat);
+														$$=dat;	
+													}
+		       |content_img	IMG_WIDTH							{
+														char *dat = (char *)malloc(2000);
+														strcat(dat,"width=");
+														strcat(dat,$2);
+														strcat(dat,"cm,");
+														strcat(dat,$1);
+														////printf("\ny %s\n",dat);
+														$$=dat;	
+													}																														
+		       |										{	$$=(char *)"";	}
+		       ;
+		       
+//----------------------------------------------------DIV Tag GRAMMER----------------------------------------------	
+
+div_tag		:	DIV_S		body		DIV_E						{
+														$$ = new_node();
+														$$->node_type = DIV_H;
+														$$->children.push_back($2);
+													};
+									       				
+//-----------------------------------------List Tags GRAMMER------------------------------------------------------	
+/*
+list_tag	:	UL_S		inner_list_l	UL_E						{	$$=$2;		}
+							
+		|	OL_S		inner_list_l	OL_E						{	$$=$2;		}
+		
+		|	DL_S		inner_list_dl	DL_E						{	$$=$2;		};
+	
+	
+inner_list_l	:	inner_list_l	LI_S		body		LI_E				{	$$=$3;		}
+		|	inner_list_l	UL_S		inner_list_l		UL_E			{	$$=$3;		}
+		|	inner_list_l	OL_S		inner_list_l		OL_E			{	$$=$3;		}
+		|	inner_list_l	DL_S		inner_list_dl	DL_E				{	$$=$3;		}
+		|											{			}
+		;
+
+inner_list_dl	:	DD_S		body		DD_E	inner_list_dl				{	$$=$2;		}
+
+		|	DT_S		body		DT_E	inner_list_dl				{	$$=$2;		}
+		|											{		}
+		;									       																																				
+
+*/
 %%
 
 

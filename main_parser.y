@@ -3,13 +3,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-typedef vector<ast_node*> c_ptrs;
-extern ast_node* root;
-vector<string> labels;
-
-
-
-
 
 void yyerror(const char *);
 extern FILE *yyin;
@@ -286,14 +279,14 @@ subsup_tag	:	SUP_S		body		SUP_E						{
 		
 														char *dat = (char *)malloc(2000);
 														strcat(dat,$2);
-														//printf("\nSuperscript Tag: %s\n",$2);	
+														printf("\nSuperscript Tag: %s\n",$2);	
 														$$=dat;
 													}
 			|SUB_S		body		SUB_E						{
 		
 														char *dat = (char *)malloc(2000);
 														strcat(dat,$2);
-														//printf("\nSubscript Tag: %s\n",$2);	
+														printf("\nSubscript Tag: %s\n",$2);	
 														$$=dat;
 													};
 											

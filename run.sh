@@ -1,4 +1,4 @@
-bison -d -v temp_parser.y
-lex lexback.l
-g++ lex.yy.c y.tab.c
+bison -d -v main_parser.y
+lex main_lexer.l
+g++ lex.yy.c main_parser.tab.c
 ./a.out test_case.html output.txt
