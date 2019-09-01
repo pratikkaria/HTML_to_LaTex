@@ -16,7 +16,7 @@ map<int,string> latex_start={
 			{6,  ""},
 			{7,  "\n\\begin{center}\n"},
 			{8,  "\n\\href{"},
-			{9,  "\n\\newline"},
+			{9,  "\n\\newline\n"},
 			{10, "{\\fontsize{"},
 			{11, "\n\\section{"},
 			{12, "\n\\subsection{"},

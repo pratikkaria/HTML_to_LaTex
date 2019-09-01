@@ -1,0 +1,22 @@
+\documentclass{article} 
+\usepackage{hyperref} 
+\usepackage{comment} 
+\usepackage[utf8]{inputenc}\usepackage[T1]{fontenc}\usepackage{enumitem}\usepackage{graphicx}
+
+\title{Report}
+
+\begin{document}
+\maketitle
+
+\section{LEX and YACC}
+
+\subsection{LEX}
+\begin{itemize}
+\item The Lex file contains the regular expressions for the tags mentioned. 
+\item Four of the tags have been also checked for attributes namely Anchor Tag, Font Tag, Table Tag and Image Tag
+\item Initially many regular expressions are defined that are used in all the other regular expressions
+\item Some of these are \{punc\} which defines some punctuations, \{spac\} which defines spaces and tabs and \{word\} which uses 
+    			      \{spac\}, \{punc\} and other special characters to form contents of a word token
+\end{itemize}
+
+\end{document}

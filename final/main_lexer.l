@@ -89,23 +89,20 @@ greek			"&"[A-Za-z]+";"
       "href="["\""|"\'"]([ :=./#]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
 										string str(p);
-										cout<<"here"<<str<<endl;
+										
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
 										int pos = str.find('\'');
 										int pos1 = str.find('\"');
-										cout<<pos<<endl;
-										cout<<pos1<<endl;
+									
 										if(pos>=0)								
 											sscanf(p,"%*[^']'%[^']'",t);
 										else 
 											sscanf(p, "%*[^\"]\"%[^\"]", t);
-										//cout<<"SIZELEX"<<t<<endl;
-										strcpy(yylval.s,t);
-										cout<<yylval.s<<endl;
-										cout<<"------------"<<endl;
 										
+										strcpy(yylval.s,t);
+									
 										return HREF_LINK;
 									}
 
@@ -121,7 +118,7 @@ greek			"&"[A-Za-z]+";"
 											sscanf(p,"%*[^']'%[^']'",t);
 										else 
 											sscanf(p, "%*[^\"]\"%[^\"]", t);
-										//cout<<"SIZELEX"<<t<<endl;
+										
 										strcpy(yylval.s,t);
 										return HREF_TITLE;
 									}
@@ -137,7 +134,7 @@ greek			"&"[A-Za-z]+";"
 											sscanf(p,"%*[^']'%[^']'",t);
 										else 
 											sscanf(p, "%*[^\"]\"%[^\"]", t);
-										//cout<<"SIZELEX"<<t<<endl;
+										
 										strcpy(yylval.s,t);
 										return HREF_NAME;
 									}
@@ -177,7 +174,7 @@ greek			"&"[A-Za-z]+";"
 											sscanf(p,"%*[^']'%[^']'",t);
 										else 
 											sscanf(p, "%*[^\"]\"%[^\"]", t);
-										//cout<<"SIZELEX"<<t<<endl;
+										
 										strcpy(yylval.s,t);
 										return FONT_SIZE;
 									}
@@ -210,13 +207,13 @@ greek			"&"[A-Za-z]+";"
 										sscanf(p,"%*[^']'%[^']'",t);
 									else 
 										sscanf(p, "%*[^\"]\"%[^\"]", t);
-									//cout<<"SIZELEX"<<t<<endl;
+									
 									strcpy(yylval.s,t);
 									return IMG_SRC;
 								}
 
       "width="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
-									//printf("WIDTH\n\n");
+									
 									char *p = yytext; 
 									string str(p);
 									int len = strlen( p );
@@ -228,14 +225,14 @@ greek			"&"[A-Za-z]+";"
 										sscanf(p,"%*[^']'%[^']'",t);
 									else 
 										sscanf(p, "%*[^\"]\"%[^\"]", t);
-									//cout<<"SIZELEX"<<t<<endl;
+									
 									strcpy(yylval.s,t);
 									return IMG_WIDTH;
 								}
 					
 
      "height="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
-									//printf("HEIGHT\n\n");
+									
 									char *p = yytext; 
 									string str(p);
 									int len = strlen( p );
@@ -247,7 +244,7 @@ greek			"&"[A-Za-z]+";"
 										sscanf(p,"%*[^']'%[^']'",t);
 									else 
 										sscanf(p, "%*[^\"]\"%[^\"]", t);
-									//cout<<"SIZELEX"<<t<<endl;
+									
 									strcpy(yylval.s,t);								
 									return IMG_HEIGHT;
 								}
@@ -571,7 +568,7 @@ greek			"&"[A-Za-z]+";"
 										sscanf(p,"%*[^']'%[^']'",t);
 									else 
 										sscanf(p, "%*[^\"]\"%[^\"]", t);
-									//cout<<"SIZELEX"<<t<<endl;
+									
 									strcpy(yylval.s,t);		
 									return TABLE_BORDER;
 								}
@@ -647,7 +644,7 @@ greek			"&"[A-Za-z]+";"
 <comment>{
 
 	([A-Za-z0-9]|[ \t]|{punc}|[\\\/<>.:{}<>;:#&]|[\n])*[\n]*	{
-										//printf("Comment %s Comment_end\n",yytext);
+										
 										yylval.s = (char *)malloc(100);	
 										yylval.s = yytext;
 										return COMMENT;
@@ -662,13 +659,13 @@ greek			"&"[A-Za-z]+";"
 										
 
 {greek}					{	
-						//printf("GreekL -%s\n",yytext);
+						
 						yylval.s = strdup(yytext);
 						return GREEK;
 					}
 										
 {text}					{
-						//printf("Contents -%s\n",yytext);
+						
 						
 						yylval.s = strdup(yytext);
 						string str(yylval.s);
@@ -701,7 +698,10 @@ greek			"&"[A-Za-z]+";"
 
 
 
-. 					;
+. 					{ 
+						yylval.s=strdup(yytext);
+						return DATA;
+					}
 
 
 %%     
@@ -710,10 +710,5 @@ int yywrap()
 {
 	return 1;	
 } 
-/*int main(int argc,char *argv[])
-{
-	yyin = fopen(argv[1],"r");
-	//tex_file = fopen(argv[2],"w+");
-	yylex();
-}  */   
+ 
 

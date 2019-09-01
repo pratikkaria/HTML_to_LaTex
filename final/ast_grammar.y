@@ -54,41 +54,37 @@ extern char *yytext;
 %start			html_start
 
 %%
-html_start	:	HTML_S	 content_head	content_body		HTML_E			{
+html_start	:	data	HTML_S	 content_head	content_body		HTML_E			{
 													root = new_node();
 													root->node_type = HTML_H;
-													root->children.push_back($2);
+													string st1("");
+													root->data="";
 													root->children.push_back($3);
+													root->children.push_back($4);
 													
 												};
 
 
 
-content_head	:	HEAD_S	content_head 	content_title	content_head 	HEAD_E		{
+content_head	:	data  HEAD_S	content_head 	content_title	content_head 	HEAD_E		{
 													
 													$$ = new_node();
 													$$->node_type = HEAD_H;
 													string st1("");
-													if($2->data.compare(st1)!=0)
-														$$->children.push_back($2);
-													if($3)
+													if($3->data.compare(st1)!=0)
 														$$->children.push_back($3);
-													if($4->data.compare(st1)!=0)
+													if($4)
 														$$->children.push_back($4);
+													if($5->data.compare(st1)!=0)
+														$$->children.push_back($5);
 													
 												}
-		|	DATA									{
+		|	data									{
 													$$ = new_node();
-													string str($1);
-													$$->data = str;
+													
+													$$->data = $1->data;
 													$$->node_type = DATA_H;
 												}	
-		|										{	
-													$$ = new_node();
-													string str("");
-													$$->data = str;
-													$$->node_type = DATA_H;
-												}
 		;	
 
 content_title	:	TITLE_S	 data	TITLE_E							{
@@ -297,7 +293,7 @@ data		:	data	DATA								{
 													$$ = new_node();
 													string str($2);
 													string st1("");
-													//cout<<str.substr(1,str.length()-2);
+													
 													$$->data = str.substr(1,str.length()-2);
 													$$->node_type = GREEK_H;
 													if($1->data.compare(st1)!=0)
@@ -307,7 +303,7 @@ data		:	data	DATA								{
 													$$ = new_node();
 													string str($2);
 													string st1("");
-													//cout<<"Comment"<<str<<endl;
+													
 													$$->data = str;
 													$$->node_type = COMMENT_H;
 													if($1->data.compare(st1)!=0)
@@ -404,7 +400,7 @@ font_tag	:	FONT_S		content_font		body		  FONT_E		{
 
 content_font	:     content_font	FONT_SIZE							{ 	
 														char *dat = (char *)malloc(2000);
-														cout<<$2<<endl;
+													
 														strcat(dat,$2);
 														strcat(dat,$1);
 														$$=dat;
@@ -634,7 +630,7 @@ table_contents	:  	table_contents	TR_S	tr_data	 TR_E						{
 														string st1("");
 														$$->children=$1->children;
 														$$->children.push_back($3);
-														//cout<<"children1:"<<$$->children.size()<<endl;
+												
 															
 													}
 		|											{
@@ -672,7 +668,7 @@ tr_data		:	tr_data		TH_S		body		TH_E				{
 														$$->children=$1->children;
 														$$->children.push_back($3);
 														
-														//cout<<"children2:"<<$$->children.size()<<endl;
+														
 															
 													}
 		|											{
