@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+  <title>Report for HTML-LaTeX convertor by Pratik Karia (2019MCS2568)</title>
+  </head>
+  <body>
+  	<h1>INTRODUCTION (Files Description)</h1>
+  	<strong> Total 5 files are used to convert HTML(.html) to corresponding Latex(.tex) file. All these 4 files are executed using run.sh file. </strong>
+  	<ul>
+  		<li><b>lexer.l</b> - The lexical analyzer file of the parser that detects all the tokens and returns them.</li>
+  		<li><b>parser.y</b> - The yacc/ parser file where the grammar to parse the html file is written. This file also helps in creation of the AST 
+  		    for the html language</li>
+  		<li><b>convert_AST.cpp</b> - The converter file that maps node types of AST of parser.l to corresponding in latex language.</li>
+  		<li><b>common_header_file.h</b> - The common header file that contains the declaration of node structure, enum structure and other functions.</li>
+  		<li><b>main.cpp</b> - The main file containing the main function and the traversal of the Abstract Syntax Tree </li>
+  	</ul>
+ 	<h1>LEX and YACC</h1>
+ 		<p>
+	 		<h2>LEX</h2>
+	 			<UL>
+	    			  <LI>The Lex file contains the regular expressions for the tags mentioned. </li>
+	    			  <LI>Four of the tags have been also checked for attributes namely Anchor Tag, Font Tag, Table Tag and Image Tag</li>
+	    			  <LI>Initially many regular expressions are defined that are used in all the other regular expressions</li>
+	    			  <Li>Some of these are {punc} which defines some punctuations, {spac} which defines spaces and tabs and {word} which uses 
+	    			      {spac}, {punc} and other special characters to form contents of a word token</li>
+	    			  <Li>The lex file is also handled to consider all the other tags as a data apart from the tags mentioned so as to prevent parse error
+	    			      in case of unknown tags. The unknown tags are not handled in grammar but are just considered as text and printed in the output file.</li>
+	    			</ul>
+	    		 <h2>YACC</h2>
+	 			<UL>
+	    			  <li>The Yacc file contains the grammar that is used to parse HTML tokens and generate the AST for the HTML language containing
+	    			      the mentioned tokens</li>
+	    			  <li>The grammar contains mainly 2 parts. The first part contains grammar for the HEAD tag of HTML and the second part contains
+	    			      grammar for the BODY tag of HTML which consists of majority of tags.</li>
+	    			  <ol>
+	    			  	<li>The HEAD grammar of HTML contains grammar for TITLE tag</li>
+	    			  	<li>The BODY grammar of HTML contains a common production "body" which expands other subproductions each of which is for
+	    			  	    a particular grammar</li>
+	    			  </ol>
+	    			  <li>Few greek symbols are also handled by creating a map from HTML to corresponding latex greek symbols. Those things are handled
+	    			      by handling the node of the GREEK symbols in AST. </li>
+				  <li>The grammar written to parse the HTML file is a Context Free Grammar</li>	  
+				  <li>The main.cpp file takes the input html file and calls yacc file. The yacc file takes the html code and tokenizes it using
+				      the lexer and then creates the nodes. The main.cpp has a function for traversal which traverses the AST created.</li>
+	    			</ul>
+	    	</p>
+	<h1>Abstract Syntax Tree</h1>
+		<p>
+			<h2>Contents of Abstract Syntax Tree Node</h2>
+				<ul>
+					<li><b>node_type [Type: integer]</b> - Stored in the enum present in the header file. There is one node_type for each production
+					    in the grammar </li>
+					<li><b>data [Type: String]</b> - The data that can be stored with a node. This is mainly done to store simple text, greek symbols
+					    and comments.</li>
+					<li><b>attributes [Type: String]</b> - This consists of attributes associated with HTML tag. This is mainly used in Anchor Tag,
+					    Image Tag, Font Tag and Table Tag. </li>
+					<li><b>children  [Type: vector of nodes]</b> - This contains the children of each node. </li>
+				</ul>
+		</p>
+		<p>
+			<h2>Abstract Syntax Tree Working</h2>
+				<ul>
+					<li>There are 41 enum types each of which is used to create node of a particular production</li>
+					<li>Each node is created with a node_type and children which is a vector containing all the nodes created
+					    by the production called by it.</li>
+					<li>There is a root node that is created at the start of HTML tag which represents the root of the tree. </li>
+					<li>The traversal of the Abstract Syntax Tree created is done using Depth First Search(DFS) done in traversal_main
+					    function.</li>
+					<li>This traversal creates a mapping of each node to corresponding map in LaTex and generates the output tex file</li>
+				</ul>
+		</p>
+	<h1>Programming Language Used</h1>
+		<p>
+			<ul>
+				<li> C++ programming language is used to create the parser</li>
+				<li> Many of standard library structures like vector, map, stack are used to create the tree nodes</li>
+			</ul>
+		</p>
+
+  </body>
+</html>

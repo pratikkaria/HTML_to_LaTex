@@ -1,5 +1,5 @@
 #include<bits/stdc++.h>
-#include "ast.h"
+#include "common_header_file.h"
 
 using namespace std;
 
@@ -10,6 +10,7 @@ ast_node* root;
 string s("");
 int border;
 
+//------------------------------------------Functions for Node Creation-------------------------------------------------------
 ast_node* new_node(){
 	ast_node* temp = new ast_node;
 	return temp;
@@ -20,12 +21,13 @@ ast_node* new_node(string data){
 	temp->data = data;
 	return temp;
 }
-
+//------------------------------------------YYError Function------------------------------------------------------------------
 void yyerror(const char *s) {
 	cout<<"Parse error!  Message:"<<s<<endl;
 	// might as well halt now:
 	exit(-1);
 }
+//-----------------------------------Functions for Collecting Image Tag Attributes--------------------------------------------
 void show_stack(stack <string> s, stack <string> s1) 
 { 
     while (!s.empty()) 
@@ -39,7 +41,7 @@ void show_stack(stack <string> s, stack <string> s1)
         s1.pop();
     } 
 } 
-
+//-----------------------------------Functions for Extracting Image Tag Attributes--------------------------------------------
 void put_image_attributes(string s)
 {
 	string delimiter = "=";
@@ -71,6 +73,8 @@ void put_image_attributes(string s)
 	show_stack(key, value);
 	
 }
+
+//--------------------------------Functions for Adding Parameters in Latex File for Table---------------------------------------
 void add_cols(ast_node* root)
 {
 	int num_cols=root->children[0]->children.size();
@@ -93,6 +97,8 @@ void add_cols(ast_node* root)
 	
 	
 }
+
+//---------------------------------Function for Traversal of the created AST------------------------------------------------------
 void traversal_main(ast_node* root)
 {
 
@@ -200,7 +206,7 @@ void traversal_main(ast_node* root)
 	if(root->node_type==27)
 	{
 		s+=latex_start[root->node_type];
-		s+=root->data+" ";
+		s+=root->data+"\\ ";
 	}	
 	if(root->node_type==4)
 		s+=root->data;
@@ -210,42 +216,19 @@ void traversal_main(ast_node* root)
 		s+="}\n";
 	
 }
-void traversal_main1(ast_node* root)
-{
-	string str("");
-	if(root->node_type==4 && root->data.compare(str)==0)
-		return;
-	cout<<root->node_type<<endl;
-	s+=latex_start[root->node_type];
-	if(root->node_type==4)
-		s+=root->data;
-	for(int i=0;i<root->children.size();i++)
-		traversal_main1(root->children[i]);
-	cout<<"CHILD END-----------------"<<endl;
-	cout<<"Parent"<<root->node_type<<endl;
-	if(root->node_type==4)
-		cout<<"DA"<<root->data<<endl;
 
-}
-
+//----------------------------------------------------MAIN FUNCTION for the parser--------------------------------------------
 int main(int argc, char *argv[]) {
 	if(argc<2){
-		cout<<"error in entering arguments. Correct Format: /compiler <input.txt>";
+		cout<<"error in entering arguments. Correct Format: ./run.sh input.html output.tex";
 	}
 	yyin = fopen(argv[1], "r");
-	//init_content_children();
 
 	// parse through the input until there is no more:
 	do {
 		yyparse();
 	} while (!feof(yyin));
-	//cout <<"yoo";
 	ofstream out(argv[2]);
 	traversal_main(root);
-	cout<<"Final: "<<endl;
-	//cout<<s<<endl;
 	out<<s;
-	/*converter C;
-	string s = C.traversal(root);
-	C.printHTML(s);*/
 }

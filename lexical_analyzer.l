@@ -3,428 +3,633 @@
 %{ 
 #include<stdio.h>
 #include<string.h>
-#include"y.tab.h"
+#include"parser.tab.h"
+#include<bits/stdc++.h>
+using namespace std;
 %} 
 %option			caseless
 spac		 	[ \t]+
-punc             	(\.|\,|\!|\?%)
-word		   	({punc}|[a-zA-Z0-9])+
-text			({word}|{spac})+([\n]|({word}|{spac}))*({word}|{spac})
+punc             	(\:|\,|\"|\\|\'|\.|\,|\!|\?%)
+word		   	({punc}|[a-zA-Z0-9]|[\:{};/#=_^@$/\%~])+
+amper			("& ")
+text			({word}|{spac}|{amper})+([\n]|({word}|{spac}|{amper}))*
 special			 {= "./}
 link			({word}|{special})
-greek			"&"{word}";"
+comment_end		"-->"
+greek			"&"[A-Za-z]+";"
+%x			href
+%x			sizetag
+%x			table
+%x			src
+%x			comment
 %% 
-"<!doctype"[^>]">"			{
-						return DOCTYPE;
-					}
+
+([ ]|[\t]|[\n])*			;
+
+
+
+
+
+"<!DOC"[^>]*">"				;
 "<html>"				{	
-						printf("HTML_S\n");
 						return HTML_S;
 					}
 
 
-"</html>"				{	
-						printf("HTML_E\n");
+"</html>"				{
 						return HTML_E;
 					}
 
 
 "<head>"				{	
-						printf("HEAD_S\n");
 						return HEAD_S;
 					}
 
 
-"</head>"				{	
-						printf("HEAD_E\n");
+"</head>"				{
 						return HEAD_E;
 					}
 
 
-"<body>"				{	
-						printf("BODY_S\n");
+"<body>"				{
 						return BODY_S;
 					}
 
 
 "</body>"				{	
-						printf("BODY_E\n");
 						return BODY_E;
 					}
 
 
 "<title>"				{
-						printf("TITLE_S\n");
 						return TITLE_S;
 					}
 
 
 "</title>"				{
-						printf("TITLE_E\n");
 						return TITLE_E;
 					}
 
 
-"<a"([ :="./]|[0-9a-zA-Z])*">"		{
-						printf("HREF_S\n");
-						char *p = yytext; 
-						int len = strlen( p );
-						char t[len+1];
-						sscanf(p, "%*[^\"]\"%[^\"]", t);
-						
-						yylval.s = (char *)malloc(100);
-						strcpy(yylval.s,t);
+"<a"[ ]*				{
+						BEGIN href;
 						return HREF_S;
 					}
+					
+<href>{
+
+      "href="["\""|"\'"]([ :=./#]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
+										char *p = yytext; 
+										string str(p);
+										
+										int len = strlen( p );
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+									
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										
+										strcpy(yylval.s,t);
+									
+										return HREF_LINK;
+									}
+
+       "title="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
+										char *p = yytext; 
+										string str(p);
+										int len = strlen( p );
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										
+										strcpy(yylval.s,t);
+										return HREF_TITLE;
+									}
+	"name="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
+										char *p = yytext; 
+										string str(p);
+										int len = strlen( p );
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);									
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										
+										strcpy(yylval.s,t);
+										return HREF_NAME;
+									}
+
+		">"							{
+											BEGIN 0;
+										
+									}
+
+}
 
 
-"</a>"					{	
-						printf("HREF_E\n");
+"</a>"					{
 						return HREF_E;
 					}
 
 
+"<font"[ ]*				{
+						
+
+						BEGIN sizetag;
+						return FONT_S;
+					}
+
+<sizetag>{
+
+	"size="["\""|"\'"]([ :=./#]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
+										char *p = yytext; 
+										string str(p);
+										int len = strlen( p );
+										char t[len+1],t1[len+1];
+										yylval.s = (char *)malloc(100);	
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										
+										strcpy(yylval.s,t);
+										return FONT_SIZE;
+									}
+		">"							{
+											BEGIN 0;
+										
+									}
+
+}
+"<img"[ ]*				{
+						
+						BEGIN src;
+						return IMG_S;
+					}
+
+
+
+<src>{
+
+       "src="["\""|"\'"]([ :=./_]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
+									
+									char *p = yytext; 
+									string str(p);
+									int len = strlen( p );
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									int pos = str.find('\'');
+									int pos1 = str.find('\"');
+									if(pos>=0)								
+										sscanf(p,"%*[^']'%[^']'",t);
+									else 
+										sscanf(p, "%*[^\"]\"%[^\"]", t);
+									
+									strcpy(yylval.s,t);
+									return IMG_SRC;
+								}
+
+      "width="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
+									
+									char *p = yytext; 
+									string str(p);
+									int len = strlen( p );
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									int pos = str.find('\'');
+									int pos1 = str.find('\"');
+									if(pos>=0)								
+										sscanf(p,"%*[^']'%[^']'",t);
+									else 
+										sscanf(p, "%*[^\"]\"%[^\"]", t);
+									
+									strcpy(yylval.s,t);
+									return IMG_WIDTH;
+								}
+					
+
+     "height="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
+									
+									char *p = yytext; 
+									string str(p);
+									int len = strlen( p );
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									int pos = str.find('\'');
+									int pos1 = str.find('\"');
+									if(pos>=0)								
+										sscanf(p,"%*[^']'%[^']'",t);
+									else 
+										sscanf(p, "%*[^\"]\"%[^\"]", t);
+									
+									strcpy(yylval.s,t);								
+									return IMG_HEIGHT;
+								}
+					
+
+		"/>"						{	
+														
+										BEGIN 0;
+										return IMG_E;
+								}
+
+		">"						{	
+														
+										BEGIN 0;
+										return IMG_E;
+								}
+
+}
+
+"<figure>"				{
+						return FIG_S;
+					}
+
+"</figure>"				{
+						return FIG_E;
+					}
+
+"<figcaption>"				{
+						return FIGCAP_S;
+					}		
+
+"</figcaption>"				{
+						return FIGCAP_E;
+					}
+
+"</font>"				{
+						return FONT_E;
+					}
+
+
 "<center>"				{
-						printf("CENTER_S\n");
 						return CENTER_S;
 					}
 
 
 "</center>"				{
-						printf("CENTER_E\n");
 						return CENTER_E;
 					}
 
 
 "<div>"					{
-						printf("DIV_S\n");
 						return DIV_S;
 					}
 
 
 "</div>"				{
-						printf("DIV_E\n");
 						return DIV_E;
 					}
 
 
 
-"<font"([ :="./]|[0-9a-zA-Z])*">"	{
-						printf("FONT_S\n\n");
-						char *p = yytext; 
-						int len = strlen( p );
-						char t[len+1];
-						sscanf(p, "%*[^\"]\"%[^\"]", t);
-							
-						printf("%s\n",t);
-						return FONT_S;
-					}
 
-
-"</font>"				{
-						printf("FONT_E\n\n");
-						return FONT_E;
-					}
-
-
-"<br/>"					{
-						printf("BR\n");
+"<br"[ \t\n]*"/>"			{
 						return BR;
 					}
 
+"<br"[ \t\n]*">"			{
+						return BR;
+					}
 
 "<p>"					{
-						printf("P_S\n");
 						return P_S;
 					}
 
 
 "</p>"					{
-						printf("P_E\n");
 						return P_E;
 					}
 
 
 "<h1>"					{
-						printf("H1_S\n");
 						return H1_S;
 					}
 
 
-
-
 "</h1>"					{
-						printf("H1_E\n");
 						return H1_E;
 					}
 
 
 "<h2>"					{
-						printf("H2_S\n");
 						return H2_S;
 					}
 
 
 "</h2>"					{
-						printf("H2_E\n");
 						return H2_E;
 					}
 
 
 "<h3>"					{
-						printf("H3_S\n");
 						return H3_S;
 					}
 
-
+"</h3>"					{
+						return H3_E;
+					}
+					
 "<h4>"					{
-						printf("H4_S\n");
 						return H4_S;
 					}
 
 
 "</h4>"					{
-						printf("H4_E\n");
 						return H4_E;
 					}
 	
 
 "<ul>"					{
-						printf("UL_S\n");
 						return UL_S;
 					}
 
 
 "</ul>"					{
-						printf("UL_E\n");
 						return UL_E;
 					}
 
 "<li>"					{
-						printf("LI_S\n");
 						return LI_S;
 					}
 
 
 "</li>"					{
-						printf("LI_E\n");
 						return LI_E;
 					}
 
 "<ol>"					{
-						printf("OL_S\n");
 						return OL_S;
 					}
 
 
 "</ol>"					{
-						printf("OL_E\n");
 						return OL_E;
 					}
 
 "<dt>"					{
-						printf("DT_S\n");
 						return DT_S;
 					}
 
 
 "</dt>"					{
-						printf("DT_E\n");
 						return DT_E;
 					}
 
 "<dl>"					{
-						printf("DL_S\n");
 						return DL_S;
 					}
 
 
 "</dl>"					{
-						printf("DL_E\n");
 						return DL_E;
 					}
 
 "<dd>"					{
-						printf("DD_S\n");
 						return DD_S;
 					}
 
 
 "</dd>"					{
-						printf("DD_E\n");
 						return DD_E;
 					}
 
 
 "<u>"					{
-						printf("U_S\n");
 						return U_S;
 					}
 
 "</u>"					{
-						printf("U_E\n");
 						return U_E;
 					}
 
 "<b>"					{
-						printf("B_S\n");
 						return B_S;
 					}
 
 "</b>"					{
-						printf("B_E\n");
 						return B_E;
 					}
 
 "<i>"					{
-						printf("I_S\n");
 						return I_S;
 					}
 
 "</i>"					{
-						printf("I_E\n");
 						return I_E;
 					}
 
 "<em>"					{
-						printf("EM_S\n");
 						return EM_S;
 					}
 
 "</em>"					{
-						printf("EM_E\n");
 						return EM_E;
 					}					
 
 "<tt>"					{
-						printf("TT_S\n");
 						return TT_S;
 					}
 
 "</tt>"					{
-						printf("TT_E\n");
 						return TT_E;
 					}
 					
 					
 "<strong>"				{
-						printf("STRONG_S\n");
 						return STRONG_S;
 					}
 
 "</strong>"				{
-						printf("STRONG_E\n");
 						return STRONG_E;
 					}
 
-		
+
 "<small>"				{
-						printf("SMALL_S\n");
 						return SMALL_S;
 					}
 
 "</small>"				{
-						printf("SMALL_E\n");
 						return SMALL_E;
 					}			
 					
 					
 		
 "<sub>"					{
-						printf("SUB_S\n");
 						return SUB_S;
 					}
 					
 
 "</sub>"				{
-						printf("SUB_E\n");
 						return SUB_E;
 					}
 					
 "<sup>"					{
-						printf("SUP_S\n");
 						return SUP_S;
 					}
 					
 
 "</sup>"				{
-						printf("SUP_E\n");
 						return SUP_E;
 					}
 					
-"<table>"				{
-						printf("TABLE_S\n");
+"<table"[ ]*				{
+						BEGIN table;
 						return TABLE_S;
 					}
+
+<table>{
+
+     "border="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*	{
+									
+									char *p = yytext; 
+									string str(p);
+									int len = strlen( p );
+									char t[len+1],t1[len+1];
+									yylval.s = (char *)malloc(100);									
+									int pos = str.find('\'');
+									int pos1 = str.find('\"');
+									if(pos>=0)								
+										sscanf(p,"%*[^']'%[^']'",t);
+									else 
+										sscanf(p, "%*[^\"]\"%[^\"]", t);
+									
+									strcpy(yylval.s,t);		
+									return TABLE_BORDER;
+								}
+
+		">"						{
+										BEGIN 0;
+								}	
+
+
+}
 					
 
 "</table>"				{
-						printf("TABLE_E\n");
 						return TABLE_E;
 					}
 					
 
 "<caption>"				{
-						printf("CAPTION_S\n");
 						return CAPTION_S;
 					}
 					
 
 "</caption>"				{
-						printf("CAPTION_E\n");
 						return CAPTION_E;
 					}
 					
 
 "<th>"					{
-						printf("TH_S\n");
 						return TH_S;
 					}
 					
 
 "</th>"					{
-						printf("TH_E\n");
 						return TH_E;
 					}
 					
 
 "<tr>"					{
-						printf("TR_S\n");
 						return TR_S;
 					}
 					
 
 "</tr>"					{
-						printf("TR_E\n");
 						return TR_E;
 					}
 					
 					
 "<td>"					{
-						printf("TD_S\n");
 						return TD_S;
 					}
 					
 
 "</td>"					{
-						printf("TD_E\n");
 						return TD_E;
 					}
-										
 					
-{text}					{
-						printf("Contents -%s\n",yytext);
+
+"<!--"[ ]*				{
+						BEGIN comment;
+					}
+				
+<comment>{
+
+	([A-Za-z0-9]|[ \t]|{punc}|[\\\/<>.:{}<>;:#&]|[\n])*[\n]*	{
+										
+										yylval.s = (char *)malloc(100);	
+										yylval.s = yytext;
+										return COMMENT;
+										
+									}
+	[\n]*"-->"							{
+										BEGIN 0;
+									}
+
+
+}
+										
+
+{greek}					{	
+						
 						yylval.s = strdup(yytext);
+						return GREEK;
+					}
+										
+{text}					{
+						
+						
+						yylval.s = strdup(yytext);
+						string str(yylval.s);
+						char find_vec[] = {'\\','_','#','%','$','&','{','}','~','^'};
+						vector<string> replace_vec = {"\\textbackslash","\\_","\\#","\\%","\\$","\\&","\\{","\\}","\\sim","\\hat{}"};
+						int pos;
+						string str1(str);
+						string str2("");
+						for(int i=0;i<replace_vec.size();i++)
+						{
+							for (int j=0;j<str1.length();j++)
+							{
+								if(str1[j]==find_vec[i])
+									str2+=replace_vec[i];
+								else
+									str2+=str1[j];
+							}
+							str1=str2;
+							str2="";
+									
+	   					}
+	   					yylval.s = strdup(str1.c_str());
+
 						return DATA;
 					}
 
 
 
 
-"\n"					;
 
 
-. 					;
+
+. 					{ 
+						yylval.s=strdup(yytext);
+						return DATA;
+					}
 
 
 %%     
@@ -433,5 +638,5 @@ int yywrap()
 {
 	return 1;	
 } 
-      
+ 
 

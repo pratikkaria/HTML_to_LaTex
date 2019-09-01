@@ -1,4 +1,5 @@
-bison -d -v main_parser.y
-lex main_lexer.l
-g++ lex.yy.c main_parser.tab.c
-./a.out test_case.html output.txt
+bison -d parser.y
+flex lexical_analyzer.l 
+g++ -std=c++11 main.cpp lex.yy.c parser.tab.c convert_AST.cpp
+./a.out $1 $2
+
