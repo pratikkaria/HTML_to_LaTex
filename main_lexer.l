@@ -87,39 +87,57 @@ greek			"&"[A-Za-z]+";"
 
       "href="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return HREF_LINK;
 									}
 
        "title="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return HREF_TITLE;
 									}
 	"name="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return HREF_NAME;
 									}
 
@@ -148,14 +166,20 @@ greek			"&"[A-Za-z]+";"
 
 	"size="["\""|"\'"]([ :=./]|[0-9a-zA-Z])*["\""|"\'"][ ]*		{
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
-										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										yylval.s = (char *)malloc(100);	
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return FONT_SIZE;
 									}
 		">"							{
@@ -632,7 +656,6 @@ greek			"&"[A-Za-z]+";"
 						//printf("Contents -%s\n",yytext);
 						
 						yylval.s = strdup(yytext);
-						/*
 						string str(yylval.s);
 						char find_vec[] = {'_','#','%','$','&','{','}','~','^'};
 						vector<string> replace_vec = {"\\_","\\#","\\%","\\$","\\&","\\{","\\}","\\sim","\\hat{}"};
@@ -652,7 +675,8 @@ greek			"&"[A-Za-z]+";"
 							str2="";
 									
 	   					}
-   						strcpy(yylval.s,str1.c_str());*/
+	   					yylval.s = strdup(str1.c_str());
+
 						return DATA;
 					}
 

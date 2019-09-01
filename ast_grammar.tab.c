@@ -541,10 +541,10 @@ static const yytype_uint16 yyrline[] =
      129,   138,   148,   158,   168,   178,   188,   198,   208,   218,
      228,   238,   248,   258,   268,   279,   285,   295,   305,   315,
      328,   337,   345,   354,   360,   366,   373,   382,   386,   395,
-     404,   410,   415,   421,   427,   433,   442,   448,   454,   460,
-     466,   472,   478,   487,   492,   499,   507,   518,   523,   532,
-     541,   550,   559,   564,   573,   578,   583,   588,   593,   598,
-     605,   617,   623,   629,   638,   647,   652,   659,   666,   676
+     404,   411,   416,   422,   428,   434,   443,   449,   455,   461,
+     467,   473,   479,   488,   493,   500,   508,   519,   524,   533,
+     542,   551,   560,   565,   574,   579,   584,   589,   594,   599,
+     606,   618,   624,   630,   639,   648,   653,   660,   667,   677
 };
 #endif
 
@@ -2067,7 +2067,7 @@ yyreduce:
 													(yyval.node) = new_node();
 													string str((yyvsp[0].s));
 													string st1("");
-													cout<<str.substr(1,str.length()-2);
+													//cout<<str.substr(1,str.length()-2);
 													(yyval.node)->data = str.substr(1,str.length()-2);
 													(yyval.node)->node_type = GREEK_H;
 													if((yyvsp[-1].node)->data.compare(st1)!=0)
@@ -2082,7 +2082,7 @@ yyreduce:
 													(yyval.node) = new_node();
 													string str((yyvsp[0].s));
 													string st1("");
-													cout<<"Comment"<<str<<endl;
+													//cout<<"Comment"<<str<<endl;
 													(yyval.node)->data = str;
 													(yyval.node)->node_type = COMMENT_H;
 													if((yyvsp[-1].node)->data.compare(st1)!=0)
@@ -2210,162 +2210,163 @@ yyreduce:
 #line 404 "ast_grammar.y" /* yacc.c:1646  */
     { 	
 														char *dat = (char *)malloc(2000);
+														cout<<(yyvsp[0].s)<<endl;
 														strcat(dat,(yyvsp[0].s));
 														strcat(dat,(yyvsp[-1].s));
 														(yyval.s)=dat;
 													}
-#line 2218 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2219 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 410 "ast_grammar.y" /* yacc.c:1646  */
+#line 411 "ast_grammar.y" /* yacc.c:1646  */
     {	(yyval.s)=(char *)"";	}
-#line 2224 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2225 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 415 "ast_grammar.y" /* yacc.c:1646  */
+#line 416 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = HEADER1_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2235 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2236 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 421 "ast_grammar.y" /* yacc.c:1646  */
+#line 422 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = HEADER2_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2246 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2247 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 427 "ast_grammar.y" /* yacc.c:1646  */
+#line 428 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = HEADER3_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2257 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2258 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 433 "ast_grammar.y" /* yacc.c:1646  */
+#line 434 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = HEADER4_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2268 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2269 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 442 "ast_grammar.y" /* yacc.c:1646  */
+#line 443 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = UNDERLINE_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2279 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2280 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 448 "ast_grammar.y" /* yacc.c:1646  */
+#line 449 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = BOLD_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2290 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2291 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 454 "ast_grammar.y" /* yacc.c:1646  */
+#line 455 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = ITALICS_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2301 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2302 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 460 "ast_grammar.y" /* yacc.c:1646  */
+#line 461 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = EMPHASIZE_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2312 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2313 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 466 "ast_grammar.y" /* yacc.c:1646  */
+#line 467 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = TELETYPE_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2323 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2324 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 472 "ast_grammar.y" /* yacc.c:1646  */
+#line 473 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = STRONG_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2334 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2335 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 478 "ast_grammar.y" /* yacc.c:1646  */
+#line 479 "ast_grammar.y" /* yacc.c:1646  */
     {
 		
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = SMALL_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2345 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2346 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 487 "ast_grammar.y" /* yacc.c:1646  */
+#line 488 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = SUPERSCRIPT_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2355 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2356 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 492 "ast_grammar.y" /* yacc.c:1646  */
+#line 493 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = SUBSCRIPT_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2365 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2366 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 499 "ast_grammar.y" /* yacc.c:1646  */
+#line 500 "ast_grammar.y" /* yacc.c:1646  */
     {	
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = IMG_H;
@@ -2374,11 +2375,11 @@ yyreduce:
 															(yyval.node)->children.push_back((yyvsp[0].node));
 														(yyval.node)->attributes= (yyvsp[-2].s);
 													}
-#line 2378 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2379 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 507 "ast_grammar.y" /* yacc.c:1646  */
+#line 508 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														string st1("");
@@ -2387,32 +2388,32 @@ yyreduce:
 															(yyval.node)->children.push_back((yyvsp[-1].node));
 														(yyval.node)->attributes= (yyvsp[-3].s);
 													}
-#line 2391 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2392 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 518 "ast_grammar.y" /* yacc.c:1646  */
+#line 519 "ast_grammar.y" /* yacc.c:1646  */
     {	
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = FIGCAPTION_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2401 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2402 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 523 "ast_grammar.y" /* yacc.c:1646  */
+#line 524 "ast_grammar.y" /* yacc.c:1646  */
     {
 														string str1("");
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = FIGCAPTION_H;
 														(yyval.node)->data=str1;	
 													}
-#line 2412 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2413 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 532 "ast_grammar.y" /* yacc.c:1646  */
+#line 533 "ast_grammar.y" /* yacc.c:1646  */
     { 	
 														char *dat = (char *)malloc(2000);
 														strcat(dat,"src=");
@@ -2422,11 +2423,11 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2426 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2427 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 541 "ast_grammar.y" /* yacc.c:1646  */
+#line 542 "ast_grammar.y" /* yacc.c:1646  */
     {
 														char *dat = (char *)malloc(2000);
 														strcat(dat,"height=");
@@ -2436,11 +2437,11 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2440 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2441 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 550 "ast_grammar.y" /* yacc.c:1646  */
+#line 551 "ast_grammar.y" /* yacc.c:1646  */
     {
 														char *dat = (char *)malloc(2000);
 														strcat(dat,"width=");
@@ -2450,87 +2451,87 @@ yyreduce:
 														////printf("\ny %s\n",dat);
 														(yyval.s)=dat;	
 													}
-#line 2454 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2455 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 559 "ast_grammar.y" /* yacc.c:1646  */
+#line 560 "ast_grammar.y" /* yacc.c:1646  */
     {	(yyval.s)=(char *)"";	}
-#line 2460 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2461 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 564 "ast_grammar.y" /* yacc.c:1646  */
+#line 565 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DIV_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2470 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2471 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 573 "ast_grammar.y" /* yacc.c:1646  */
+#line 574 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = LI_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2480 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2481 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 578 "ast_grammar.y" /* yacc.c:1646  */
+#line 579 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = UL_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2490 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2491 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 583 "ast_grammar.y" /* yacc.c:1646  */
+#line 584 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = OL_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2500 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2501 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 588 "ast_grammar.y" /* yacc.c:1646  */
+#line 589 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DL_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2510 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2511 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 593 "ast_grammar.y" /* yacc.c:1646  */
+#line 594 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DT_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2520 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2521 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 598 "ast_grammar.y" /* yacc.c:1646  */
+#line 599 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DD_H;
 														(yyval.node)->children.push_back((yyvsp[-1].node));
 													}
-#line 2530 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2531 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 605 "ast_grammar.y" /* yacc.c:1646  */
+#line 606 "ast_grammar.y" /* yacc.c:1646  */
     {	
 														(yyval.node) = new_node();
 														string str1("");
@@ -2542,28 +2543,28 @@ yyreduce:
 														
 														
 													}
-#line 2546 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2547 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 617 "ast_grammar.y" /* yacc.c:1646  */
+#line 618 "ast_grammar.y" /* yacc.c:1646  */
     {
 														char *dat = (char *)malloc(2000);
 														
 														strcat(dat,(yyvsp[0].s));
 														(yyval.s)=dat;
 													}
-#line 2557 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2558 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 623 "ast_grammar.y" /* yacc.c:1646  */
+#line 624 "ast_grammar.y" /* yacc.c:1646  */
     {	(yyval.s)=(char *)"";	}
-#line 2563 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2564 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 629 "ast_grammar.y" /* yacc.c:1646  */
+#line 630 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = T_R;
@@ -2573,41 +2574,41 @@ yyreduce:
 														//cout<<"children1:"<<$$->children.size()<<endl;
 															
 													}
-#line 2577 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2578 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 638 "ast_grammar.y" /* yacc.c:1646  */
+#line 639 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DATA_H;
 														(yyval.node)->data="";	
 													}
-#line 2587 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2588 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 647 "ast_grammar.y" /* yacc.c:1646  */
+#line 648 "ast_grammar.y" /* yacc.c:1646  */
     {	
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = CAPTION_H;
 														(yyval.node)->data = (yyvsp[-1].node)->data;	
 													}
-#line 2597 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2598 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 652 "ast_grammar.y" /* yacc.c:1646  */
+#line 653 "ast_grammar.y" /* yacc.c:1646  */
     {	
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DATA_H;
 														(yyval.node)->data="";
 													}
-#line 2607 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2608 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 659 "ast_grammar.y" /* yacc.c:1646  */
+#line 660 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = T_H;
@@ -2615,11 +2616,11 @@ yyreduce:
 														(yyval.node)->children=(yyvsp[-3].node)->children;
 														(yyval.node)->children.push_back((yyvsp[-1].node));	
 													}
-#line 2619 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2620 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 666 "ast_grammar.y" /* yacc.c:1646  */
+#line 667 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = T_D;
@@ -2630,21 +2631,21 @@ yyreduce:
 														//cout<<"children2:"<<$$->children.size()<<endl;
 															
 													}
-#line 2634 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2635 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 676 "ast_grammar.y" /* yacc.c:1646  */
+#line 677 "ast_grammar.y" /* yacc.c:1646  */
     {
 														(yyval.node) = new_node();
 														(yyval.node)->node_type = DATA_H;
 														(yyval.node)->data="";	
 													}
-#line 2644 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2645 "ast_grammar.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2648 "ast_grammar.tab.c" /* yacc.c:1646  */
+#line 2649 "ast_grammar.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2872,7 +2873,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 684 "ast_grammar.y" /* yacc.c:1906  */
+#line 685 "ast_grammar.y" /* yacc.c:1906  */
 
 
 

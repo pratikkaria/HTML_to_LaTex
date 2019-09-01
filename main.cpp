@@ -199,6 +199,9 @@ void traversal_main(ast_node* root)
 			x+="[height="+img["height"]+"]";
 		x+="{"+img["src"]+"}";
 		s+=x+"\n";
+		img["src"]="";
+		img["height"]="";
+		img["width"]="";
 		
 	}
 	else if(root->node_type==28)

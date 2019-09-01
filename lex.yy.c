@@ -1222,52 +1222,70 @@ YY_RULE_SETUP
 #line 88 "main_lexer.l"
 {
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return HREF_LINK;
 									}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 101 "main_lexer.l"
+#line 107 "main_lexer.l"
 {
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return HREF_TITLE;
 									}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 113 "main_lexer.l"
+#line 125 "main_lexer.l"
 {
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
 										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return HREF_NAME;
 									}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 126 "main_lexer.l"
+#line 144 "main_lexer.l"
 {
 											BEGIN 0;
 										
@@ -1276,7 +1294,7 @@ YY_RULE_SETUP
 
 case 15:
 YY_RULE_SETUP
-#line 134 "main_lexer.l"
+#line 152 "main_lexer.l"
 {	
 						//printf("HREF_E\n");
 						return HREF_E;
@@ -1284,7 +1302,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 140 "main_lexer.l"
+#line 158 "main_lexer.l"
 {
 						//printf("FONT_S\n\n");
 
@@ -1295,23 +1313,29 @@ YY_RULE_SETUP
 
 case 17:
 YY_RULE_SETUP
-#line 149 "main_lexer.l"
+#line 167 "main_lexer.l"
 {
 										char *p = yytext; 
+										string str(p);
 										int len = strlen( p );
 										char t[len+1],t1[len+1];
-										yylval.s = (char *)malloc(100);									
-										if(sscanf(p,"%*[^']'%[^']'",t)==1)
-											strcat(yylval.s,t);
-										else if(sscanf(p, "%*[^\"]\"%[^\"]", t1)==1)
-											strcat(yylval.s,t1);
-										//printf("\nfinal%s\n",yylval.s);
+										yylval.s = (char *)malloc(100);	
+										int pos = str.find('\'');
+										int pos1 = str.find('\"');
+										cout<<pos1<<endl;
+										cout<<pos<<endl;
+										if(pos>=0)								
+											sscanf(p,"%*[^']'%[^']'",t);
+										else 
+											sscanf(p, "%*[^\"]\"%[^\"]", t);
+										//cout<<"SIZELEX"<<t<<endl;
+										strcpy(yylval.s,t);
 										return FONT_SIZE;
 									}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 161 "main_lexer.l"
+#line 185 "main_lexer.l"
 {
 											BEGIN 0;
 										
@@ -1320,7 +1344,7 @@ YY_RULE_SETUP
 
 case 19:
 YY_RULE_SETUP
-#line 167 "main_lexer.l"
+#line 191 "main_lexer.l"
 {
 						//printf("IMG Begin\n");
 						BEGIN src;
@@ -1330,7 +1354,7 @@ YY_RULE_SETUP
 
 case 20:
 YY_RULE_SETUP
-#line 177 "main_lexer.l"
+#line 201 "main_lexer.l"
 {
 									//printf("SRC\n\n");
 									char *p = yytext; 
@@ -1347,7 +1371,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 191 "main_lexer.l"
+#line 215 "main_lexer.l"
 {
 									//printf("WIDTH\n\n");
 									char *p = yytext; 
@@ -1364,7 +1388,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 206 "main_lexer.l"
+#line 230 "main_lexer.l"
 {
 									//printf("HEIGHT\n\n");
 									char *p = yytext; 
@@ -1381,7 +1405,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 221 "main_lexer.l"
+#line 245 "main_lexer.l"
 {	
 														
 										BEGIN 0;
@@ -1390,7 +1414,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 227 "main_lexer.l"
+#line 251 "main_lexer.l"
 {	
 														
 										BEGIN 0;
@@ -1400,7 +1424,7 @@ YY_RULE_SETUP
 
 case 25:
 YY_RULE_SETUP
-#line 235 "main_lexer.l"
+#line 259 "main_lexer.l"
 {
 						//printf("FIG_S");
 						return FIG_S;
@@ -1408,7 +1432,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 240 "main_lexer.l"
+#line 264 "main_lexer.l"
 {
 						//printf("FIG_E");
 						return FIG_E;
@@ -1416,7 +1440,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 245 "main_lexer.l"
+#line 269 "main_lexer.l"
 {
 						//printf("FIGCAP_S");
 						return FIGCAP_S;
@@ -1424,7 +1448,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 250 "main_lexer.l"
+#line 274 "main_lexer.l"
 {
 						//printf("FIGCAP_E");
 						return FIGCAP_E;
@@ -1432,7 +1456,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 255 "main_lexer.l"
+#line 279 "main_lexer.l"
 {
 						//printf("FONT_E\n\n");
 						return FONT_E;
@@ -1440,7 +1464,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 261 "main_lexer.l"
+#line 285 "main_lexer.l"
 {
 						//printf("CENTER_S\n");
 						return CENTER_S;
@@ -1448,7 +1472,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 267 "main_lexer.l"
+#line 291 "main_lexer.l"
 {
 						//printf("CENTER_E\n");
 						return CENTER_E;
@@ -1456,7 +1480,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 273 "main_lexer.l"
+#line 297 "main_lexer.l"
 {
 						//printf("DIV_S\n");
 						return DIV_S;
@@ -1464,7 +1488,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 279 "main_lexer.l"
+#line 303 "main_lexer.l"
 {
 						//printf("DIV_E\n");
 						return DIV_E;
@@ -1473,7 +1497,7 @@ YY_RULE_SETUP
 case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
-#line 287 "main_lexer.l"
+#line 311 "main_lexer.l"
 {
 						//printf("BR\n");
 						return BR;
@@ -1482,7 +1506,7 @@ YY_RULE_SETUP
 case 35:
 /* rule 35 can match eol */
 YY_RULE_SETUP
-#line 292 "main_lexer.l"
+#line 316 "main_lexer.l"
 {
 						//printf("BR\n");
 						return BR;
@@ -1490,7 +1514,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 297 "main_lexer.l"
+#line 321 "main_lexer.l"
 {
 						//printf("P_S\n");
 						return P_S;
@@ -1498,7 +1522,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 303 "main_lexer.l"
+#line 327 "main_lexer.l"
 {
 						//printf("P_E\n");
 						return P_E;
@@ -1506,7 +1530,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 309 "main_lexer.l"
+#line 333 "main_lexer.l"
 {
 						//printf("H1_S\n");
 						return H1_S;
@@ -1514,7 +1538,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 315 "main_lexer.l"
+#line 339 "main_lexer.l"
 {
 						//printf("H1_E\n");
 						return H1_E;
@@ -1522,7 +1546,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 321 "main_lexer.l"
+#line 345 "main_lexer.l"
 {
 						//printf("H2_S\n");
 						return H2_S;
@@ -1530,7 +1554,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 327 "main_lexer.l"
+#line 351 "main_lexer.l"
 {
 						//printf("H2_E\n");
 						return H2_E;
@@ -1538,7 +1562,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 333 "main_lexer.l"
+#line 357 "main_lexer.l"
 {
 						//printf("H3_S\n");
 						return H3_S;
@@ -1546,7 +1570,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 338 "main_lexer.l"
+#line 362 "main_lexer.l"
 {
 						//printf("H3_E\n");
 						return H3_E;
@@ -1554,7 +1578,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 343 "main_lexer.l"
+#line 367 "main_lexer.l"
 {
 						//printf("H4_S\n");
 						return H4_S;
@@ -1562,7 +1586,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 349 "main_lexer.l"
+#line 373 "main_lexer.l"
 {
 						//printf("H4_E\n");
 						return H4_E;
@@ -1570,7 +1594,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 355 "main_lexer.l"
+#line 379 "main_lexer.l"
 {
 						//printf("UL_S\n");
 						return UL_S;
@@ -1578,7 +1602,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 361 "main_lexer.l"
+#line 385 "main_lexer.l"
 {
 						//printf("UL_E\n");
 						return UL_E;
@@ -1586,7 +1610,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 366 "main_lexer.l"
+#line 390 "main_lexer.l"
 {
 						//printf("LI_S\n");
 						return LI_S;
@@ -1594,7 +1618,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 372 "main_lexer.l"
+#line 396 "main_lexer.l"
 {
 						//printf("LI_E\n");
 						return LI_E;
@@ -1602,7 +1626,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 377 "main_lexer.l"
+#line 401 "main_lexer.l"
 {
 						//printf("OL_S\n");
 						return OL_S;
@@ -1610,7 +1634,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 383 "main_lexer.l"
+#line 407 "main_lexer.l"
 {
 						//printf("OL_E\n");
 						return OL_E;
@@ -1618,7 +1642,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 388 "main_lexer.l"
+#line 412 "main_lexer.l"
 {
 						//printf("DT_S\n");
 						return DT_S;
@@ -1626,7 +1650,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 394 "main_lexer.l"
+#line 418 "main_lexer.l"
 {
 						//printf("DT_E\n");
 						return DT_E;
@@ -1634,7 +1658,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 399 "main_lexer.l"
+#line 423 "main_lexer.l"
 {
 						//printf("DL_S\n");
 						return DL_S;
@@ -1642,7 +1666,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 405 "main_lexer.l"
+#line 429 "main_lexer.l"
 {
 						//printf("DL_E\n");
 						return DL_E;
@@ -1650,7 +1674,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 410 "main_lexer.l"
+#line 434 "main_lexer.l"
 {
 						//printf("DD_S\n");
 						return DD_S;
@@ -1658,7 +1682,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 416 "main_lexer.l"
+#line 440 "main_lexer.l"
 {
 						//printf("DD_E\n");
 						return DD_E;
@@ -1666,7 +1690,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 422 "main_lexer.l"
+#line 446 "main_lexer.l"
 {
 						//printf("U_S\n");
 						return U_S;
@@ -1674,7 +1698,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 427 "main_lexer.l"
+#line 451 "main_lexer.l"
 {
 						//printf("U_E\n");
 						return U_E;
@@ -1682,7 +1706,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 432 "main_lexer.l"
+#line 456 "main_lexer.l"
 {
 						//printf("B_S\n");
 						return B_S;
@@ -1690,7 +1714,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 437 "main_lexer.l"
+#line 461 "main_lexer.l"
 {
 						//printf("B_E\n");
 						return B_E;
@@ -1698,7 +1722,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 442 "main_lexer.l"
+#line 466 "main_lexer.l"
 {
 						//printf("I_S\n");
 						return I_S;
@@ -1706,7 +1730,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 447 "main_lexer.l"
+#line 471 "main_lexer.l"
 {
 						//printf("I_E\n");
 						return I_E;
@@ -1714,7 +1738,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 452 "main_lexer.l"
+#line 476 "main_lexer.l"
 {
 						//printf("EM_S\n");
 						return EM_S;
@@ -1722,7 +1746,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 457 "main_lexer.l"
+#line 481 "main_lexer.l"
 {
 						//printf("EM_E\n");
 						return EM_E;
@@ -1730,7 +1754,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 462 "main_lexer.l"
+#line 486 "main_lexer.l"
 {
 						//printf("TT_S\n");
 						return TT_S;
@@ -1738,7 +1762,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 467 "main_lexer.l"
+#line 491 "main_lexer.l"
 {
 						//printf("TT_E\n");
 						return TT_E;
@@ -1746,7 +1770,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 473 "main_lexer.l"
+#line 497 "main_lexer.l"
 {
 						//printf("STRONG_S\n");
 						return STRONG_S;
@@ -1754,7 +1778,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 478 "main_lexer.l"
+#line 502 "main_lexer.l"
 {
 						//printf("STRONG_E\n");
 						return STRONG_E;
@@ -1762,7 +1786,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 484 "main_lexer.l"
+#line 508 "main_lexer.l"
 {
 						//printf("SMALL_S\n");
 						return SMALL_S;
@@ -1770,7 +1794,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 489 "main_lexer.l"
+#line 513 "main_lexer.l"
 {
 						//printf("SMALL_E\n");
 						return SMALL_E;
@@ -1778,7 +1802,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 496 "main_lexer.l"
+#line 520 "main_lexer.l"
 {
 						//printf("SUB_S\n");
 						return SUB_S;
@@ -1786,7 +1810,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 502 "main_lexer.l"
+#line 526 "main_lexer.l"
 {
 						//printf("SUB_E\n");
 						return SUB_E;
@@ -1794,7 +1818,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 507 "main_lexer.l"
+#line 531 "main_lexer.l"
 {
 						//printf("SUP_S\n");
 						return SUP_S;
@@ -1802,7 +1826,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 513 "main_lexer.l"
+#line 537 "main_lexer.l"
 {
 						//printf("SUP_E\n");
 						return SUP_E;
@@ -1810,7 +1834,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 518 "main_lexer.l"
+#line 542 "main_lexer.l"
 {
 						//printf("TABLE_S\n");
 						BEGIN table;
@@ -1820,7 +1844,7 @@ YY_RULE_SETUP
 
 case 77:
 YY_RULE_SETUP
-#line 526 "main_lexer.l"
+#line 550 "main_lexer.l"
 {
 									//printf("BORDER i\n\n");
 									char *p = yytext; 
@@ -1837,7 +1861,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 540 "main_lexer.l"
+#line 564 "main_lexer.l"
 {
 										BEGIN 0;
 								}	
@@ -1845,7 +1869,7 @@ YY_RULE_SETUP
 
 case 79:
 YY_RULE_SETUP
-#line 548 "main_lexer.l"
+#line 572 "main_lexer.l"
 {
 						//printf("TABLE_E\n");
 						return TABLE_E;
@@ -1853,7 +1877,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 554 "main_lexer.l"
+#line 578 "main_lexer.l"
 {
 						//printf("CAPTION_S\n");
 						return CAPTION_S;
@@ -1861,7 +1885,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 560 "main_lexer.l"
+#line 584 "main_lexer.l"
 {
 						//printf("CAPTION_E\n");
 						return CAPTION_E;
@@ -1869,7 +1893,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 566 "main_lexer.l"
+#line 590 "main_lexer.l"
 {
 						//printf("TH_S\n");
 						return TH_S;
@@ -1877,7 +1901,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 572 "main_lexer.l"
+#line 596 "main_lexer.l"
 {
 						//printf("TH_E\n");
 						return TH_E;
@@ -1885,7 +1909,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 578 "main_lexer.l"
+#line 602 "main_lexer.l"
 {
 						//printf("TR_S\n");
 						return TR_S;
@@ -1893,7 +1917,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 584 "main_lexer.l"
+#line 608 "main_lexer.l"
 {
 						//printf("TR_E\n");
 						return TR_E;
@@ -1901,7 +1925,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 590 "main_lexer.l"
+#line 614 "main_lexer.l"
 {
 						//printf("TD_S\n");
 						return TD_S;
@@ -1909,7 +1933,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 596 "main_lexer.l"
+#line 620 "main_lexer.l"
 {
 						//printf("TD_E\n");
 						return TD_E;
@@ -1917,7 +1941,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 602 "main_lexer.l"
+#line 626 "main_lexer.l"
 {
 						//printf("TABLE_S\n");
 						BEGIN comment;
@@ -1928,7 +1952,7 @@ YY_RULE_SETUP
 case 89:
 /* rule 89 can match eol */
 YY_RULE_SETUP
-#line 610 "main_lexer.l"
+#line 634 "main_lexer.l"
 {
 										//printf("Comment %s Comment_end\n",yytext);
 										yylval.s = (char *)malloc(100);	
@@ -1940,7 +1964,7 @@ YY_RULE_SETUP
 case 90:
 /* rule 90 can match eol */
 YY_RULE_SETUP
-#line 617 "main_lexer.l"
+#line 641 "main_lexer.l"
 {
 										BEGIN 0;
 									}
@@ -1948,7 +1972,7 @@ YY_RULE_SETUP
 
 case 91:
 YY_RULE_SETUP
-#line 625 "main_lexer.l"
+#line 649 "main_lexer.l"
 {	
 						//printf("GreekL -%s\n",yytext);
 						yylval.s = strdup(yytext);
@@ -1958,12 +1982,11 @@ YY_RULE_SETUP
 case 92:
 /* rule 92 can match eol */
 YY_RULE_SETUP
-#line 631 "main_lexer.l"
+#line 655 "main_lexer.l"
 {
 						//printf("Contents -%s\n",yytext);
 						
 						yylval.s = strdup(yytext);
-						/*
 						string str(yylval.s);
 						char find_vec[] = {'_','#','%','$','&','{','}','~','^'};
 						vector<string> replace_vec = {"\\_","\\#","\\%","\\$","\\&","\\{","\\}","\\sim","\\hat{}"};
@@ -1983,21 +2006,22 @@ YY_RULE_SETUP
 							str2="";
 									
 	   					}
-   						strcpy(yylval.s,str1.c_str());*/
+	   					yylval.s = strdup(str1.c_str());
+
 						return DATA;
 					}
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 665 "main_lexer.l"
+#line 689 "main_lexer.l"
 ;
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 668 "main_lexer.l"
+#line 692 "main_lexer.l"
 ECHO;
 	YY_BREAK
-#line 2001 "lex.yy.c"
+#line 2025 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(href):
 case YY_STATE_EOF(sizetag):
@@ -3003,7 +3027,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 668 "main_lexer.l"
+#line 692 "main_lexer.l"
 
 
   

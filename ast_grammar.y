@@ -296,7 +296,7 @@ data		:	data	DATA								{
 													$$ = new_node();
 													string str($2);
 													string st1("");
-													cout<<str.substr(1,str.length()-2);
+													//cout<<str.substr(1,str.length()-2);
 													$$->data = str.substr(1,str.length()-2);
 													$$->node_type = GREEK_H;
 													if($1->data.compare(st1)!=0)
@@ -306,7 +306,7 @@ data		:	data	DATA								{
 													$$ = new_node();
 													string str($2);
 													string st1("");
-													cout<<"Comment"<<str<<endl;
+													//cout<<"Comment"<<str<<endl;
 													$$->data = str;
 													$$->node_type = COMMENT_H;
 													if($1->data.compare(st1)!=0)
@@ -403,6 +403,7 @@ font_tag	:	FONT_S		content_font		body		  FONT_E		{
 
 content_font	:     content_font	FONT_SIZE							{ 	
 														char *dat = (char *)malloc(2000);
+														cout<<$2<<endl;
 														strcat(dat,$2);
 														strcat(dat,$1);
 														$$=dat;
