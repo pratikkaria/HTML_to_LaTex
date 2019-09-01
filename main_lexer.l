@@ -4,6 +4,8 @@
 #include<stdio.h>
 #include<string.h>
 #include"ast_grammar.tab.h"
+#include<bits/stdc++.h>
+using namespace std;
 %} 
 %option			caseless
 spac		 	[ \t]+
@@ -628,7 +630,29 @@ greek			"&"[A-Za-z]+";"
 										
 {text}					{
 						//printf("Contents -%s\n",yytext);
+						
 						yylval.s = strdup(yytext);
+						/*
+						string str(yylval.s);
+						char find_vec[] = {'_','#','%','$','&','{','}','~','^'};
+						vector<string> replace_vec = {"\\_","\\#","\\%","\\$","\\&","\\{","\\}","\\sim","\\hat{}"};
+						int pos;
+						string str1(str);
+						string str2("");
+						for(int i=0;i<replace_vec.size();i++)
+						{
+							for (int j=0;j<str1.length();j++)
+							{
+								if(str1[j]==find_vec[i])
+									str2+=replace_vec[i];
+								else
+									str2+=str1[j];
+							}
+							str1=str2;
+							str2="";
+									
+	   					}
+   						strcpy(yylval.s,str1.c_str());*/
 						return DATA;
 					}
 

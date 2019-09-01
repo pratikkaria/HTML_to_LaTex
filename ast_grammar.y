@@ -606,8 +606,8 @@ table_tag	:	TABLE_S		content_table	caption_data	table_contents	TABLE_E		{
 														$$ = new_node();
 														string str1("");
 														$$->node_type = TABLE_H;
-														if($2->data.compare(str1)!=0)
-															$$->children.push_back($2)
+														if($3->data.compare(str1)!=0)
+															$$->children.push_back($3);
 														$$->children.push_back($4);
 														$$->attributes= $2;
 														
@@ -616,7 +616,7 @@ table_tag	:	TABLE_S		content_table	caption_data	table_contents	TABLE_E		{
 
 content_table	:     	TABLE_BORDER									{
 														char *dat = (char *)malloc(2000);
-														strcat(dat,$2);
+														
 														strcat(dat,$1);
 														$$=dat;
 													}
@@ -626,8 +626,20 @@ content_table	:     	TABLE_BORDER									{
 		     
 		     
 	    
-table_contents	:  	table_contents	TR_S	tr_data	 TR_E					
-		|											{	}													
+table_contents	:  	table_contents	TR_S	tr_data	 TR_E						{
+														$$ = new_node();
+														$$->node_type = T_R;
+														string st1("");
+														$$->children=$1->children;
+														$$->children.push_back($3);
+														//cout<<"children1:"<<$$->children.size()<<endl;
+															
+													}
+		|											{
+														$$ = new_node();
+														$$->node_type = DATA_H;
+														$$->data="";	
+													}													
 		;	
 
 
@@ -635,19 +647,37 @@ table_contents	:  	table_contents	TR_S	tr_data	 TR_E
 caption_data	:	CAPTION_S	body	CAPTION_E						{	
 														$$ = new_node();
 														$$->node_type = CAPTION_H;
-														$$->children.push_back($2);	
+														$$->data = $2->data;	
 													}
 		|											{	
 														$$ = new_node();
-														$$->node_type = CAPTION_H;
-														$$->children.push_back($2);
+														$$->node_type = DATA_H;
 														$$->data="";
 													}
 		;
 
-tr_data		:	tr_data		TH_S		body		TH_E		
-		|	tr_data		TD_S		body		TD_E	
-		|											{	$$=(char *)"";	}
+tr_data		:	tr_data		TH_S		body		TH_E				{
+														$$ = new_node();
+														$$->node_type = T_H;
+														string st1("");
+														$$->children=$1->children;
+														$$->children.push_back($3);	
+													}
+		|	tr_data		TD_S		body		TD_E				{
+														$$ = new_node();
+														$$->node_type = T_D;
+														string st1("");
+														$$->children=$1->children;
+														$$->children.push_back($3);
+														
+														//cout<<"children2:"<<$$->children.size()<<endl;
+															
+													}
+		|											{
+														$$ = new_node();
+														$$->node_type = DATA_H;
+														$$->data="";	
+													}
 		;													
 
 

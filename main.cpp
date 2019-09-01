@@ -48,7 +48,10 @@ map<int,string> latex_start={
 			{32, "\\item "},
 			{33, ""},
 			{34, "\n\\item[ "},
-			{35, "\\begin{figure}[h!]\n\\includegraphics"}
+			{35, "\\begin{figure}[h!]\n\\includegraphics"},
+			{36, "\\begin{table}[h!]\n\\centering\n"},
+			{37, "\\caption{"},
+			{38, "\\begin{tabular}{"}
 		 	};
 		 	
 map<int,string> latex_end={
@@ -86,7 +89,10 @@ map<int,string> latex_end={
 			{32, "\n"},
 			{33, "\n"},
 			{34, "]\n"},
-			{35, "\\end{figure}\n"}
+			{35, "\\end{figure}\n"},
+			{36, "\n\\end{table}"},
+			{37, "}\n"},
+			{38, "\n\\end{tabular}"}
 		 	};		 	
 string s("");
 void yyerror(const char *s) {
@@ -139,11 +145,24 @@ void put_image_attributes(string s)
 	show_stack(key, value);
 	
 }
-
+void add_cols(ast_node* root)
+{
+	int num_cols=root->children.size();
+	if(num_cols>0)
+	{
+		for(int i=1;i<=num_cols;i++)
+			s+="|c";
+		s+="|}\n";
+	}
+	else
+		s+" }\n";
+	
+	
+}
 void traversal_main(ast_node* root)
 {
 
-	//cout<<root->node_type<<endl;
+	//--------------------------------------------------LATEX START ADD--------------------------------------------------------
 	if(root->node_type==16 || root->node_type==20)
 		s+=latex_start[14];
 	else if(root->node_type == 21)
@@ -153,10 +172,20 @@ void traversal_main(ast_node* root)
 		int first = 4;
 		s+=to_string(first)+"}"+"{"+to_string(second)+"}\\selectfont ";
 	}
+	else if(root->node_type==36)
+		s+=latex_start[root->node_type];
+	else if(root->node_type==37)
+	{
+		s+=latex_start[root->node_type]+root->data;
+	}
+	else if(root->node_type==38)
+		s+=root->data;
 	else if(root->node_type!=27)
 		s+=latex_start[root->node_type];
 		
-		
+	
+	
+	//--------------------------------------------------LATEX DATA ADD--------------------------------------------------------	
 	if(root->node_type==24 || root->node_type==35)
 	{
 		put_image_attributes(root->attributes);
@@ -190,13 +219,28 @@ void traversal_main(ast_node* root)
 	}
 	else if(root->node_type==33)
 		s+=root->data+"\n";
+	else if(root->node_type==40 || root->node_type==39)
+	{
+		for(int i=0;i<root->children.size()-1;i++)
+			s+=root->children[i]->data+" & ";
+		s+=root->children[root->children.size()-1]->data +" \\\\\n";
+		if(root->node_type==39)
+			s+="\\hline\n";
+		return;
+	}
 	
 
-
+	//--------------------------------------------------DFS LOOP-------------------------------------------------------	
 	for(int i=0;i<root->children.size();i++)
+	{
+		if(root->children[i]->node_type==38 && (i==0||i==1))
+		{
+			s+=latex_start[root->children[i]->node_type];
+			add_cols(root->children[i]);
+		}
 		traversal_main(root->children[i]);
-
-
+	}
+	//--------------------------------------------------LATEX END ADD------------------------------------------------------	
 	if(root->node_type==27)
 	{
 		s+=latex_start[root->node_type];
