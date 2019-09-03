@@ -7,4 +7,7 @@ Pre-requisites to run
 2) Bison
 
 Usage
-1) ./run.sh <inputfile.html> <outputfile.tex>
+1) git clone https://github.com/pratikkaria/HTML_to_LaTex.git
+2) cd HTML_to_LaTex
+3) chmod +777 *
+4) ./run.sh <inputfile.html> <outputfile.tex>
